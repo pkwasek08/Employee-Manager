@@ -10,12 +10,14 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { HeaderComponent } from './layout/header/header.component';
 import { TableComponent } from './layout/table/table.component';
+import { EmployeesComponent } from './employees/employees.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    TableComponent
+    TableComponent,
+    EmployeesComponent
   ],
   imports: [
     BrowserModule,

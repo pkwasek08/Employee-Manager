@@ -1,0 +1,37 @@
+<table class="table">
+    <nav>
+        <a>
+            <tr>
+                <td>ID</td>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Position</td>
+                <td>Room</td>
+                <td>Salary</td>
+                <td>Edit</td>
+                <td>Remove</td>
+
+            </tr>
+
+            <ul *ngFor="let empl of employees">
+                <tr>
+                    <td>{{empl.id}}</td>
+                    <td>{{empl.firstName}}</td>
+                    <td>{{empl.lastName}}</td>
+                    <td>{{empl.position}}</td>
+                    <td>{{empl.room}}</td>
+                    <td>{{empl.salary}}</td>
+                    <td><button type="button" class="" tooltip="Edit employer's info">
+                            Edit
+                        </button>
+                    </td>
+                    <td><button type="button" class="" tooltip="Remove employer's info">
+                            Remove
+                        </button>
+                    </td>
+                </tr>
+            </ul>
+
+        </a>
+    </nav>
+</table>
