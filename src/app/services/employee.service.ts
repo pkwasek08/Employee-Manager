@@ -3,6 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Employee } from '../models/employee';
 import { Employeejson } from '../database/employeejson'
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+import { Observable } from 'rxjs';
+
+//injected http depedency
+/*const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+}*/
 @Injectable({
   providedIn: 'root'
 })
@@ -19,15 +27,9 @@ export class EmployeeService {
   {
 
   }
-  getEmployee(temp) {
-    let value;
-    for (let i = 0; i < localStorage.length; i++){
-      let key = localStorage.key(i);
-      //let item = JSON.parse(localStorage.getItem(key));
-     value =  JSON.parse(localStorage.getItem(key));
-      console.log(key, value);
-    }
-    return value;
+  getEmployee(temp):Observable<Employee[]> {
+    let key = 'Item 1';
+    return JSON.parse(localStorage.getItem(key)); 
   }
 
   setLocalstorage(): void {
@@ -76,5 +78,16 @@ export class EmployeeService {
       let key = 'Item 1';
       localStorage.setItem(key, JSON.stringify(this.employees));
     
+  }
+   // Delete Employee
+   deleteEmployee(employee:Employee):Observable<Employee> {
+    //const url = `${this.todosUrl}/${todo.id}`;
+    let key = employee.id;
+    console.log(employee.id);
+    
+   // localStorage.removeItem(key);
+   console.log('deletuje');
+   
+    return  ;
   }
 }

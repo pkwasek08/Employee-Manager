@@ -30,9 +30,11 @@
                         </a>
                     </td>
                     <td>
-                        <button type="button" class="buttonRemove" tooltip="Remove employer's info">
+                        <app-employee-item>
+                        <button (click)="deleteTodo($event)" type="button" class="buttonRemove" tooltip="Remove employer's info">
                             Remove
                         </button>
+                    </app-employee-item>
                     </td>
                 </tr>
             </ng-container>
@@ -41,3 +43,9 @@
 </body>
 
 </html>
+
+<app-employee-item>
+        *ngFor="let employee of employees" [employee]="employee"
+        (deleteTodo)="deleteTodo($event)"
+        >
+    </app-employee-item>

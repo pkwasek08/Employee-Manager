@@ -15,7 +15,8 @@ import { HttpClientModule }    from '@angular/common/http';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { AboutComponent } from './pages/about/about.component';
 import { EditComponent } from './pages/edit/edit.component';
-
+import { EmployeeItemComponent } from './employee-item/employee-item.component';
+import { RouterTestingModule } from '@angular/router/testing';
 //import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 @NgModule({
@@ -27,6 +28,7 @@ import { EditComponent } from './pages/edit/edit.component';
     AddEmployeeComponent,
     AboutComponent,
     EditComponent,
+    EmployeeItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,8 @@ import { EditComponent } from './pages/edit/edit.component';
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterTestingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
