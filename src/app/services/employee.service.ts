@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵEMPTY_ARRAY } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Employee } from '../models/employee';
 import { Employeejson } from '../database/employeejson'
@@ -16,82 +16,56 @@ import { Observable } from 'rxjs';
 })
 export class EmployeeService {
 
-  employees: Employee[];
-  emp: Employeejson;
+  public nextId: number;
 
-  employeesPath: '';
+  constructor() {
 
-  constructor(private http: HttpClient) { }
+    let employees = this.getEmployee();
 
-  addEmployee()
-  {
-    let employee = new Employee[]
-      let employees = this.getEmployee();
-      employees.push()
+    if (employees.length != 0 && employees) {
+
+      let maxId = employees[employees.length - 1].id;
+
+      this.nextId = maxId + 1;
+    } else {
+      this.nextId = 0;
+    }
+
   }
-  getEmployee(): Employee[]{
-    let localStorageItem = JSON.parse(localStorage.getItem('Item'))
-    return localStorageItem == null ? [] : localStorageItem.Item;
+
+  public addEmployee(firstName: string, lastName: string, position: string, salary: number, room: number): void {
+
+    let employee = new Employee(this.nextId, firstName, lastName, position, salary, room);
+    let employees = this.getEmployee();
+
+
+    //employees[this.nextId] = new Employee (employee.id,employee.firstName);
+    employees.push(employee);
+
+    this.setLocalStorageEmployees(employees);
+    this.nextId++;
+  }
+  public getEmployee(): Employee[] {
+    let localStorageItem = JSON.parse(localStorage.getItem('employees'));
+
+    if (localStorageItem === null) {
+      return [];
+    }
+    else {
+      return localStorageItem.employees;
+    }
+    //return localStorageItem === null ? [] : localStorageItem.employees;
   }
 
-  setLocalstorageEmployees(employees: Employee[]): void {
+  public removeTodo(id: number): void {
+    console.log("removefromsservixe");
 
-    localStorage.setItem('Item',JSON.stringify({employees: employees}));
-    /*this.employees = [
-      {
-        id: 1,
-        firstName: 'Piotr',
-        lastName: 'Kwasek',
-        position: 'praktykant',
-        room: 105, // or string
-        salary: 0
-      },
-      {
-        id: 2,
-        firstName: 'Andrzej',
-        lastName: 'Metalowiec',
-        position: 'praktykant',
-        room: 105, // or string
-        salary: 0
-      },
-      {
-        id: 3,
-        firstName: 'Pudzian',
-        lastName: 'Pudzianowski',
-        position: 'praktykant',
-        room: 105, // or string
-        salary: 0
-      },
-      {
-        id: 4,
-        firstName: 'Andrzej',
-        lastName: 'Metalowiec',
-        position: 'praktykant',
-        room: 105, // or string
-        salary: 0
-      },
-      {
-        id: 5,
-        firstName: 'Pudzian',
-        lastName: 'Pudzianowski',
-        position: 'praktykant',
-        room: 105, // or string
-        salary: 0
-      }
-    ];*/
-      let key = 'Item 1';
-      localStorage.setItem(key, JSON.stringify(this.employees));
-    
+    let employees = this.getEmployee();
+    employees = employees.filter((employee) => employee.id != id);
+    this.setLocalStorageEmployees(employees);
   }
-   // Delete Employee
-   deleteEmployee(employee:Employee):Observable<Employee> {
-    //const url = `${this.todosUrl}/${todo.id}`;
-    let key = employee.id;
-    console.log(employee.id);
-    
-   // localStorage.removeItem(key);
-   console.log('deletuje');
-   
-    return  ;
+
+  public setLocalStorageEmployees(employees: Employee[]): void {
+    localStorage.setItem('employees', JSON.stringify({ employees: employees }));
   }
 }

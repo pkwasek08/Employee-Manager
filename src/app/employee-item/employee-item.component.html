@@ -1,6 +1,7 @@
-<div [ngClass]="setClasses()">
+<div class="employeeWrapper">
         <p>
-            <button (click)="onDelete(employees)" class="del">x</button>
+            <button (click)="removeEmployee()" class="del">x</button>{{employees.firstName}}
         </p>
     </div>
+    
     

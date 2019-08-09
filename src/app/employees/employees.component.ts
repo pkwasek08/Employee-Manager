@@ -14,18 +14,6 @@ export class EmployeesComponent implements OnInit {
   constructor(private employeeService:EmployeeService) { }
 
   ngOnInit() {
-    this.employeeService.getEmployee(1).subscribe(employees => {
-      this.employees = employees;
-    });
-  }
-
-  deleteTodo(employee: Employee)
-  {
-    //Remove From UI
-    this.employees = this.employees.filter(t => t.id !== employee.id);
-    //Remove From server
-    this.employeeService.deleteEmployee(employee).subscribe();
-    console.log('delete from employees');
   }
 
 }

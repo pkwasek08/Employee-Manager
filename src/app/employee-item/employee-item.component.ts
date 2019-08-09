@@ -9,26 +9,15 @@ import { EmployeeService } from '../services/employee.service';
 })
 export class EmployeeItemComponent implements OnInit {
   @Input() employees: Employee;
-  @Output() deleteEmployee: EventEmitter<Employee> = new EventEmitter();
- 
   
   constructor(private employeeService:EmployeeService) { }
 
   ngOnInit() {
   }
 
-  
-  setClasses() {
-    let classes = {
-        employees: true,
-    }
-
-    return classes;
-  }
-
-  
-  onDelete(employee) {
-    this.deleteEmployee.emit(employee);
-    console.log('delete from employees-item');
+  private removeEmployee(): void {
+    console.log("removefromitem");
+    
+    this.employeeService.removeTodo(this.employees.id);
   }
 }

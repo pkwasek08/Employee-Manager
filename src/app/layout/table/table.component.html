@@ -3,7 +3,6 @@
     <table class="table">
 
         <h2>List of employees</h2>
-
         <div>
             <tr>
                 <th>ID</th>
@@ -15,37 +14,35 @@
                 <th>Edit</th>
                 <th>Remove</th>
             </tr>
-            <ng-container *ngFor="let empl of employees">
+    
+            
+            <div *ngFor="let employees of employeeService.getEmployee()">
+                    <div *ngIf="employees.firstName != null">
                 <tr>
-                    <td>{{empl.id}}</td>
-                    <td>{{empl.firstName}}</td>
-                    <td>{{empl.lastName}}</td>
-                    <td>{{empl.position}}</td>
-                    <td>{{empl.room}}</td>
-                    <td>{{empl.salary}}</td>
+                        
+                        <th>{{employees.id}}</th>
+                    <th>{{employees.firstName}}</th>
+                    <th>{{employees.lastName}}</th>
+                    <th>{{employees.position}}</th>
+                    <th>{{employees.room}}</th>
+                    <th>{{employees.salary}}</th>
                     <td>
-                        <a routerLink="/edit"><button type="button" class="buttonEdit" tooltip="Edit employer's info">
+                        <a routerLink="/add"><button type="button" class="buttonEdit" tooltip="Edit employer's info">
                                 Edit
                             </button>
                         </a>
                     </td>
                     <td>
-                        <app-employee-item>
-                        <button (click)="deleteTodo($event)" type="button" class="buttonRemove" tooltip="Remove employer's info">
-                            Remove
-                        </button>
-                    </app-employee-item>
+                      
+            <button class="buttonRemove"  (click)="removeEmployee(employees.id)">x</button>
+                
                     </td>
+               
                 </tr>
-            </ng-container>
+            </div>
+            </div>
         </div>
     </table>
 </body>
 
 </html>
-
-<app-employee-item>
-        *ngFor="let employee of employees" [employee]="employee"
-        (deleteTodo)="deleteTodo($event)"
-        >
-    </app-employee-item>

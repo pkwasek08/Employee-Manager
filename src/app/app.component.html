@@ -1,16 +1,15 @@
-<div>
-    <app-header></app-header>
-<<<<<<< HEAD
-    <router-outlet>
-       <!-- (removeEmployee)="removeEmployee($event)"-->
-    </router-outlet>
-=======
-    <app-table></app-table>
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of 35e7203... table, employees
-=======
->>>>>>> parent of 35e7203... table, employees
-=======
->>>>>>> parent of 35e7203... table, employees
+<div class="App">
+    <div class="todo-wrapper">
+
+        <div>
+                <app-header></app-header>
+            <router-outlet></router-outlet>
+            
+           
+           <!-- <div *ngFor="let employees of employeeService.getEmployee()">
+                <app-employee-item [employees]="employees"></app-employee-item>
+            </div>
+        </div>
+        <app-table></app-table>-->
+    </div>
 </div>

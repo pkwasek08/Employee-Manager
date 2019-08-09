@@ -1,3 +1,22 @@
-<div>
-<h1>Add employee</h1>
-</div>
+
+  <form>
+
+    <div class="info-input">
+      First name:<br>
+      <input type="text" [(ngModel)]="firstName" value={{firstName}} />
+      <br>
+      Last name:<br>
+      <input type="text" [(ngModel)]="lastName" value={{lastName}} /><br>
+      Position:<br>
+      <input type="text" [(ngModel)]="position" value={{position}} /><br>
+      Salary:<br>
+      <input type="number" [(ngModel)]="salary" value={{salary}} /><br>
+      Room:<br>
+      <input type="number" [(ngModel)]="room" value={{room}} /><br><br>
+     <!-- <a routerLink="/"> -->
+      <button class="btn btn-primary" (click)="addEmployee()">Submit</button>
+     <!--</a>--> 
+    </div>
+
+  </form>
+ 
