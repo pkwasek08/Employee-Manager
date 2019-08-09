@@ -10,6 +10,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { HeaderComponent } from './layout/header/header.component';
 import { TableComponent } from './layout/table/table.component';
+<<<<<<< HEAD
 import { EmployeesComponent } from './employees/employees.component';
 import { HttpClientModule }    from '@angular/common/http';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
@@ -18,17 +19,23 @@ import { EditComponent } from './pages/edit/edit.component';
 import { EmployeeItemComponent } from './employee-item/employee-item.component';
 import { RouterTestingModule } from '@angular/router/testing';
 //import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+=======
+>>>>>>> parent of 35e7203... table, employees
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+<<<<<<< HEAD
     TableComponent,
     EmployeesComponent,
     AddEmployeeComponent,
     AboutComponent,
     EditComponent,
     EmployeeItemComponent,
+=======
+    TableComponent
+>>>>>>> parent of 35e7203... table, employees
   ],
   imports: [
     BrowserModule,

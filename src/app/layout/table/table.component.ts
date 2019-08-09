@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 import { Component, OnInit, Input,EventEmitter,Output, ɵɵqueryRefresh } from '@angular/core';
 import { Employee } from '../../models/employee';
 import { EmployeeService } from '../../services/employee.service'
 
+=======
+import { Component, OnInit } from '@angular/core';
+>>>>>>> parent of 35e7203... table, employees
 
 @Component({
   selector: 'app-table',

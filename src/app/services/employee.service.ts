@@ -25,15 +25,19 @@ export class EmployeeService {
 
   addEmployee()
   {
-
+    let employee = new Employee[]
+      let employees = this.getEmployee();
+      employees.push()
   }
-  getEmployee(temp):Observable<Employee[]> {
-    let key = 'Item 1';
-    return JSON.parse(localStorage.getItem(key)); 
+  getEmployee(): Employee[]{
+    let localStorageItem = JSON.parse(localStorage.getItem('Item'))
+    return localStorageItem == null ? [] : localStorageItem.Item;
   }
 
-  setLocalstorage(): void {
-    this.employees = [
+  setLocalstorageEmployees(employees: Employee[]): void {
+
+    localStorage.setItem('Item',JSON.stringify({employees: employees}));
+    /*this.employees = [
       {
         id: 1,
         firstName: 'Piotr',
@@ -74,7 +78,7 @@ export class EmployeeService {
         room: 105, // or string
         salary: 0
       }
-    ];
+    ];*/
       let key = 'Item 1';
       localStorage.setItem(key, JSON.stringify(this.employees));
     
