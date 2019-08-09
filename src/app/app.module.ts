@@ -11,6 +11,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { HeaderComponent } from './layout/header/header.component';
 import { TableComponent } from './layout/table/table.component';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { EmployeesComponent } from './employees/employees.component';
 import { HttpClientModule }    from '@angular/common/http';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
@@ -21,11 +22,14 @@ import { RouterTestingModule } from '@angular/router/testing';
 //import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 =======
 >>>>>>> parent of 35e7203... table, employees
+=======
+>>>>>>> parent of 35e7203... table, employees
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+<<<<<<< HEAD
 <<<<<<< HEAD
     TableComponent,
     EmployeesComponent,
@@ -33,6 +37,9 @@ import { RouterTestingModule } from '@angular/router/testing';
     AboutComponent,
     EditComponent,
     EmployeeItemComponent,
+=======
+    TableComponent
+>>>>>>> parent of 35e7203... table, employees
 =======
     TableComponent
 >>>>>>> parent of 35e7203... table, employees

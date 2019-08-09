@@ -5,6 +5,9 @@ import { EmployeeService } from '../../services/employee.service'
 
 =======
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
+>>>>>>> parent of 35e7203... table, employees
+=======
 >>>>>>> parent of 35e7203... table, employees
 
 @Component({
