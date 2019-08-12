@@ -10,15 +10,15 @@
       Position:<br>
       <input type="search" [(ngModel)]="position" value={{position}} [ngModelOptions]="{standalone: true}"/><br>
       Salary:<br>
-      <input type="number" [(ngModel)]="salary" value={{salary}} tooltip="over 1000 less 5000" [ngModelOptions]="{standalone: true}"/><br>
+      <input type="number" [(ngModel)]="salary" value={{salary}} [ngModelOptions]="{standalone: true}"/><br>
       Room:<br>
       <input type="number" [(ngModel)]="room" value={{room}} [ngModelOptions]="{standalone: true}"/><br><br>
-      <div *ngIf="firstName != null && position != null && lastName != null && salary>=1000 && salary <=5000 && room != null ">
+      <a *ngIf="firstName != null && position != null && lastName != null && salary>=1000 && salary<=5000 && room != null ">
       <a routerLink="/"> 
-      <button class="btn btn-primary" (click)="addEmployee()">Submit</button>
+      <button class="btn btn-primary" (click)="EditEmployee()">Submit</button>
      
     </a>
-  </div>
+  </a>
     </div>
 
   </form>

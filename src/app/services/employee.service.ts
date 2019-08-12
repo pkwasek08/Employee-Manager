@@ -1,7 +1,6 @@
 import { Injectable, ɵEMPTY_ARRAY } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Employee } from '../models/employee';
-import { Employeejson } from '../database/employeejson'
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Observable } from 'rxjs';
 
@@ -57,6 +56,22 @@ export class EmployeeService {
     }
     //return localStorageItem === null ? [] : localStorageItem.employees;
   }
+  public getEmp(id:number): Employee {
+    let employees = this.getEmployee();
+  
+    if (employees === null) {
+      return null;
+    }
+    else {
+      for (let i = 0; i < employees.length; i++) {
+        if(employees[i].id === id)
+        {
+          return employees[i];
+        }
+      }
+    }
+    //return localStorageItem === null ? [] : localStorageItem.employees;
+  }
 
   public removeEmployee(id: number): void {
     let employees = this.getEmployee();
@@ -106,13 +121,22 @@ export class EmployeeService {
     let j = 0;
     if (employees != null) {
       for (let i = 0; i < employees.length; i++) {
-        if (employees[i].firstName == FirstName.valueOf() && employees[i].position== position.valueOf()
+        if (employees[i].firstName === FirstName && employees[i].position=== position
         && employees[i].salary>= salaryDown && employees[i].salary <= salaryUp) {
-           employee[j] = new Employee(j,employees[i].firstName,employees[i].lastName,employees[i].position,employees[i].salary,employees[i].room);
+           employee[j] = new Employee(employees[i].id,employees[i].firstName,employees[i].lastName,employees[i].position,employees[i].salary,employees[i].room);
           j++;
         }
       }
     }  
       return employee;
+  }
+
+  public editEmployee(id:number,firstName: string, lastName: string, position: string, salary: number, room: number)
+  {
+    this.removeEmployee(id);
+    let employee = new Employee(id, firstName, lastName, position, salary, room);
+    let employees = this.getEmployee();
+    employees.push(employee);
+    this.setLocalStorageEmployees(employees);
   }
 }

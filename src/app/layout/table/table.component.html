@@ -6,8 +6,8 @@
         <button type="button" class="filtrByName" (click)="employeeService.filtrbyName()"
             tooltip="Filtr by FirstName">FirstName</button> |
         <button type="button" class="filtrByPosition" (click)="employeeService.filtrbyPosition()"
-            tooltip="Filtr by Position">Positon</button> 
-       <!-- <button type="button" class="filtrBySalary" tooltip="Filtr by Salary">Salary
+            tooltip="Filtr by Position">Positon</button>
+        <!-- <button type="button" class="filtrBySalary" tooltip="Filtr by Salary">Salary
         <form>
             Od:
       <input type="number" [(ngModel)]="LowSalary" value={{LowSalary}} [ngModelOptions]="{standalone: true}"/>
@@ -15,8 +15,9 @@
       <input type="number" [(ngModel)]="HightSalary" value={{HightSalary}} [ngModelOptions]="{standalone: true}"/>
     </form>
     </button>-->
-      <br>
+        <br>
     </h5>
+
     <table class="table">
 
         <tr>
@@ -29,9 +30,9 @@
             <th>Edit</th>
             <th>Remove</th>
         </tr>
+        <tr *ngFor="let employees of employeeService.getEmployee() | paginate: { itemsPerPage: 5, currentPage: p}">
 
-        <tr *ngFor="let employees of employeeService.getEmployee()">
-            <ng-container *ngIf="employees.firstName != null">
+            <ng-container *ngIf="employees.firstName != null ">
                 <th>{{employees.id}}</th>
                 <th>{{employees.firstName}}</th>
                 <th>{{employees.lastName}}</th>
@@ -39,17 +40,25 @@
                 <th>{{employees.room}}</th>
                 <th>{{employees.salary}}</th>
                 <td>
-                    <a routerLink="/add"><button type="button" class="buttonEdit" tooltip="Edit employer's info">
+                    <!--<a routerLink="/edit/{{employees.id}}"-->
+                    <a [routerLink]="['/edit', employees.id]">
+                        <button class="btn btn-success pull-right">
                             Edit
-                        </button>
+                        </button>   
                     </a>
                 </td>
-                <td>
+                <th>
                     <button class="buttonRemove" (click)="removeEmployee(employees.id)">x</button>
-                </td>
+                </th>
             </ng-container>
         </tr>
+
     </table>
+
+
+    <div class="text-center">
+        <pagination-controls (pageChange)=" p = $event"></pagination-controls>
+    </div>
 </body>
 
 </html>

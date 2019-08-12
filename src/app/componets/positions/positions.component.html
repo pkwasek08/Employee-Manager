@@ -21,7 +21,7 @@
             <th>Min Wage</th>
             <th>Max Wage</th>
         </tr>
-        <tr *ngFor="let position of positionsService.getPosition()">
+        <tr *ngFor="let position of positionsService.getPosition() | paginate: { itemsPerPage: 5, currentPage: p}">
             <ng-container *ngIf="position.name != null ">
                 <th>{{position.id}}</th>
                 <th>{{position.name}}</th>
@@ -40,4 +40,7 @@
             </ng-container>
         </tr>
     </table>
+    <div class="text-center">
+        <pagination-controls (pageChange)=" p = $event"></pagination-controls> 
+  </div>
 </div>
