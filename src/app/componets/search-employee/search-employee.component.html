@@ -1,0 +1,51 @@
+<div class="search">
+<form>
+    
+        First name:<br>
+        <input type="text" [(ngModel)]="FirstName" value={{FirstName}} [ngModelOptions]="{standalone: true}" />
+        <br>
+        Position:<br>
+        <input type="text" [(ngModel)]="positions" value={{positions}} [ngModelOptions]="{standalone: true}" /><br>
+        Salary:<br>
+        Od:
+        <input type="text" [(ngModel)]="salaryDown" value={{salaryDown}} [ngModelOptions]="{standalone: true}" /><br>
+        Do:
+        <input type="text" [(ngModel)]="salaryUp" value={{salaryUp}} [ngModelOptions]="{standalone: true}" /><br>
+        <br><button class="btn btn-primary" (click)="SearchEmployee()">Search
+        </button><br>
+    </form>
+
+    <table class="table">
+
+            <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Position</th>
+                    <th>Room</th>
+                    <th>Salary</th>
+                    <th>Edit</th>
+                    <th>Remove</th>
+                </tr>
+            <tr *ngFor="let employee of employeeService.getSearchedEmployee(FirstName,positions,salaryDown,salaryUp)">
+                <ng-container  *ngIf="employee.firstName != null">
+                    <th>{{employee.id}}</th>
+                    <th>{{employee.firstName}}</th>
+                    <th>{{employee.lastName}}</th>
+                    <th>{{employee.position}}</th>
+                    <th>{{employee.room}}</th>
+                    <th>{{employee.salary}}</th>
+                    <td>
+                        <a routerLink="/add"><button type="button" class="buttonEdit" tooltip="Edit employer's info">
+                                Edit
+                            </button>
+                        </a>
+                    </td>
+                    <td>
+                        <button class="buttonRemove" (click)="removeEmployee(employee.id)">x</button>
+                    </td>
+              
+            </ng-container >
+        </tr>
+        </table>
+ </div>

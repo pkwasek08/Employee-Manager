@@ -1,0 +1,46 @@
+<div class="room-add">
+  <form>   
+          Number:<br>
+          <input type="number" [(ngModel)]="number" value={{number}} [ngModelOptions]="{standalone: true}"/>
+          <br>
+          Name:<br>
+          <input type="text" [(ngModel)]="name" value={{name}} [ngModelOptions]="{standalone: true}"/><br>
+          Capacity:<br>
+          <input type="number" [(ngModel)]="capacity" value={{capacity}} [ngModelOptions]="{standalone: true}"/><br>
+          People:<br>
+          <input type="number" [(ngModel)]="people" value={{people}} [ngModelOptions]="{standalone: true}"/><br>
+          <br>
+          <button class="btn btn-primary" (click)="addRoom()">Submit</button>       
+        
+      </form>
+      <table class="table">
+
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Number</th>
+                <th>Capacity</th>
+                <th>People</th>
+            </tr>
+      <tr *ngFor="let room of roomService.getRoom()">
+            <ng-container *ngIf="room.number != 0">
+                <th>{{room.id}}</th>
+                <th>{{room.name}}</th>
+                <th>{{room.number}}</th>
+                <th>{{room.capacity}}</th>
+                <th>{{room.people}}</th>
+               <!-- <td>
+                    <a routerLink="/add"><button type="button" class="buttonEdit" tooltip="Edit employer's info">
+                            Edit
+                        </button>
+                    </a>
+                </td>
+                <td>
+                    <button class="buttonRemove" (click)="removeEmployee(employee.id)">x</button>
+                </td>
+          -->
+        </ng-container>
+    </tr>
+</table>
+</div>
+    

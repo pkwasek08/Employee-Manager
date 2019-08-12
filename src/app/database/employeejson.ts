@@ -3,7 +3,7 @@ import { Employee } from '../models/employee';
 
 export class Employeejson  {
 
-    employees:Employee[]  = [
+    /*employees:Employee[]  = [
       {
         id: 1,
         firstName: 'Piotr',
@@ -44,5 +44,5 @@ export class Employeejson  {
         room: 105, // or string
         salary: 0
       }
-    ]
+    ]*/
 }

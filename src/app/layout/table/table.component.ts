@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Employee } from '../../models/employee';
 import { EmployeeService } from '../../services/employee.service'
 
@@ -11,15 +11,26 @@ import { EmployeeService } from '../../services/employee.service'
 
 export class TableComponent implements OnInit {
 
-  employees: Employee[];
-  constructor(private employeeService:EmployeeService) { }
+  /*@Input()
+  private employees:Employee;*/
+
+  public LowSalary: number;
+  public HightSalary: number;
+
+
+  constructor(public employeeService:EmployeeService) { 
+  }
 
   
-
+  
   ngOnInit() {
-    this.employeeService.setLocalstorage();
-      let key = 'Item 1';  
-      this.employees=JSON.parse(localStorage.getItem(key)); 
+   
+}
+    
+
+    private removeEmployee(id: number) : void {  
+      this.employeeService.removeEmployee(id);
     }
 
+    
 }

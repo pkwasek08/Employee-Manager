@@ -1,4 +1,15 @@
-<div>
-    <app-header></app-header>
-    <router-outlet></router-outlet>
+<div class="App">
+    <div class="todo-wrapper">
+
+        <div>
+                <app-header></app-header>
+            <router-outlet></router-outlet>
+            
+           
+           <!-- <div *ngFor="let employees of employeeService.getEmployee()">
+                <app-employee-item [employees]="employees"></app-employee-item>
+            </div>
+        </div>
+        <app-table></app-table>-->
+    </div>
 </div>

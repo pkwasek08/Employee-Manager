@@ -1,80 +1,118 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵEMPTY_ARRAY } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Employee } from '../models/employee';
 import { Employeejson } from '../database/employeejson'
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+import { Observable } from 'rxjs';
+
+//injected http depedency
+/*const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+}*/
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
 
-  employees: Employee[];
-  emp: Employeejson;
+  private temp: number = 0;
+  public nextId: number;
 
-  employeesPath: '';
+  constructor() {
 
-  constructor(private http: HttpClient) { }
+    let employees = this.getEmployee();
 
-  addEmployee()
-  {
+    if (employees.length != 0 && employees) {
 
-  }
-  getEmployee(temp) {
-    let value;
-    for (let i = 0; i < localStorage.length; i++){
-      let key = localStorage.key(i);
-      //let item = JSON.parse(localStorage.getItem(key));
-     value =  JSON.parse(localStorage.getItem(key));
-      console.log(key, value);
+      let maxId = employees[employees.length - 1].id;
+
+      this.nextId = maxId + 1;
+    } else {
+      this.nextId = 0;
     }
-    return value;
+
   }
 
-  setLocalstorage(): void {
-    this.employees = [
-      {
-        id: 1,
-        firstName: 'Piotr',
-        lastName: 'Kwasek',
-        position: 'praktykant',
-        room: 105, // or string
-        salary: 0
-      },
-      {
-        id: 2,
-        firstName: 'Andrzej',
-        lastName: 'Metalowiec',
-        position: 'praktykant',
-        room: 105, // or string
-        salary: 0
-      },
-      {
-        id: 3,
-        firstName: 'Pudzian',
-        lastName: 'Pudzianowski',
-        position: 'praktykant',
-        room: 105, // or string
-        salary: 0
-      },
-      {
-        id: 4,
-        firstName: 'Andrzej',
-        lastName: 'Metalowiec',
-        position: 'praktykant',
-        room: 105, // or string
-        salary: 0
-      },
-      {
-        id: 5,
-        firstName: 'Pudzian',
-        lastName: 'Pudzianowski',
-        position: 'praktykant',
-        room: 105, // or string
-        salary: 0
+  public addEmployee(firstName: string, lastName: string, position: string, salary: number, room: number): void {
+
+    let employee = new Employee(this.nextId, firstName, lastName, position, salary, room);
+    let employees = this.getEmployee();
+
+
+    //employees[this.nextId] = new Employee (employee.id,employee.firstName);
+    employees.push(employee);
+
+    this.setLocalStorageEmployees(employees);
+    this.nextId++;
+  }
+  public getEmployee(): Employee[] {
+    let localStorageItem = JSON.parse(localStorage.getItem('employees'));
+
+    if (localStorageItem === null) {
+      return [];
+    }
+    else {
+      return localStorageItem.employees;
+    }
+    //return localStorageItem === null ? [] : localStorageItem.employees;
+  }
+
+  public removeEmployee(id: number): void {
+    let employees = this.getEmployee();
+    employees = employees.filter((employee) => employee.id != id);
+    this.setLocalStorageEmployees(employees);
+  }
+
+  public filtrbyName(): void {
+    let employeefiltred = this.getEmployee();
+    if (employeefiltred != null) {
+      if (this.temp === 0) {
+        employeefiltred.sort((a, b) => a.firstName.localeCompare(b.firstName));
+        this.setLocalStorageEmployees(employeefiltred);
+        this.temp++;
       }
-    ];
-      let key = 'Item 1';
-      localStorage.setItem(key, JSON.stringify(this.employees));
-    
+      else {
+        this.temp = 0;
+        employeefiltred.sort((a, b) => b.firstName.localeCompare(a.firstName));
+        this.setLocalStorageEmployees(employeefiltred);
+      }
+    }
+  }
+
+  public filtrbyPosition(): void {
+    let employeefiltred = this.getEmployee();
+    if (employeefiltred != null) {
+
+      if (this.temp === 0) {
+        employeefiltred.sort((a, b) => a.position.localeCompare(b.position));
+        this.temp++;
+      }
+      else {
+        this.temp = 0;
+        employeefiltred.sort((a, b) => b.position.localeCompare(a.position));
+      }
+    }
+    this.setLocalStorageEmployees(employeefiltred);
+  }
+
+  public setLocalStorageEmployees(employees: Employee[]): void {
+    localStorage.setItem('employees', JSON.stringify({ employees: employees }));
+  }
+
+  public getSearchedEmployee(FirstName: string, position: string, salaryDown: number, salaryUp: number): Employee[] {
+    let employees = this.getEmployee();
+    let employee = [];
+    let j = 0;
+    if (employees != null) {
+      for (let i = 0; i < employees.length; i++) {
+        if (employees[i].firstName == FirstName.valueOf() && employees[i].position== position.valueOf()
+        && employees[i].salary>= salaryDown && employees[i].salary <= salaryUp) {
+           employee[j] = new Employee(j,employees[i].firstName,employees[i].lastName,employees[i].position,employees[i].salary,employees[i].room);
+          j++;
+        }
+      }
+    }  
+      return employee;
   }
 }
