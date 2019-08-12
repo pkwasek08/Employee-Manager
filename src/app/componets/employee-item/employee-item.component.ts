@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Employee } from '../models/employee';
-import { EmployeeService } from '../services/employee.service';
+import { Employee } from '../../models/employee';
+import { EmployeeService } from '../../services/employee.service';
 
 @Component({
   selector: 'app-employee-item',
@@ -16,8 +16,7 @@ export class EmployeeItemComponent implements OnInit {
   }
 
   private removeEmployee(): void {
-    console.log("removefromitem");
     
-    this.employeeService.removeTodo(this.employees.id);
+    this.employeeService.removeEmployee(this.employees.id);
   }
 }

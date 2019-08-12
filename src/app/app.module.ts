@@ -12,11 +12,14 @@ import { HeaderComponent } from './layout/header/header.component';
 import { TableComponent } from './layout/table/table.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { HttpClientModule }    from '@angular/common/http';
-import { AddEmployeeComponent } from './add-employee/add-employee.component';
+import { AddEmployeeComponent } from './componets/add-employee/add-employee.component';
 import { AboutComponent } from './pages/about/about.component';
 import { EditComponent } from './pages/edit/edit.component';
-import { EmployeeItemComponent } from './employee-item/employee-item.component';
+import { EmployeeItemComponent } from './componets/employee-item/employee-item.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SearchEmployeeComponent } from './componets/search-employee/search-employee.component';
+import { RoomsComponent } from './componets/rooms/rooms.component';
+import { PositionsComponent } from './componets/positions/positions.component';
 //import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 @NgModule({
@@ -29,6 +32,9 @@ import { RouterTestingModule } from '@angular/router/testing';
     AboutComponent,
     EditComponent,
     EmployeeItemComponent,
+    SearchEmployeeComponent,
+    RoomsComponent,
+    PositionsComponent,
   ],
   imports: [
     BrowserModule,

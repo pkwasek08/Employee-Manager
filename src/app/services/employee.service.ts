@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
 })
 export class EmployeeService {
 
+  private temp: number = 0;
   public nextId: number;
 
   constructor() {
@@ -57,15 +58,61 @@ export class EmployeeService {
     //return localStorageItem === null ? [] : localStorageItem.employees;
   }
 
-  public removeTodo(id: number): void {
-    console.log("removefromsservixe");
-
+  public removeEmployee(id: number): void {
     let employees = this.getEmployee();
     employees = employees.filter((employee) => employee.id != id);
     this.setLocalStorageEmployees(employees);
   }
 
+  public filtrbyName(): void {
+    let employeefiltred = this.getEmployee();
+    if (employeefiltred != null) {
+      if (this.temp === 0) {
+        employeefiltred.sort((a, b) => a.firstName.localeCompare(b.firstName));
+        this.setLocalStorageEmployees(employeefiltred);
+        this.temp++;
+      }
+      else {
+        this.temp = 0;
+        employeefiltred.sort((a, b) => b.firstName.localeCompare(a.firstName));
+        this.setLocalStorageEmployees(employeefiltred);
+      }
+    }
+  }
+
+  public filtrbyPosition(): void {
+    let employeefiltred = this.getEmployee();
+    if (employeefiltred != null) {
+
+      if (this.temp === 0) {
+        employeefiltred.sort((a, b) => a.position.localeCompare(b.position));
+        this.temp++;
+      }
+      else {
+        this.temp = 0;
+        employeefiltred.sort((a, b) => b.position.localeCompare(a.position));
+      }
+    }
+    this.setLocalStorageEmployees(employeefiltred);
+  }
+
   public setLocalStorageEmployees(employees: Employee[]): void {
     localStorage.setItem('employees', JSON.stringify({ employees: employees }));
+  }
+
+  public getSearchedEmployee(FirstName: string, position: string, salaryDown: number, salaryUp: number): Employee[] {
+    let employees = this.getEmployee();
+    let employee = [];
+    let j = 0;
+    if (employees != null) {
+      for (let i = 0; i < employees.length; i++) {
+        if (employees[i].firstName == FirstName.valueOf() && employees[i].position== position.valueOf()
+        && employees[i].salary>= salaryDown && employees[i].salary <= salaryUp) {
+           employee[j] = new Employee(j,employees[i].firstName,employees[i].lastName,employees[i].position,employees[i].salary,employees[i].room);
+          j++;
+        }
+      }
+    }  
+      return employee;
   }
 }

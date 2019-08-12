@@ -1,0 +1,43 @@
+<div class="position-add">
+    <form>
+
+        Name:<br>
+        <input type="text" [(ngModel)]="name" value={{name}} [ngModelOptions]="{standalone: true}" />
+        <br>
+        Min Wage:<br>
+        <input type="number" [(ngModel)]="minWage" value={{minWage}} [ngModelOptions]="{standalone: true}" /><br>
+        Max Wage:<br>
+        <input type="number" [(ngModel)]="maxWage" value={{maxWage}} [ngModelOptions]="{standalone: true}" /><br>
+        <br>
+        <button class="btn btn-primary" (click)="addPositions()">Submit</button>
+
+    </form>
+
+    <table class="table">
+
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Min Wage</th>
+            <th>Max Wage</th>
+        </tr>
+        <tr *ngFor="let position of positionsService.getPosition()">
+            <ng-container *ngIf="position.name != null ">
+                <th>{{position.id}}</th>
+                <th>{{position.name}}</th>
+                <th>{{position.minWage}}</th>
+                <th>{{position.maxWage}}</th>
+                <!-- <td>
+                <a routerLink="/add"><button type="button" class="buttonEdit" tooltip="Edit employer's info">
+                        Edit
+                    </button>
+                </a>
+            </td>
+            <td>
+                <button class="buttonRemove" (click)="removeEmployee(employee.id)">x</button>
+            </td>
+      -->
+            </ng-container>
+        </tr>
+    </table>
+</div>

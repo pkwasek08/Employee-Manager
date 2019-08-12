@@ -11,18 +11,26 @@ import { EmployeeService } from '../../services/employee.service'
 
 export class TableComponent implements OnInit {
 
-  @Input()
-  private employees:Employee;
+  /*@Input()
+  private employees:Employee;*/
+
+  public LowSalary: number;
+  public HightSalary: number;
+
 
   constructor(public employeeService:EmployeeService) { 
   }
 
   
-
+  
   ngOnInit() {
-    }
+   
+}
+    
 
     private removeEmployee(id: number) : void {  
-      this.employeeService.removeTodo(id);
+      this.employeeService.removeEmployee(id);
     }
+
+    
 }

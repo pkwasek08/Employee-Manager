@@ -9,29 +9,27 @@
 
 .table td, th {
   border: 1px solid #dddddd;
-  text-align: left;
+  text-align: center;
   width:20%;
 }
 
 .table tr:nth-child(even) {
   background-color: #dddddd;
-  text-align: left;
+  text-align: center;
 }
 .buttonEdit {
-  background-color: #4CAF50; /* Green */
+  background-color: #4CAF50;
   border: true;
   color: white;
-  padding: 5px 22px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
 }
 .buttonRemove {
-  background-color: rgb(175, 14, 14); /* Green */
+  background-color: rgb(175, 14, 14); 
   border: true;
   color: white;
-  padding: 5px 5px;
   text-align: center;
   text-decoration: none;
   display: inline-block;

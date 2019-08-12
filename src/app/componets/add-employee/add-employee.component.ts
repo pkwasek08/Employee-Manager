@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeService } from '../services/employee.service';
+import { EmployeeService } from '../../services/employee.service';
+import { Employee } from 'Employee-Manager/src/app/models/employee';
 
 @Component({
   selector: 'app-add-employee',
@@ -20,9 +21,13 @@ export class AddEmployeeComponent implements OnInit {
   ngOnInit() {
   }
   private addEmployee(): void {
-    
+ 
     this.employeeService.addEmployee(this.firstName, this.lastName, this.position, 
       this.salary, this.room);
     this.firstName = '';
+    this.lastName = '';
+    this.position = '';
+    this.room = null;
+    this.salary = null ;
   }
 }

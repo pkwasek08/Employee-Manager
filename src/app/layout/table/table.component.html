@@ -1,47 +1,54 @@
 <html>
+
 <body>
+    <h2>Employees</h2>
+    <h5>Filtres:
+        <button type="button" class="filtrByName" (click)="employeeService.filtrbyName()"
+            tooltip="Filtr by FirstName">FirstName</button> |
+        <button type="button" class="filtrByPosition" (click)="employeeService.filtrbyPosition()"
+            tooltip="Filtr by Position">Positon</button> 
+       <!-- <button type="button" class="filtrBySalary" tooltip="Filtr by Salary">Salary
+        <form>
+            Od:
+      <input type="number" [(ngModel)]="LowSalary" value={{LowSalary}} [ngModelOptions]="{standalone: true}"/>
+      Do: 
+      <input type="number" [(ngModel)]="HightSalary" value={{HightSalary}} [ngModelOptions]="{standalone: true}"/>
+    </form>
+    </button>-->
+      <br>
+    </h5>
     <table class="table">
 
-        <h2>List of employees</h2>
-        <div>
-            <tr>
-                <th>ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Position</th>
-                <th>Room</th>
-                <th>Salary</th>
-                <th>Edit</th>
-                <th>Remove</th>
-            </tr>
-    
-            
-            <div *ngFor="let employees of employeeService.getEmployee()">
-                    <div *ngIf="employees.firstName != null">
-                <tr>
-                        
-                        <th>{{employees.id}}</th>
-                    <th>{{employees.firstName}}</th>
-                    <th>{{employees.lastName}}</th>
-                    <th>{{employees.position}}</th>
-                    <th>{{employees.room}}</th>
-                    <th>{{employees.salary}}</th>
-                    <td>
-                        <a routerLink="/add"><button type="button" class="buttonEdit" tooltip="Edit employer's info">
-                                Edit
-                            </button>
-                        </a>
-                    </td>
-                    <td>
-                      
-            <button class="buttonRemove"  (click)="removeEmployee(employees.id)">x</button>
-                
-                    </td>
-               
-                </tr>
-            </div>
-            </div>
-        </div>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Position</th>
+            <th>Room</th>
+            <th>Salary</th>
+            <th>Edit</th>
+            <th>Remove</th>
+        </tr>
+
+        <tr *ngFor="let employees of employeeService.getEmployee()">
+            <ng-container *ngIf="employees.firstName != null">
+                <th>{{employees.id}}</th>
+                <th>{{employees.firstName}}</th>
+                <th>{{employees.lastName}}</th>
+                <th>{{employees.position}}</th>
+                <th>{{employees.room}}</th>
+                <th>{{employees.salary}}</th>
+                <td>
+                    <a routerLink="/add"><button type="button" class="buttonEdit" tooltip="Edit employer's info">
+                            Edit
+                        </button>
+                    </a>
+                </td>
+                <td>
+                    <button class="buttonRemove" (click)="removeEmployee(employees.id)">x</button>
+                </td>
+            </ng-container>
+        </tr>
     </table>
 </body>
 
