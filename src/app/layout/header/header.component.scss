@@ -8,7 +8,10 @@
     position: center;
     //font-size: 5px;
 }*/
-
+body
+{
+  background: rgba(46, 46, 46, 1);
+}
 .header {
     color: #fff;
     text-decoration: none;
@@ -17,13 +20,14 @@
 .navbar {
     min-height: 80px;
     font-size: 30px; 
+    background: rgba(46, 46, 46, 1);
   }
   
   .navbar-brand {
     padding: 110 15px;
     height: 80px;
     line-height: 80px;
-    font-size: 35px; 
+    font-size: 40px; 
   }
   .nav-link
   {

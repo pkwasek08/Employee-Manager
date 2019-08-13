@@ -1,4 +1,4 @@
-<div class="room-add w-30">
+<br><div class="room-add w-30">
     <form>
         Number<br>
         <input type="number" class="form-control" [(ngModel)]="number" value={{number}}
@@ -15,7 +15,7 @@
         <div *ngIf="number != null && name != null && capacity >=0 && people>=0 && capacity >= people">
             <button class="btn btn-primary" (click)="addRoom()">Submit</button>
         </div>
-        <br><br><br>
+        <br><br>
     </form>
     <table class="table table-hover table-striped table-bordered table-dark w-auto">
         <thead>
