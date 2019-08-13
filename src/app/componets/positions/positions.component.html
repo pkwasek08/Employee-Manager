@@ -1,35 +1,40 @@
-<div class="position-add">
+<div class="position-add w-40">
     <form>
 
-        Name:<br>
-        <input type="text" [(ngModel)]="name" value={{name}} [ngModelOptions]="{standalone: true}" />
-        <br>
-        Min Wage:<br>
-        <input type="number" [(ngModel)]="minWage" value={{minWage}} [ngModelOptions]="{standalone: true}"  min="1000" max="5000" /><br>
-        Max Wage:<br>
-        <input type="number" [(ngModel)]="maxWage" value={{maxWage}} [ngModelOptions]="{standalone: true}" min="1000" max="5000" /><br>
-        <br>
-        <a *ngIf="name != null && minWage >= 1000 && minWage <=5000 && maxWage >= 1000 && maxWage <=5000 && maxWage>minWage">
+        Name<br>
+        <input type="search" class="form-control" [(ngModel)]="name" value={{name}}
+      [ngModelOptions]="{standalone: true}" placeholder="Programmer" /><br>
+        Min Wage<br>
+        <input type="search" class="form-control" [(ngModel)]="minWage" value={{minWage}}
+        [ngModelOptions]="{standalone: true}" placeholder="1000" tooltip="over 1000 less 5000"/><br>
+        Max Wage<br>
+        <input type="search" class="form-control" [(ngModel)]="maxWage" value={{maxWage}}
+        [ngModelOptions]="{standalone: true}" placeholder="5000" tooltip="over 1000 less 5000"/><br>
+      
+        <a
+            *ngIf="name != null && minWage >= 1000 && minWage <=5000 && maxWage >= 1000 && maxWage <=5000 && maxWage>minWage">
 
-        <button class="btn btn-primary" (click)="addPositions()">Submit</button>
-                </a>
+            <button class="btn btn-primary" (click)="addPositions()">Submit</button>
+        </a>
     </form>
-
-    <table class="table">
-
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Min Wage</th>
-            <th>Max Wage</th>
-        </tr>
-        <tr *ngFor="let position of positionsService.getPosition() | paginate: { itemsPerPage: 5, currentPage: p}">
-            <ng-container *ngIf="position.name != null ">
-                <th>{{position.id}}</th>
-                <th>{{position.name}}</th>
-                <th>{{position.minWage}}</th>
-                <th>{{position.maxWage}}</th>
-                <!-- <td>
+    <br>
+    <table class="table table-hover table-striped table-bordered table-dark w-auto">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Min Wage</th>
+                <th>Max Wage</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let position of positionsService.getPosition() | paginate: { itemsPerPage: 5, currentPage: p}">
+                <ng-container *ngIf="position.name != null ">
+                    <th>{{position.id}}</th>
+                    <th>{{position.name}}</th>
+                    <th>{{position.minWage}}</th>
+                    <th>{{position.maxWage}}</th>
+                    <!-- <td>
                 <a routerLink="/add"><button type="button" class="buttonEdit" tooltip="Edit employer's info">
                         Edit
                     </button>
@@ -39,10 +44,12 @@
                 <button class="buttonRemove" (click)="removeEmployee(employee.id)">x</button>
             </td>
       -->
-            </ng-container>
-        </tr>
+                </ng-container>
+            </tr>
+        </tbody>
     </table>
+ <br>
     <div class="text-center">
-        <pagination-controls (pageChange)=" p = $event"></pagination-controls> 
-  </div>
+        <pagination-controls (pageChange)=" p = $event"></pagination-controls>
+    </div>
 </div>

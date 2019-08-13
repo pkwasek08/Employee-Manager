@@ -22,7 +22,7 @@ import { PositionsComponent } from './componets/positions/positions.component';
 import {NgxPaginationModule } from 'ngx-pagination';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 //import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +47,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     RouterTestingModule,
     FormsModule,
     NgxPaginationModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

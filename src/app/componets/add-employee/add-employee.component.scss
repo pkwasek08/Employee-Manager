@@ -1,7 +1,13 @@
-.info-input
+.form-group
 {
-  background: rgb(196, 221, 218);
-  color: rgb(0, 0, 0);
   text-align: center;
   padding: 10px;
+  display:inline-block;
+  font-size: 20px;
+  position: center;
+  color: rgb(255,255,255);
+}
+
+.body {
+  background: #343a40;
 }

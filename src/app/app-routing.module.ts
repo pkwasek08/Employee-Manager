@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'edit/:id', component: EditComponent },
   { path: 'search', component: SearchEmployeeComponent },
   { path: 'addRoom', component: RoomsComponent },
-  { path: 'posiions', component: PositionsComponent }
+  { path: 'positions', component: PositionsComponent }
 ];
 
 @NgModule({

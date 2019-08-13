@@ -1,29 +1,26 @@
-<html>
+<form class="search">
 
-<body>
-    <form class="search">
+    First name<br>
+    <input type="search" class="form-control" [(ngModel)]="FirstName" value={{FirstName}}
+        [ngModelOptions]="{standalone: true}" placeholder="105" /><br>
+    Position<br>
+    <input type="search" class="form-control" [(ngModel)]="positions" value={{positions}}
+        [ngModelOptions]="{standalone: true}" placeholder="105" /><br>
+    Min Wage
+    <input type="number" class="form-control" [(ngModel)]="salaryDown" value={{salaryDown}}
+        [ngModelOptions]="{standalone: true}" placeholder="105" />
+    Max Wage
+    <input type="number" class="form-control" [(ngModel)]="salaryUp" value={{salaryUp}}
+        [ngModelOptions]="{standalone: true}" placeholder="105" /><br>
+    <br>
+    <a
+        *ngIf="FirstName != null && positions != null && salaryDown != null && salaryUp != null && salaryUp >= salaryDown">
+        <button class="btn btn-primary" (click)="SearchEmployee()">Search
+        </button></a><br>
+</form>
 
-        First name:<br>
-        <input type="search" [(ngModel)]="FirstName" value={{FirstName}} [ngModelOptions]="{standalone: true}" />
-        <br>
-        Position:<br>
-        <input type="search" [(ngModel)]="positions" value={{positions}} [ngModelOptions]="{standalone: true}" /><br>
-        Salary:<br>
-        Od:
-        <input type="number" [(ngModel)]="salaryDown" value={{salaryDown}} [ngModelOptions]="{standalone: true}"
-            max="5000" min="1000" /><br>
-        Do:
-        <input type="number" [(ngModel)]="salaryUp" value={{salaryUp}} [ngModelOptions]="{standalone: true}" min="1000"
-            max=" 5000" /><br>
-        <br>
-        <a
-            *ngIf="FirstName != null && positions != null && salaryDown != null && salaryUp != null && salaryUp >= salaryDown">
-            <button class="btn btn-primary" (click)="SearchEmployee()">Search
-            </button></a><br>
-    </form>
-
-    <table class="table">
-
+<table class="table table-hover table-striped table-bordered table-dark w-auto">
+    <thead>
         <tr>
             <th>ID</th>
             <th>First Name</th>
@@ -34,6 +31,8 @@
             <th>Edit</th>
             <th>Remove</th>
         </tr>
+    </thead>
+    <tbody>
         <tr
             *ngFor="let employee of employeeService.getSearchedEmployee(FirstName,positions,salaryDown,salaryUp) | paginate: { itemsPerPage: 5, currentPage: p}">
             <ng-container *ngIf="employee.id != null">
@@ -56,12 +55,10 @@
 
             </ng-container>
         </tr>
-    </table>
+    </tbody>
+</table>
+<br>
 
-
-    <div class="text-center">
-        <pagination-controls (pageChange)=" p = $event"></pagination-controls>
-    </div>
-</body>
-
-</html>
+<div class="text-center">
+    <pagination-controls (pageChange)=" p = $event"></pagination-controls>
+</div>
