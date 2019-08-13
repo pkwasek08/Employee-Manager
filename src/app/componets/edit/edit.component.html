@@ -1,25 +1,24 @@
+<form>
 
-  <form>
+  <div class="info-input">
+    First name:<br>
+    <input type="search" [(ngModel)]="firstName" value={{firstName}} [ngModelOptions]="{standalone: true}" />
+    <br>
+    Last name:<br>
+    <input type="search" [(ngModel)]="lastName" value={{lastName}} [ngModelOptions]="{standalone: true}" /><br>
+    Position:<br>
+    <input type="search" [(ngModel)]="position" value={{position}} [ngModelOptions]="{standalone: true}" /><br>
+    Salary:<br>
+    <input type="number" [(ngModel)]="salary" value={{salary}} [ngModelOptions]="{standalone: true}" /><br>
+    Room:<br>
+    <input type="number" [(ngModel)]="room" value={{room}} [ngModelOptions]="{standalone: true}" /><br><br>
+    <a
+      *ngIf="firstName != null && position != null && lastName != null && salary>=1000 && salary<=5000 && room != null && room>=0 && room <= 1000">
+      <a routerLink="/">
+        <button class="btn btn-primary" (click)="EditEmployee()">Submit</button>
 
-    <div class="info-input">
-      First name:<br>
-      <input type="search" [(ngModel)]="firstName" value={{firstName}} [ngModelOptions]="{standalone: true}"/>
-      <br>
-      Last name:<br>
-      <input type="search" [(ngModel)]="lastName" value={{lastName}} [ngModelOptions]="{standalone: true}"/><br>
-      Position:<br>
-      <input type="search" [(ngModel)]="position" value={{position}} [ngModelOptions]="{standalone: true}"/><br>
-      Salary:<br>
-      <input type="number" [(ngModel)]="salary" value={{salary}} [ngModelOptions]="{standalone: true}"/><br>
-      Room:<br>
-      <input type="number" [(ngModel)]="room" value={{room}} [ngModelOptions]="{standalone: true}"/><br><br>
-      <a *ngIf="firstName != null && position != null && lastName != null && salary>=1000 && salary<=5000 && room != null && room>=0 && room <= 1000">
-      <a routerLink="/"> 
-      <button class="btn btn-primary" (click)="EditEmployee()">Submit</button>
-     
+      </a>
     </a>
-  </a>
-    </div>
+  </div>
 
-  </form>
- 
+</form>

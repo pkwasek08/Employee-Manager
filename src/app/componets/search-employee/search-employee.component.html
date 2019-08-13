@@ -1,64 +1,66 @@
-<form class="search">
+<br><div class="searchEmployee w-30">
+    <form>
 
-    First name<br>
-    <input type="search" class="form-control" [(ngModel)]="FirstName" value={{FirstName}}
-        [ngModelOptions]="{standalone: true}" placeholder="105" /><br>
-    Position<br>
-    <input type="search" class="form-control" [(ngModel)]="positions" value={{positions}}
-        [ngModelOptions]="{standalone: true}" placeholder="105" /><br>
-    Min Wage
-    <input type="number" class="form-control" [(ngModel)]="salaryDown" value={{salaryDown}}
-        [ngModelOptions]="{standalone: true}" placeholder="105" />
-    Max Wage
-    <input type="number" class="form-control" [(ngModel)]="salaryUp" value={{salaryUp}}
-        [ngModelOptions]="{standalone: true}" placeholder="105" /><br>
+        First name<br>
+        <input type="search" class="form-control" [(ngModel)]="FirstName" value={{FirstName}}
+            [ngModelOptions]="{standalone: true}" placeholder="Jan" /><br>
+        Position<br>
+        <input type="search" class="form-control" [(ngModel)]="positions" value={{positions}}
+            [ngModelOptions]="{standalone: true}" placeholder="Programmer" /><br>
+        Min Wage
+        <input type="number" class="form-control" [(ngModel)]="salaryDown" value={{salaryDown}}
+            [ngModelOptions]="{standalone: true}" placeholder="1000" /><br>
+        Max Wage
+        <input type="number" class="form-control" [(ngModel)]="salaryUp" value={{salaryUp}}
+            [ngModelOptions]="{standalone: true}" placeholder="5000" /><br>
+        <br>
+        <a
+            *ngIf="FirstName != null && positions != null && salaryDown != null && salaryUp != null && salaryUp >= salaryDown">
+            <button class="btn btn-primary" (click)="SearchEmployee()">Search
+            </button></a><br>
+    </form>
+
+    <table class="table table-hover table-striped table-bordered table-dark w-auto">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Position</th>
+                <th>Room</th>
+                <th>Salary</th>
+                <th>Edit</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+                *ngFor="let employee of employeeService.getSearchedEmployee(FirstName,positions,salaryDown,salaryUp) | paginate: { itemsPerPage: 5, currentPage: p}">
+                <ng-container *ngIf="employee.id != null">
+                    <th>{{employee.id}}</th>
+                    <th>{{employee.firstName}}</th>
+                    <th>{{employee.lastName}}</th>
+                    <th>{{employee.position}}</th>
+                    <th>{{employee.room}}</th>
+                    <th>{{employee.salary}}</th>
+                    <th>
+                        <a [routerLink]="['/edit', employee.id]">
+                            <button class="btn btn-success pull-right">
+                                Edit
+                            </button>
+                        </a>
+                    </th>
+                    <th>
+                        <button class="buttonRemove" (click)="removeEmployee(employee.id)">x</button>
+                    </th>
+
+                </ng-container>
+            </tr>
+        </tbody>
+    </table>
     <br>
-    <a
-        *ngIf="FirstName != null && positions != null && salaryDown != null && salaryUp != null && salaryUp >= salaryDown">
-        <button class="btn btn-primary" (click)="SearchEmployee()">Search
-        </button></a><br>
-</form>
 
-<table class="table table-hover table-striped table-bordered table-dark w-auto">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Position</th>
-            <th>Room</th>
-            <th>Salary</th>
-            <th>Edit</th>
-            <th>Remove</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr
-            *ngFor="let employee of employeeService.getSearchedEmployee(FirstName,positions,salaryDown,salaryUp) | paginate: { itemsPerPage: 5, currentPage: p}">
-            <ng-container *ngIf="employee.id != null">
-                <th>{{employee.id}}</th>
-                <th>{{employee.firstName}}</th>
-                <th>{{employee.lastName}}</th>
-                <th>{{employee.position}}</th>
-                <th>{{employee.room}}</th>
-                <th>{{employee.salary}}</th>
-                <th>
-                    <a [routerLink]="['/edit', employee.id]">
-                        <button class="btn btn-success pull-right">
-                            Edit
-                        </button>
-                    </a>
-                </th>
-                <th>
-                    <button class="buttonRemove" (click)="removeEmployee(employee.id)">x</button>
-                </th>
-
-            </ng-container>
-        </tr>
-    </tbody>
-</table>
-<br>
-
-<div class="text-center">
-    <pagination-controls (pageChange)=" p = $event"></pagination-controls>
+    <div class="text-center">
+        <pagination-controls (pageChange)=" p = $event"></pagination-controls>
+    </div>
 </div>

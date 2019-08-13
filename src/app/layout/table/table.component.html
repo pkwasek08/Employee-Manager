@@ -1,12 +1,17 @@
-<label class="header" for="formGroupExampleInput">List of employees</label><br>
-<label class="filres" for="formGroupExampleInput">Filtres
-    <button type="button" class="btn btn-outline-primary" (click)="employeeService.filtrbyName()"
-        tooltip="Filtr by FirstName">FirstName</button>
+<br>
+<span class="border border-dark">
+    <label class="header w-50" for="formGroupExampleInput" style="font-family: Helvetica">List of employees</label>
+<label class="filres w-50" for="formGroupExampleInput" style="font-family: Helvetica">Filtres &nbsp;  
+    <button type="button" class="btn btn-outline-primary"  (click)="employeeService.filtrbyName()"
+        tooltip="Filtr by FirstName">
+        <label class="filtrbyname" for="formGroupExampleInput" style="font-family: Helvetica">FirstName</label></button>
     <button type="button" class="btn btn-outline-primary" (click)="employeeService.filtrbyPosition()"
-        tooltip="Filtr by Position">Positon</button></label>
+        tooltip="Filtr by Position">
+        <label class="filtrbyposition" for="formGroupExampleInput" style="font-family: Helvetica">Positon</label></button>
+</label></span>
 <div style="text-align:center;">
     <div class="table-responsive sm">
-        <table class="table table-hover table-striped table-bordered table-dark w-auto">
+        <table class="table table-hover table-striped table-bordered table-dark w-75">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -47,8 +52,10 @@
         </table>
     </div>
 </div>
-<label class="text-center">
+<label class="text-center ">
     <ul class="pagination">
         <pagination-controls (pageChange)=" p = $event"></pagination-controls>
     </ul>
 </label>
+
+

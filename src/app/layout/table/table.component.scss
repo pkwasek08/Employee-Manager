@@ -1,6 +1,4 @@
-.label{
-  color: rgb(255,255,255);
-}
+
 .body
 {
   background: rgba(46, 46, 46, 1);
@@ -15,36 +13,50 @@
   font-size: 16px;
 }
 
-.body {
-  background: #343a40;
-}
-
 .text-center
 {
-  position: center;
+ position: center;
   
 }
-
-.header
+.filtrbyname
 {
-  font-size: 30px;
+  font-size: 20px;
+}
+.filtrbyposition
+{
+  font-size: 20px;
+}
+.subject
+{
   text-align: center;
   position: center;
+  background: rgba(46, 46, 46, 1);
+  opacity: .90;
+}
+.header
+{
+  font-size: 50px;
+  text-align: center;
+  position: center;
+  background: rgba(46, 46, 46, 1);
+  //weight: 40%; 
+  opacity: .90;
   color: rgb(255,255,255);
 }
 .filres{
-  font-size: 20px;
+  font-size: 25px;
   text-align: center;
   position: center;
+  background: rgba(46, 46, 46, 1);
+  //weight: 40%; 
+  opacity: .90;
   color: rgb(255,255,255);
 }
 
-.text-xs-center
-{
-  position: center;
-  text-align: center;
-}
 table {
   margin-left:auto; 
   margin-right:auto;
+  opacity: .98;
+  font-size: 20px;
+  font-family: Helvetica;
 }
