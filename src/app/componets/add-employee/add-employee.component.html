@@ -1,0 +1,25 @@
+
+  <form>
+
+    <div class="info-input">
+      First name:<br>
+      <input type="search" [(ngModel)]="firstName" value={{firstName}} [ngModelOptions]="{standalone: true}"/>
+      <br>
+      Last name:<br>
+      <input type="search" [(ngModel)]="lastName" value={{lastName}} [ngModelOptions]="{standalone: true}"/><br>
+      Position:<br>
+      <input type="search" [(ngModel)]="position" value={{position}} [ngModelOptions]="{standalone: true}"/><br>
+      Salary:<br>
+      <input type="number" [(ngModel)]="salary" value={{salary}} tooltip="over 1000 less 5000" [ngModelOptions]="{standalone: true}" min="1000" max="5000"/><br>
+      Room:<br>
+      <input type="number" [(ngModel)]="room" value={{room}} [ngModelOptions]="{standalone: true}" min="0" max="1000"/><br><br>
+      <div *ngIf="firstName != null && position != null && lastName != null && salary>=1000 && salary <=5000 && room >=0 && room <=1000">
+      <a routerLink="/"> 
+      <button class="btn btn-primary" (click)="addEmployee()">Submit</button>
+     
+    </a>
+  </div>
+    </div>
+
+  </form>
+ 

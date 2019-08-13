@@ -1,0 +1,32 @@
+.position-add
+{
+  background: rgb(196, 221, 218);
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 10px;
+}
+.table {
+    display: inline-block;
+    text-align: center;
+    width: auto;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;  
+    padding: 10px;
+  }
+  
+  .table td, th {
+    border: 1px solid #000000;
+    text-align: center;
+    width:auto;
+  }
+  
+  .table tr:nth-child(even) {
+    background-color: #dddddd;
+    text-align: center;
+    width:100%;
+  }
+
+  .text-center
+  {
+    background-color: #ffffff;
+  }
