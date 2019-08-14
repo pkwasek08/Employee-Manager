@@ -20,13 +20,14 @@ export class EmployeeService {
 
   constructor() {
 
-    let employees = this.getEmployee();
+    const employees = this.getEmployee();
 
-    if (employees.length != 0 && employees) {
+    if (employees != null && employees.length != 0 && employees) {
 
       let maxId = employees[employees.length - 1].id;
 
       this.nextId = maxId + 1;
+
     } else {
       this.nextId = 0;
     }
@@ -35,37 +36,28 @@ export class EmployeeService {
 
   public addEmployee(firstName: string, lastName: string, position: string, salary: number, room: number): void {
 
-    let employee = new Employee(this.nextId, firstName, lastName, position, salary, room);
-    let employees = this.getEmployee();
 
+    let employee = new Employee(this.nextId, firstName, lastName, position, salary, room);
+    const employees = this.getEmployee();
 
     //employees[this.nextId] = new Employee (employee.id,employee.firstName);
     employees.push(employee);
-
     this.setLocalStorageEmployees(employees);
     this.nextId++;
   }
   public getEmployee(): Employee[] {
-    let localStorageItem = JSON.parse(localStorage.getItem('employees'));
-
-    if (localStorageItem === null) {
-      return [];
-    }
-    else {
-      return localStorageItem.employees;
-    }
-    //return localStorageItem === null ? [] : localStorageItem.employees;
+    const localStorageItem = JSON.parse(localStorage.getItem('employees'));
+    return localStorageItem === null ? [] : localStorageItem.employees;
   }
-  public getEmp(id:number): Employee {
+  public getEmp(id: number): Employee {
     let employees = this.getEmployee();
-  
+
     if (employees === null) {
       return null;
     }
     else {
       for (let i = 0; i < employees.length; i++) {
-        if(employees[i].id === id)
-        {
+        if (employees[i].id === id) {
           return employees[i];
         }
       }
@@ -121,18 +113,17 @@ export class EmployeeService {
     let j = 0;
     if (employees != null) {
       for (let i = 0; i < employees.length; i++) {
-        if (employees[i].firstName === FirstName && employees[i].position=== position
-        && employees[i].salary>= salaryDown && employees[i].salary <= salaryUp) {
-           employee[j] = new Employee(employees[i].id,employees[i].firstName,employees[i].lastName,employees[i].position,employees[i].salary,employees[i].room);
+        if (employees[i].firstName === FirstName && employees[i].position === position
+          && employees[i].salary >= salaryDown && employees[i].salary <= salaryUp) {
+          employee[j] = new Employee(employees[i].id, employees[i].firstName, employees[i].lastName, employees[i].position, employees[i].salary, employees[i].room);
           j++;
         }
       }
-    }  
-      return employee;
+    }
+    return employee;
   }
 
-  public editEmployee(id:number,firstName: string, lastName: string, position: string, salary: number, room: number)
-  {
+  public editEmployee(id: number, firstName: string, lastName: string, position: string, salary: number, room: number) {
     this.removeEmployee(id);
     let employee = new Employee(id, firstName, lastName, position, salary, room);
     let employees = this.getEmployee();

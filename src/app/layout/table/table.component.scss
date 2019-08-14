@@ -52,11 +52,34 @@
   opacity: .90;
   color: rgb(255,255,255);
 }
-
+.home
+{
+  /*text-align: center;
+  padding: 20px;
+  font-size: 20px;
+  display:inline-block;
+  color: rgb(255,255,255);
+  background: rgba(46, 46, 46, 1);
+  opacity: .98;*/
+}
 table {
   margin-left:auto; 
   margin-right:auto;
   opacity: .98;
   font-size: 20px;
   font-family: Helvetica;
+}
+.pagination
+{
+  text-align: center;
+  position: center;
+  font-size:30px;
+  opacity: .80;
+  filter: alpha(opacity=50);
+}
+
+.pagination:hover
+{
+  opacity: 1;
+  filter: alpha(opacity=90);
 }
