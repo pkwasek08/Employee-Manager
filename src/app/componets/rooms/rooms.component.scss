@@ -1,31 +1,16 @@
 .room-add
 {
-  background: rgb(196, 221, 218);
-  color: rgb(0, 0, 0);
+  display:inline-block;
+  color: rgb(255,255,255);
   text-align: center;
-  padding: 10px;
+  font-size: 20px;
+  padding: 20px;
+  background: rgba(46, 46, 46, 0.95);
+
 }
-.table {
-    display: inline-block;
+  .table {
     text-align: center;
-    width: auto;
-    font-family: arial, sans-serif;
-    border-collapse: collapse;  
-    padding: 10px;
   }
-  
-  .table td, th {
-    border: 1px solid #000000;
-    text-align: center;
-    width:auto;
-  }
-  
-  .table tr:nth-child(even) {
-    background-color: #dddddd;
-    text-align: center;
-    width:100%;
-  }
-  .text-center
-  {
-    background-color: #ffffff;
+  .label{
+    color: rgb(255,255,255);
   }

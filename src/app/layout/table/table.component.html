@@ -1,64 +1,60 @@
-<html>
 
-<body>
-    <h2>Employees</h2>
-    <h5>Filtres:
-        <button type="button" class="filtrByName" (click)="employeeService.filtrbyName()"
-            tooltip="Filtr by FirstName">FirstName</button> |
-        <button type="button" class="filtrByPosition" (click)="employeeService.filtrbyPosition()"
-            tooltip="Filtr by Position">Positon</button>
-        <!-- <button type="button" class="filtrBySalary" tooltip="Filtr by Salary">Salary
-        <form>
-            Od:
-      <input type="number" [(ngModel)]="LowSalary" value={{LowSalary}} [ngModelOptions]="{standalone: true}"/>
-      Do: 
-      <input type="number" [(ngModel)]="HightSalary" value={{HightSalary}} [ngModelOptions]="{standalone: true}"/>
-    </form>
-    </button>-->
+<div class="home w-40">
         <br>
-    </h5>
+        <label class="header" for="formGroupExampleInput" style="font-family: Palatino">List of employees</label>
+        <br><label class="filres" for="formGroupExampleInput" style="font-family: Palatino">Filtres &nbsp;
+            <button type="button" class="btn btn-primary" (click)="employeeService.filtrbyName()"
+                tooltip="Filtr by FirstName">
+                <label class="filtrbyname" for="formGroupExampleInput"
+                    style="font-family: Helvetica">FirstName</label></button>
+            &nbsp;<button type="button" class="btn btn-primary" (click)="employeeService.filtrbyPosition()"
+                tooltip="Filtr by Position">
+                <label class="filtrbyposition" for="formGroupExampleInput"
+                    style="font-family: Helvetica">Positon</label></button>
+        </label>
 
-    <table class="table">
+            <table class="table table-hover table-striped table-bordered table-dark">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Position</th>
+                        <th>Room</th>
+                        <th>Salary</th>
+                        <th>Edit</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let employees of employeeService.getEmployee() | paginate: { itemsPerPage: 5, currentPage: p}">
 
-        <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Position</th>
-            <th>Room</th>
-            <th>Salary</th>
-            <th>Edit</th>
-            <th>Remove</th>
-        </tr>
-        <tr *ngFor="let employees of employeeService.getEmployee() | paginate: { itemsPerPage: 5, currentPage: p}">
-
-            <ng-container *ngIf="employees.firstName != null ">
-                <th>{{employees.id}}</th>
-                <th>{{employees.firstName}}</th>
-                <th>{{employees.lastName}}</th>
-                <th>{{employees.position}}</th>
-                <th>{{employees.room}}</th>
-                <th>{{employees.salary}}</th>
-                <td>
-                    <!--<a routerLink="/edit/{{employees.id}}"-->
-                    <a [routerLink]="['/edit', employees.id]">
-                        <button class="btn btn-success pull-right">
-                            Edit
-                        </button>   
-                    </a>
-                </td>
-                <th>
-                    <button class="buttonRemove" (click)="removeEmployee(employees.id)">x</button>
-                </th>
-            </ng-container>
-        </tr>
-
-    </table>
-
-
-    <div class="text-center">
-        <pagination-controls (pageChange)=" p = $event"></pagination-controls>
-    </div>
-</body>
-
-</html>
+                        <ng-container *ngIf="employees.firstName != null ">
+                            <th>{{employees.id}}</th>
+                            <th>{{employees.firstName}}</th>
+                            <th>{{employees.lastName}}</th>
+                            <th>{{employees.position}}</th>
+                            <th>{{employees.room}}</th>
+                            <th>{{employees.salary}}</th>
+                            <td>
+                                <!--<a routerLink="/edit/{{employees.id}}"-->
+                                <a [routerLink]="['/edit', employees.id]">
+                                    <button class="btn btn-success ">
+                                        Edit
+                                    </button>
+                                </a>
+                            </td>
+                            <th>
+                                <button class="buttonRemove" (click)="removeEmployee(employees.id)">x</button>
+                            </th>
+                        </ng-container>
+                    </tr>
+                </tbody>
+            </table>
+            <label class="text-center ">
+                <ul class="pagination">
+                    <pagination-controls (pageChange)=" p = $event"></pagination-controls>
+                </ul>
+            </label>
+</div>

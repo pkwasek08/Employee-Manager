@@ -1,3 +1,5 @@
+import { Room } from './room';
+
 export class Employee 
 {
     public  firstName: string;
@@ -5,7 +7,7 @@ export class Employee
     public position: string;
     public salary: number;
   public lastName: string;
-  public room: number;
+  public room: Room;
 
 
     constructor(id:number,
@@ -13,7 +15,7 @@ export class Employee
         lastName: string,
          position: string,
          salary: number,
-         room: number
+         room: Room
        )
 
     {

@@ -1,38 +1,93 @@
-.table {
-  display: inline-block;
-  text-align: center;
+.home
+{  
+  background: rgba(46, 46, 46, 0.95);
+ /* background-size: cover;
+  //min-height: max-content;
+  position: fixed;
+  top: 75px;
+  bottom: 0;*/
   width: 100%;
-  font-family: arial, sans-serif;
-  border-collapse: collapse;  
-  padding: 10px;
 }
 
-.table td, th {
-  border: 1px solid #dddddd;
-  text-align: center;
-  width:20%;
-}
-
-.table tr:nth-child(even) {
-  background-color: #dddddd;
-  text-align: center;
-}
-.buttonEdit {
-  background-color: #4CAF50;
-  border: true;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
 .buttonRemove {
   background-color: rgb(175, 14, 14); 
   border: true;
   color: white;
   text-align: center;
+  position: fixed;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
 }
 
+.text-center
+{
+ position: center;
+  
+}
+.filtrbyname
+{
+  font-size: 20px;
+}
+.filtrbyposition
+{
+  font-size: 20px;
+}
+.subject
+{
+  text-align: center;
+  position: center;
+  background: rgba(46, 46, 46, 1);
+ // opacity: .90;
+}
+.header
+{
+  font-size: 50px;
+  text-align: center;
+  position: center;
+ // background: rgba(46, 46, 46, 1);
+  //weight: 40%; 
+ // opacity: .95;
+  color: rgb(255,255,255);
+}
+.filres{
+  font-size: 25px;
+  text-align: center;
+  position: center;
+  //background: rgba(46, 46, 46, 1);
+  //weight: 40%; 
+  //opacity: .95;
+  color: rgb(255,255,255);
+}
+
+.home
+{
+  /*text-align: center;
+  padding: 20px;
+  font-size: 20px;
+  display:inline-block;
+  color: rgb(255,255,255);
+  background: rgba(46, 46, 46, 1);
+  opacity: .98;*/
+}
+table {
+  padding-right: 100px;
+  //opacity: .98;
+  font-size: 20px;
+  font-family: Helvetica;
+
+}
+.pagination
+{
+  text-align: center;
+  position: center;
+  font-size:30px;
+ // opacity: .80;
+ // filter: alpha(opacity=50);
+}
+
+.pagination:hover
+{
+  opacity: 1;
+  filter: alpha(opacity=90);
+}
