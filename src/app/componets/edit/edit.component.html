@@ -1,24 +1,51 @@
+<br>
 <form>
-
-  <div class="info-input">
-    First name:<br>
-    <input type="search" [(ngModel)]="firstName" value={{firstName}} [ngModelOptions]="{standalone: true}" />
+  <div class="form-group w-30">
+    <label class="firstName" for="formGroupExampleInput">First name</label><br>
+    <input type="search" class="form-control" [(ngModel)]="firstName" value={{firstName}}
+      [ngModelOptions]="{standalone: true}" placeholder="Jan" />
     <br>
-    Last name:<br>
-    <input type="search" [(ngModel)]="lastName" value={{lastName}} [ngModelOptions]="{standalone: true}" /><br>
-    Position:<br>
-    <input type="search" [(ngModel)]="position" value={{position}} [ngModelOptions]="{standalone: true}" /><br>
-    Salary:<br>
-    <input type="number" [(ngModel)]="salary" value={{salary}} [ngModelOptions]="{standalone: true}" /><br>
-    Room:<br>
-    <input type="number" [(ngModel)]="room" value={{room}} [ngModelOptions]="{standalone: true}" /><br><br>
-    <a
-      *ngIf="firstName != null && position != null && lastName != null && salary>=1000 && salary<=5000 && room != null && room>=0 && room <= 1000">
-      <a routerLink="/">
-        <button class="btn btn-primary" (click)="EditEmployee()">Submit</button>
-
-      </a>
-    </a>
+    Last name<br>
+    <input type="search" class="form-control" [(ngModel)]="lastName" value={{lastName}}
+      [ngModelOptions]="{standalone: true}" placeholder="Nowak" /><br>
+    <div class="form-group w-100">   
+        <label for="exampleFormControlSelect1">Position</label><br>
+        <select id="room" class="custom-select"  name="position" [(ngModel)]="position" >
+            <option value="" disabled selected>Profession</option>
+          <option *ngFor="let position of positions">
+            {{position.name}}
+          </option>
+        </select>
+      </div>
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">Salary</label><br>
+      <select id="salary" class="custom-select" name="salary" [(ngModel)]="salary" >
+        <option value="" disabled selected>...</option>
+        <option *ngFor="let number  of numbers">
+          {{number}}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">   
+      <label for="exampleFormControlSelect1">Room</label><br>
+      <select id="room" class="custom-select" tooltip="Choose room with free place" name="room" [(ngModel)]="room">
+        <option value="?" disabled selected>Office</option>
+        <option *ngFor="let room of rooms">
+            <div *ngIf=" room.people == room.capacity; else elseBlock"></div>
+            <ng-template #thenBlock disabled>{{room.name}}&nbsp;&nbsp;{{room.people}}/{{room.capacity}}</ng-template>
+<ng-template #elseBlock> 
+  <option value="" >{{room.name}}&nbsp;&nbsp;{{room.number}}</option>
+  </ng-template>  
+        </option>
+      </select>
+    </div>
+    <br>
+    <div *ngIf="firstName != null && position != null && lastName != null && salary!=0 && room != null; else elseBlock">
+        <a routerLink="/">
+        <button class="btn btn-primary w-50" (click)="EditEmployee()">Submit</button>
+      </a></div>
+    <ng-template #elseBlock>
+        <button class="btn btn-primary w-50" disabled (click)="EditEmployee()">Submit</button>
+    </ng-template>
   </div>
-
 </form>

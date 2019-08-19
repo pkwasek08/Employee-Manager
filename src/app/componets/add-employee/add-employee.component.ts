@@ -16,8 +16,7 @@ export class AddEmployeeComponent implements OnInit {
   public position: string;
   public salary: number;
   public lastName: string;
-  public room: string ;
-  public roomId: number;
+  public room: Room ;
   public rooms: Room[];
   public numbers: number[] = [1000];
   public positions: Position[];
@@ -36,8 +35,9 @@ export class AddEmployeeComponent implements OnInit {
   ngOnInit() {
   }
   private addEmployee(): void {
+    
     this.employeeService.addEmployee(this.firstName, this.lastName, this.position,
-      this.salary, this.roomId);
+      this.salary, this.room);
     this.firstName = '';
     this.lastName = '';
     this.position = '';

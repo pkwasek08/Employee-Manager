@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Employee } from '../models/employee';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Observable } from 'rxjs';
+import { Room } from '../models/room';
 
 //injected http depedency
 /*const httpOptions = {
@@ -34,7 +35,7 @@ export class EmployeeService {
 
   }
 
-  public addEmployee(firstName: string, lastName: string, position: string, salary: number, room: number): void {
+  public addEmployee(firstName: string, lastName: string, position: string, salary: number, room: Room): void {
 
 
     let employee = new Employee(this.nextId, firstName, lastName, position, salary, room);
@@ -123,7 +124,7 @@ export class EmployeeService {
     return employee;
   }
 
-  public editEmployee(id: number, firstName: string, lastName: string, position: string, salary: number, room: number) {
+  public editEmployee(id: number, firstName: string, lastName: string, position: string, salary: number, room: Room) {
     this.removeEmployee(id);
     let employee = new Employee(id, firstName, lastName, position, salary, room);
     let employees = this.getEmployee();

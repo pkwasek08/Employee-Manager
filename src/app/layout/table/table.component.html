@@ -1,21 +1,19 @@
-<br>
-<br>
+
 <div class="home w-40">
-    <span class="border border-dark">
-        <label class="header w-50" for="formGroupExampleInput" style="font-family: Helvetica">List of employees</label>
-        <label class="filres w-50" for="formGroupExampleInput" style="font-family: Helvetica">Filtres &nbsp;
-            <button type="button" class="btn btn-outline-primary" (click)="employeeService.filtrbyName()"
+        <br>
+        <label class="header" for="formGroupExampleInput" style="font-family: Palatino">List of employees</label>
+        <br><label class="filres" for="formGroupExampleInput" style="font-family: Palatino">Filtres &nbsp;
+            <button type="button" class="btn btn-primary" (click)="employeeService.filtrbyName()"
                 tooltip="Filtr by FirstName">
                 <label class="filtrbyname" for="formGroupExampleInput"
                     style="font-family: Helvetica">FirstName</label></button>
-            <button type="button" class="btn btn-outline-primary" (click)="employeeService.filtrbyPosition()"
+            &nbsp;<button type="button" class="btn btn-primary" (click)="employeeService.filtrbyPosition()"
                 tooltip="Filtr by Position">
                 <label class="filtrbyposition" for="formGroupExampleInput"
                     style="font-family: Helvetica">Positon</label></button>
-        </label></span>
-    <div style="text-align:center;">
-        <div class="table-responsive sm">
-            <table class="table table-hover table-striped table-bordered table-dark w-75">
+        </label>
+
+            <table class="table table-hover table-striped table-bordered table-dark">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -42,7 +40,7 @@
                             <td>
                                 <!--<a routerLink="/edit/{{employees.id}}"-->
                                 <a [routerLink]="['/edit', employees.id]">
-                                    <button class="btn btn-success pull-right">
+                                    <button class="btn btn-success ">
                                         Edit
                                     </button>
                                 </a>
@@ -59,9 +57,4 @@
                     <pagination-controls (pageChange)=" p = $event"></pagination-controls>
                 </ul>
             </label>
-
-        </div>
-
-    </div>
-
 </div>
