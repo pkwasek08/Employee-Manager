@@ -8,6 +8,7 @@ import { SearchEmployeeComponent } from './componets/search-employee/search-empl
 import { RoomsComponent } from './componets/rooms/rooms.component';
 import { positionElements } from 'ngx-bootstrap/positioning/public_api';
 import { PositionsComponent } from './componets/positions/positions.component';
+import { SummaryComponent } from './componets/summary/summary.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'edit/:id', component: EditComponent },
   { path: 'search', component: SearchEmployeeComponent },
   { path: 'addRoom', component: RoomsComponent },
-  { path: 'positions', component: PositionsComponent }
+  { path: 'positions', component: PositionsComponent },
+  { path: 'summary', component: SummaryComponent }
 ];
 
 @NgModule({

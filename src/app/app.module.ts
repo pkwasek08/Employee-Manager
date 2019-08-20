@@ -30,6 +30,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { NgxFloatButtonModule } from 'ngx-float-button';
+import { SummaryComponent } from './componets/summary/summary.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { NgxFloatButtonModule } from 'ngx-float-button';
     SearchEmployeeComponent,
     RoomsComponent,
     PositionsComponent,
+    SummaryComponent,
   ],
   imports: [
     BrowserModule,

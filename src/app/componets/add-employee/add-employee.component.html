@@ -8,44 +8,44 @@
     Last name<br>
     <input type="search" class="form-control" [(ngModel)]="lastName" value={{lastName}}
       [ngModelOptions]="{standalone: true}" placeholder="Nowak" /><br>
-    <div class="form-group w-100">   
-        <label for="exampleFormControlSelect1">Position</label><br>
-        <select id="room" class="custom-select"  name="position" [(ngModel)]="position" >
-            <option value="" disabled selected>Profession</option>
-          <option *ngFor="let position of positions">
-            {{position.name}}
-          </option>
-        </select>
-      </div>
+    <div class="form-group w-100">
+      <label for="exampleFormControlSelect1">Position</label><br>
+      <select id="room" class="custom-select" name="position" [(ngModel)]="position">
+        <option value="" disabled selected>Profession</option>
+        <option *ngFor="let position of positions">
+          {{position.name}}
+        </option>
+      </select>
+    </div>
     <div class="form-group">
       <label for="exampleFormControlSelect1">Salary</label><br>
-      <select id="salary" class="custom-select" name="salary" [(ngModel)]="salary" >
+      <select id="salary" class="custom-select" name="salary" [(ngModel)]="salary">
         <option value="" disabled selected>...</option>
         <option *ngFor="let number  of numbers">
           {{number}}
         </option>
       </select>
     </div>
-    <div class="form-group">   
+    <div class="form-group">
       <label for="exampleFormControlSelect1">Room</label><br>
-      <select id="room" class="custom-select" tooltip="Choose room with free place" name="room" [(ngModel)]="room">
+      <select id="roomId" class="custom-select" tooltip="Choose room with free place" name="roomId"
+        [(ngModel)]="roomId">
+        <!--//ngvalue-->
         <option value="?" disabled selected>Office</option>
-        <option *ngFor="let room of rooms">
-            <div *ngIf=" room.people == room.capacity; else elseBlock"></div>
-            <ng-template #thenBlock disabled>{{room.name}}&nbsp;&nbsp;{{room.people}}/{{room.capacity}}</ng-template>
-<ng-template #elseBlock> 
-  <option value="" >{{room.name}}&nbsp;&nbsp;{{room.number}}</option>
-  </ng-template>  
+        <option *ngFor="let room of rooms" value={{room.id}}>
+          <div *ngIf="room.capacity > room.people; else elseBlock">{{room.name}} {{room.number}}
+            [{{room.people}}/{{room.capacity}}]</div>
+          <ng-template #elseBlock>{{room.name}} {{room.number}} [{{room.people}}/{{room.capacity}}]</ng-template>
         </option>
       </select>
     </div>
     <br>
-    <div *ngIf="firstName != null && position != null && lastName != null && salary!=0 && room != null; else elseBlock">
-        <a routerLink="/">
+    <div *ngIf="firstName != null && position != null && lastName != null && salary!=0 && roomId!=null; else elseBlock">
+      <a routerLink="">
         <button class="btn btn-primary w-50" (click)="addEmployee()">Submit</button>
       </a></div>
     <ng-template #elseBlock>
-        <button class="btn btn-primary w-50" disabled (click)="addEmployee()">Submit</button>
+      <button class="btn btn-primary w-50" disabled (click)="addEmployee()">Submit</button>
     </ng-template>
   </div>
 </form>
