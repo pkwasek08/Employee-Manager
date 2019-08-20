@@ -37,7 +37,9 @@ export class EmployeeService {
 
   public addEmployee(firstName: string, lastName: string, position: string, salary: number, room: Room): void {
 
-
+    console.log(room);
+    
+    
     let employee = new Employee(this.nextId, firstName, lastName, position, salary, room);
     const employees = this.getEmployee();
 
@@ -126,6 +128,7 @@ export class EmployeeService {
 
   public editEmployee(id: number, firstName: string, lastName: string, position: string, salary: number, room: Room) {
     this.removeEmployee(id);
+    
     let employee = new Employee(id, firstName, lastName, position, salary, room);
     let employees = this.getEmployee();
     employees.push(employee);

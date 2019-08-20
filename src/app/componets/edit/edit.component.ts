@@ -18,14 +18,14 @@ export class EditComponent implements OnInit {
   public position: string;
   public salary: number;
   public lastName: string;
-  public room: Room;
+  public roomId: Room;
   public id: number;
   public rooms: Room[];
   public numbers: number[] = [1000];
   public positions: Position[];
 
   constructor(private employeeService: EmployeeService,
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private router: Router,
     public roomService: RoomService,
     public positionService: PositionsService) {
@@ -44,7 +44,7 @@ export class EditComponent implements OnInit {
       this.firstName = employees.firstName;
       this.position = employees.position;
       this.lastName = employees.lastName;
-      this.room = employees.room;
+      this.roomId = employees.room;
       this.salary = employees.salary;
     }
   }
@@ -53,11 +53,11 @@ export class EditComponent implements OnInit {
   }
   private EditEmployee(): void {
     this.employeeService.editEmployee(this.id, this.firstName, this.lastName, this.position,
-      this.salary, this.room);
+      this.salary, this.roomId);
     this.firstName = '';
     this.lastName = '';
     this.position = '';
-    this.room = null;
+    this.roomId = null;
     this.salary = null;
     this.id = null;
   }

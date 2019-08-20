@@ -7,9 +7,9 @@ import { Room } from '../models/room';
 export class RoomService {
 
   private temp: number = 0;
-  public nextId: number ;
+  public nextId: number;
 
-  constructor() { 
+  constructor() {
     let rooms = this.getRoom();
 
     if (rooms.length != 0 && rooms) {
@@ -20,6 +20,12 @@ export class RoomService {
     } else {
       this.nextId = 0;
     }
+  }
+
+  public removeRoom(id: number): void {
+    let rooms = this.getRoom();
+    rooms = rooms.filter((room) => room.id != id);
+    this.setLocalStorageRooms(rooms);
   }
 
   public addRoom(number: number, name: string, capacity: number, people: number): void {
@@ -48,6 +54,31 @@ export class RoomService {
 
   public setLocalStorageRooms(rooms: Room[]): void {
     localStorage.setItem('rooms', JSON.stringify({ rooms: rooms }));
+  }
+
+
+  public editRoom(room: Room,value:number) {
+    this.removeRoom(room.id);
+    let newRoom = new Room(room.id, room.number, room.name, room.capacity, room.people + 1);
+    let rooms = this.getRoom();
+    rooms.push(newRoom);
+    this.setLocalStorageRooms(rooms);
+  }
+
+  public getRoomById(id: number): Room {
+    let rooms = this.getRoom();
+
+    if (rooms === null) {
+      return null;
+    }
+    else {
+      for (let i = 0; i < rooms.length; i++) {
+        if (rooms[i].id === id) {
+          return rooms[i];
+        }
+      }
+    }
+    //return localStorageItem === null ? [] : localStorageItem.employees;
   }
 
 }

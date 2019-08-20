@@ -3,6 +3,8 @@ import { Employee } from '../../models/employee';
 import { EmployeeService } from '../../services/employee.service'
 import { EditComponent } from 'src/app/componets/edit/edit.component';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { RoomService } from 'src/app/services/room.service';
+import { Room } from 'src/app/models/room';
 
 
 @Component({
@@ -15,11 +17,14 @@ export class TableComponent implements OnInit {
 
   /*@Input()
   private employees:Employee;*/
-
+public rooms: Room[];
   public LowSalary: number;
   public HightSalary: number;
 
-  constructor(public employeeService: EmployeeService) {}
+  constructor(public employeeService: EmployeeService,
+    public roomService: RoomService) {
+      this.rooms = this.roomService.getRoom();
+    }
 
   ngOnInit() {
   }
