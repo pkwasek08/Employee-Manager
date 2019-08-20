@@ -1,26 +1,75 @@
 <br>
-<div class="form-group w-30">
-  <label class="firstName" for="formGroupExampleInput">First name</label><br>
-  <input type="search" class="form-control" [(ngModel)]="firstName" value={{firstName}}
-    [ngModelOptions]="{standalone: true}" placeholder="Jan" />
-  <br>
-  Last name<br>
-  <input type="search" class="form-control" [(ngModel)]="lastName" value={{lastName}}
-    [ngModelOptions]="{standalone: true}" placeholder="Nowak" /><br>
-  Position<br>
-  <input type="search" class="form-control" [(ngModel)]="position" value={{position}}
-    [ngModelOptions]="{standalone: true}" placeholder="Programmer" /><br>
-  Salary<br>
-  <input type="number" class="form-control" [(ngModel)]="salary" value={{salary}} tooltip="over 1000 less 5000"
-    [ngModelOptions]="{standalone: true}" min="1000" max="5000" placeholder="2500" /><br>
-  Room<br>
-  <input type="number" class="form-control" [(ngModel)]="room" value={{room}} [ngModelOptions]="{standalone: true}"
-    min="0" max="1000" placeholder="105" /><br>
-  <div
-    *ngIf="firstName != null && position != null && lastName != null && salary>=1000 && salary <=5000 && room >=0 && room <=1000">
-    <a routerLink="/">
-      <button class="btn btn-primary" (click)="addEmployee()">Submit</button>
+<div class="form w-30">
+  <form class="was-validated">
 
-    </a>
+    <div>
+      <label class="firstName" for="formGroupExampleInput">First name</label><br>
+      <input type="search" class="form-control" [(ngModel)]="firstName" value={{firstName}}
+        [ngModelOptions]="{standalone: true}" placeholder="Jan" required />
+      <div class="invalid-feedback">
+        Not empty
+      </div>
+    </div>
+    <br>
+    <div>
+      Last name<br>
+      <input type="search" class="form-control" [(ngModel)]="lastName" value={{lastName}}
+        [ngModelOptions]="{standalone: true}" placeholder="Nowak" required />
+      <div class="invalid-feedback">
+        Not empty
+      </div>
+    </div><br>
+    <div class="form-group w-100">
+      <label for="exampleFormControlSelect1">Position</label><br>
+      <select required id="positionId" class="custom-select" name="position" [(ngModel)]="position">
+        <option [ngValue]="" selected disabled>Profession</option>
+        <option *ngFor="let position of positions">
+          {{position.name}}
+        </option>
+      </select>
+      <div class="invalid-feedback">
+        Not empty
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">Salary</label><br>
+      <select id="salaryId" class="form-control" name="salary" [(ngModel)]="salary" required>
+        <option [ngValue]="" selected disabled hidden>...</option>
+        <option *ngFor="let number  of numbers">
+          {{number}}
+        </option>
+      </select>
+      <div class="invalid-feedback">
+        Not empty
+      </div>
+    </div>
+    <form>
+      <label for="exampleFormControlSelect1">Room</label><br>
+      <select id="roomId" class="form-control" tooltip="Choose room with free place" name="room" [(ngModel)]="room"
+        required>
+        <!--//ngvalue-->
+        <option [ngValue]="" selected disabled hidden>Office</option>
+        <!--[ngValue]="cos"-->
+        <option *ngFor="let room of rooms" [ngValue]="room" [disabled]="room.people > room.capacity">
+          {{room.name}}&nbsp;&nbsp; p.{{room.number}}
+          [{{room.people}}/{{room.capacity}}]
+        </option>
+      </select>
+      <div class="invalid-feedback">
+        Not empty
+      </div>
+    </form>
+    <br>
+    <div *ngIf="(firstName  && position  && lastName && salary!=0 && room); else elseBlock"
+      [routerLink]="">
+      <button class="btn btn-primary w-50" (click)="addEmployee()">Submit</button>
   </div>
+    <ng-template #elseBlock>
+      <button class="btn btn-primary w-50" disabled >Submit</button>
+    </ng-template>
+
+    <div class="invalid-feedback">
+      Not empty
+    </div>
+  </form>
 </div>

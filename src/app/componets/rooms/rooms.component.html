@@ -1,19 +1,38 @@
-<br><div class="room-add w-30">
-    <form>
-        Number<br>
-        <input type="number" class="form-control" [(ngModel)]="number" value={{number}}
-            [ngModelOptions]="{standalone: true}" placeholder="105" /><br>
+<br>
+<div class="room-add w-30">
+    <form class="was-validated">
+        <div>
+            Number<br>
+            <input type="number" class="form-control" [(ngModel)]="number" value={{number}}
+                [ngModelOptions]="{standalone: true}" placeholder="105" min="0" max="1000" required />
+            <div class="invalid-feedback">
+                Not empty (select between 0 and 1000)
+            </div>
+        </div><br>
+        <div>
         Name<br>
         <input type="search" class="form-control" [(ngModel)]="name" value={{name}}
-            [ngModelOptions]="{standalone: true}" placeholder="biuro" /><br>
+            [ngModelOptions]="{standalone: true}" placeholder="biuro" required />
+        <div class="invalid-feedback">
+            Not empty
+        </div></div><br>
+        <div>
         Capacity<br>
         <input type="number" class="form-control" [(ngModel)]="capacity" value={{capacity}}
-            [ngModelOptions]="{standalone: true}" placeholder="10" /><br>
+            [ngModelOptions]="{standalone: true}" placeholder="10" min="0" max="1000" required />
+        <div class="invalid-feedback">
+            Not empty
+        </div></div><br>
+        <div>
         People
         <input type="number" class="form-control" [(ngModel)]="people" value={{people}}
-            [ngModelOptions]="{standalone: true}" placeholder="0" /><br>
-        <div *ngIf="number != null && name != null && capacity >=0 && people>=0 && capacity >= people">
-            <button class="btn btn-primary" (click)="addRoom()">Submit</button>
+            [ngModelOptions]="{standalone: true}" placeholder="0" min="0" max={{capacity}} required />
+        <div class="invalid-feedback">
+            Warming! (people must be less than capacity)
+        </div></div><br>
+        <div
+            *ngIf="number > 0 && 1000 >=number && 1000>=people && 1000>=capacity  && name  && capacity >=0 && people>=0 && capacity >= people">
+            <button class="btn btn-primary w-50" (click)="addRoom()">Submit</button>
         </div>
         <br><br>
     </form>

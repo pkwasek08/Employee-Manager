@@ -1,18 +1,36 @@
-<br><div class="position-add w-40">
-    <form>
+<br>
+<div class="position-add w-40">
+    <form class="was-validated">
 
-        Name<br>
-        <input type="search" class="form-control" [(ngModel)]="name" value={{name}}
-      [ngModelOptions]="{standalone: true}" placeholder="Programmer" /><br>
-        Min Wage<br>
-        <input type="search" class="form-control" [(ngModel)]="minWage" value={{minWage}}
-        [ngModelOptions]="{standalone: true}" placeholder="1000" tooltip="over 1000 less 5000"/><br>
+        <div>
+            Name<br>
+            <input type="search" class="form-control" [(ngModel)]="name" value={{name}}
+                [ngModelOptions]="{standalone: true}" placeholder="Programmer" required />
+            <div class="invalid-feedback">
+                Not empty
+            </div>
+        </div>
+        <br>
+        <div>
+            Min Wage<br>
+            <input type="number" class="form-control" [(ngModel)]="minWage" value={{minWage}}
+                [ngModelOptions]="{standalone: true}" placeholder="1000" min="1000" required />
+            <div class="invalid-feedback">
+                Choose max wage larger than min wage and less than 10000
+            </div>
+        </div>
+        <br>
+        <div>
         Max Wage<br>
-        <input type="search" class="form-control" [(ngModel)]="maxWage" value={{maxWage}}
-        [ngModelOptions]="{standalone: true}" placeholder="5000" tooltip="over 1000 less 5000"/><br>
-      
-        <a
-            *ngIf="name != null && minWage >= 1000 && minWage <=5000 && maxWage >= 1000 && maxWage <=5000 && maxWage>minWage">
+        <input type="number" class="form-control" [(ngModel)]="maxWage" value={{maxWage}}
+            [ngModelOptions]="{standalone: true}" placeholder="10000" max="10000" min={{minWage}} required />
+        <div class="invalid-feedback">
+            Choose max wage larger than min wage and less than 10000
+        </div>
+    </div>
+        <br>
+
+        <a *ngIf="name != null && minWage >= 1000  && 10000 >=maxWage && maxWage>=minWage">
 
             <button class="btn btn-primary" (click)="addPositions()">Submit</button>
         </a>
@@ -48,7 +66,7 @@
             </tr>
         </tbody>
     </table>
- <br>
+    <br>
     <div class="text-center">
         <pagination-controls (pageChange)=" p = $event"></pagination-controls>
     </div>

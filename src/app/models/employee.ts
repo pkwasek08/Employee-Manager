@@ -1,3 +1,5 @@
+import { Room } from './room';
+
 export class Employee 
 {
     public  firstName: string;

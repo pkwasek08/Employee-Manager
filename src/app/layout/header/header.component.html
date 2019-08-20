@@ -1,33 +1,40 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar  navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" (click)="openNav()" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" routerLink ="/" style="font-family: Palatino">Employee Manager</a>
-  
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-      <ul class="navbar-nav mr-auto mt-4 mt-lg-2">
+
+<nav id="mySidenav" class="sidenav">
+    <ul class="list-unstyled component test">  
         <li class="nav-item">
-          <a class="nav-link" routerLink ="/">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink ="/">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/addRoom">Rooms<span class="sr-only">/addRoom</span></a>
+          <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink="/addRoom">Rooms<span class="sr-only">/addRoom</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" routerLink="/positions" >Positions</a>
+            <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink="/positions" >Positions</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/search">Search</a>
+            <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink="/search">Search</a>
           </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/add">Add Employee</a>
+          <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink="/add">Add Employee</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link"  routerLink="/about">About</a>
+          <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink="/summary">Summary</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink="/about">About</a>
           </li>
       </ul>
+      <a href="javascript:void(0)" class="closebtn" style="font-family: Palatino" (click)="closeNav()">&times;</a>
       <!--<form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>-->
-    </div>
+    </nav>
   </nav>
+ <div id="main">
+    <router-outlet></router-outlet>
+  </div>

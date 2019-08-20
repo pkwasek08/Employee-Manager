@@ -9,5 +9,5 @@ import { Employee } from './models/employee';
 export class AppComponent {
   title = 'EmployeeManager';
 
-  constructor(public employeeService: EmployeeService)  {} 
+  constructor(public employeeService: EmployeeService) { }
 }

@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Room } from 'src/app/models/room';
+import { Position } from 'src/app/models/position'
+import { PositionsService } from 'src/app/services/position.service';
+import { RoomService } from 'src/app/services/room.service';
 
 @Component({
   selector: 'app-edit',
@@ -14,10 +18,24 @@ export class EditComponent implements OnInit {
   public position: string;
   public salary: number;
   public lastName: string;
-  public room: number;
+  public roomId: Room;
   public id: number;
+  public rooms: Room[];
+  public numbers: number[] = [1000];
+  public positions: Position[];
 
-  constructor(private employeeService: EmployeeService, private route: ActivatedRoute, private router: Router) {
+  constructor(private employeeService: EmployeeService,
+    private route: ActivatedRoute,
+    private router: Router,
+    public roomService: RoomService,
+    public positionService: PositionsService) {
+    this.rooms = this.roomService.getRoom();
+    this.positions = this.positionService.getPosition();
+    for (let i = 1100; i <= 8000; i += 100) {
+      this.numbers.push(i);
+    }
+
+
     this.route.params.subscribe(params => {
       this.id = +params['id'];
     });
@@ -26,7 +44,7 @@ export class EditComponent implements OnInit {
       this.firstName = employees.firstName;
       this.position = employees.position;
       this.lastName = employees.lastName;
-      this.room = employees.room;
+      this.roomId = employees.room;
       this.salary = employees.salary;
     }
   }
@@ -34,22 +52,13 @@ export class EditComponent implements OnInit {
   ngOnInit() {
   }
   private EditEmployee(): void {
-    this.CorrectData();
     this.employeeService.editEmployee(this.id, this.firstName, this.lastName, this.position,
-      this.salary, this.room);
+      this.salary, this.roomId);
     this.firstName = '';
     this.lastName = '';
     this.position = '';
-    this.room = null;
+    this.roomId = null;
     this.salary = null;
     this.id = null;
   }
-
-  private CorrectData() {
-    if (this.salary > 5000) this.salary = 5000;
-    if (this.salary < 0) this.salary = 0;
-    if (this.room > 1000) this.room = 1000;
-    if (this.room < 0) this.room = 0;
-  }
-
 }

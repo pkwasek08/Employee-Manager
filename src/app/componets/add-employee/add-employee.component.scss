@@ -1,15 +1,16 @@
-.form-group
+.form
 {
   text-align: center;
-  padding: 10px;
+  padding: 50px;
   display:inline-block;
   font-size: 20px;
   position: center;
   color: rgb(255,255,255);
-  background: rgba(46, 46, 46, 1);
-  opacity: .95;
+  background: rgba(46, 46, 46, 0.95);
 }
 
-.body {
-  background: #343a40;
+.span
+{
+  text-align: right;
+  position: right;
 }

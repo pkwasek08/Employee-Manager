@@ -1,61 +1,60 @@
-<br>
-<span class="border border-dark">
-    <label class="header w-50" for="formGroupExampleInput" style="font-family: Helvetica">List of employees</label>
-<label class="filres w-50" for="formGroupExampleInput" style="font-family: Helvetica">Filtres &nbsp;  
-    <button type="button" class="btn btn-outline-primary"  (click)="employeeService.filtrbyName()"
-        tooltip="Filtr by FirstName">
-        <label class="filtrbyname" for="formGroupExampleInput" style="font-family: Helvetica">FirstName</label></button>
-    <button type="button" class="btn btn-outline-primary" (click)="employeeService.filtrbyPosition()"
-        tooltip="Filtr by Position">
-        <label class="filtrbyposition" for="formGroupExampleInput" style="font-family: Helvetica">Positon</label></button>
-</label></span>
-<div style="text-align:center;">
-    <div class="table-responsive sm">
-        <table class="table table-hover table-striped table-bordered table-dark w-75">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Position</th>
-                    <th>Room</th>
-                    <th>Salary</th>
-                    <th>Edit</th>
-                    <th>Remove</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr
-                    *ngFor="let employees of employeeService.getEmployee() | paginate: { itemsPerPage: 5, currentPage: p}">
 
-                    <ng-container *ngIf="employees.firstName != null ">
-                        <th>{{employees.id}}</th>
-                        <th>{{employees.firstName}}</th>
-                        <th>{{employees.lastName}}</th>
-                        <th>{{employees.position}}</th>
-                        <th>{{employees.room}}</th>
-                        <th>{{employees.salary}}</th>
-                        <td>
-                            <!--<a routerLink="/edit/{{employees.id}}"-->
-                            <a [routerLink]="['/edit', employees.id]">
-                                <button class="btn btn-success pull-right">
-                                    Edit
-                                </button>
-                            </a>
-                        </td>
-                        <th>
-                            <button class="buttonRemove" (click)="removeEmployee(employees.id)">x</button>
-                        </th>
-                    </ng-container>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="home w-40">
+        <br>
+        <label class="header" for="formGroupExampleInput" style="font-family: Palatino">List of employees</label>
+        <br><label class="filres" for="formGroupExampleInput" style="font-family: Palatino">Filtres &nbsp;
+            <button type="button" class="btn btn-primary" (click)="employeeService.filtrbyName()"
+                tooltip="Filtr by FirstName">
+                <label class="filtrbyname" for="formGroupExampleInput"
+                    style="font-family: Helvetica">FirstName</label></button>
+            &nbsp;<button type="button" class="btn btn-primary" (click)="employeeService.filtrbyPosition()"
+                tooltip="Filtr by Position">
+                <label class="filtrbyposition" for="formGroupExampleInput"
+                    style="font-family: Helvetica">Positon</label></button>
+        </label>
+
+            <table class="table table-hover table-striped table-bordered table-dark">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Position</th>
+                        <th>Room</th>
+                        <th>Salary</th>
+                        <th>Edit</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let employees of employeeService.getEmployee() | paginate: { itemsPerPage: 5, currentPage: p}">
+
+                        <ng-container *ngIf="employees.firstName != null ">
+                            <th>{{employees.id}}</th>
+                            <th>{{employees.firstName}}</th>
+                            <th>{{employees.lastName}}</th>
+                            <th>{{employees.position}}</th>
+                            <th>{{rooms[employees.room].name}}&nbsp;&nbsp;n.{{rooms[employees.room].number}} </th>
+                            <th>{{employees.salary}}</th>
+                            <td>
+                                <!--<a routerLink="/edit/{{employees.id}}"-->
+                                <a [routerLink]="['/edit', employees.id]">
+                                    <button class="btn btn-success ">
+                                        Edit
+                                    </button>
+                                </a>
+                            </td>
+                            <th>
+                                <button class="btn btn-danger" (click)="removeEmployee(employees.id,employees.room)">x</button>
+                            </th>
+                        </ng-container>
+                    </tr>
+                </tbody>
+            </table>
+            <label class="text-center ">
+                <ul class="pagination">
+                    <pagination-controls (pageChange)=" p = $event"></pagination-controls>
+                </ul>
+            </label>
 </div>
-<label class="text-center ">
-    <ul class="pagination">
-        <pagination-controls (pageChange)=" p = $event"></pagination-controls>
-    </ul>
-</label>
-
-
