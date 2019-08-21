@@ -25,12 +25,20 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
+import {MatNativeDateModule} from '@angular/material/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { NgxFloatButtonModule } from 'ngx-float-button';
 import { SummaryComponent } from './componets/summary/summary.component';
+import { RoomViewComponent } from './componets/room-view/room-view.component';
+import { NgDragDropModule } from 'ng-drag-drop';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import {MatCardModule} from '@angular/material/card';
+import { SvgCircleModule, SvgLineModule, SvgPolygonModule, SvgPolylineModule, SvgTextModule, SvgPathModule } from 'angular-svg'
 
 @NgModule({
   declarations: [
@@ -45,9 +53,19 @@ import { SummaryComponent } from './componets/summary/summary.component';
     RoomsComponent,
     PositionsComponent,
     SummaryComponent,
+    RoomViewComponent,
   ],
   imports: [
+    SvgTextModule, SvgPathModule,
+    SvgCircleModule,
+    SvgPolylineModule,
     BrowserModule,
+    SvgPolygonModule,
+    SvgLineModule,
+    DragDropModule,
+    MatCardModule,
+    BrowserAnimationsModule,
+    NgDragDropModule.forRoot(),
     NgxFloatButtonModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
@@ -55,6 +73,7 @@ import { SummaryComponent } from './componets/summary/summary.component';
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
+    MatNativeDateModule,
     MatSidenavModule,
     RouterTestingModule,
     FormsModule,

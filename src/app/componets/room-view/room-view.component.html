@@ -1,0 +1,8 @@
+
+<div class="background" >
+<svg xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 30 20">
+<rect *ngFor="let item of desksArray"  class="desk"  x="4" y="5" width="5" height="3" fill="#007bff"  (mousedown)="makeDraggable($event)"/>
+  <rect x="18" y="5" width="5" height="3"   fill="#888"/>
+</svg>
+</div>
