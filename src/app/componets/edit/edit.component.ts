@@ -18,7 +18,7 @@ export class EditComponent implements OnInit {
   public position: string;
   public salary: number;
   public lastName: string;
-  public roomId: Room;
+  public roomId: number;
   public id: number;
   public rooms: Room[];
   public numbers: number[] = [1000];

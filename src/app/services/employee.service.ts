@@ -123,10 +123,10 @@ export class EmployeeService {
     return employee;
   }
 
-  public editEmployee(id: number, firstName: string, lastName: string, position: string, salary: number, room: Room) {
+  public editEmployee(id: number, firstName: string, lastName: string, position: string, salary: number, room: number) {
     this.removeEmployee(id);
     
-    let employee = new Employee(id, firstName, lastName, position, salary, room.id);
+    let employee = new Employee(id, firstName, lastName, position, salary, room);
     let employees = this.getEmployee();
     employees.push(employee);
     this.setLocalStorageEmployees(employees);

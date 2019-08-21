@@ -60,16 +60,12 @@
       </div>
     </form>
     <br>
-    <div *ngIf="(firstName  && position  && lastName && salary!=0 && room); else elseBlock"
-      [routerLink]="">
+    <a   routerLink="/">
+    <div *ngIf="(firstName  && position  && lastName && salary!=0 && room); else elseBlock">
       <button class="btn btn-primary w-50" (click)="addEmployee()">Submit</button>
   </div>
     <ng-template #elseBlock>
       <button class="btn btn-primary w-50" disabled >Submit</button>
-    </ng-template>
-
-    <div class="invalid-feedback">
-      Not empty
-    </div>
+    </ng-template></a>
   </form>
 </div>
