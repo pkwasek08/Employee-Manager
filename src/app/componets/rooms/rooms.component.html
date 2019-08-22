@@ -2,7 +2,7 @@
     <form class="was-validated">
         <div>
             Number<br>
-            <input type="number" class="form-control w-50" [(ngModel)]="number" value={{number}}
+            <input type="number" class="form-control w-25" [(ngModel)]="number" value={{number}}
                 [ngModelOptions]="{standalone: true}" placeholder="105" min="0" max="1000" required />
             <div class="invalid-feedback">
                 Not empty (select between 0 and 1000)
@@ -10,7 +10,7 @@
         </div><br>
         <div>
             Name<br>
-            <input type="search" class="form-control w-50" [(ngModel)]="name" value={{name}}
+            <input type="search" class="form-control w-25" [(ngModel)]="name" value={{name}}
                 [ngModelOptions]="{standalone: true}" placeholder="biuro" required />
             <div class="invalid-feedback">
                 Not empty
@@ -18,7 +18,7 @@
         </div><br>
         <div>
             Capacity<br>
-            <input type="number" class="form-control w-50" [(ngModel)]="capacity" value={{capacity}}
+            <input type="number" class="form-control w-25" [(ngModel)]="capacity" value={{capacity}}
                 [ngModelOptions]="{standalone: true}" placeholder="10" min="0" max="1000" required />
             <div class="invalid-feedback">
                 Not empty
@@ -26,7 +26,7 @@
         </div><br>
         <div>
             People
-            <input type="number" class="form-control w-50" [(ngModel)]="people" value={{people}}
+            <input type="number" class="form-control w-25" [(ngModel)]="people" value={{people}}
                 [ngModelOptions]="{standalone: true}" placeholder="0" min="0" max={{capacity}} required />
             <div class="invalid-feedback">
                 Warming! (people must be less than capacity)

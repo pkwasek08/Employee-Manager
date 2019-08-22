@@ -6,7 +6,7 @@ export class Desk {
     public y: number;
     public idRoom: number
     //public idEmployee: number;
-    constructor(x: number, y: number, id: number, idRoom: number) {
+    constructor(id: number, x: number, y: number, idRoom: number) {
         this.x = x;
         this.y = y;
         this.id = id;

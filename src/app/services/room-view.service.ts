@@ -8,9 +8,8 @@ export class RoomViewService {
 
   public desks: Desk[];
   public nextId: number;
-
   constructor() {
-  
+
     let desks = this.getDesk();
     if (desks == null && desks.length != 0 && desks) {
       let maxId = desks[desks.length - 1].id;
@@ -19,7 +18,6 @@ export class RoomViewService {
       this.nextId = 0;
     }
   }
-
 
   public getDesk(): Desk[] {
     let localStorageItem = JSON.parse(localStorage.getItem('desks'));
@@ -32,19 +30,28 @@ export class RoomViewService {
     //return localStorageItem === null ? [] : localStorageItem.employees;
   }
 
-  public getDeskByIdRoom(): void {//Desk[] {
+
+  public getDeskByIdRoom(id: number): Desk[] {
+    let desks = this.getDesk();    
+    let deskNewAraay: Desk[] = [];
+    for (let i = 0; i < desks.length; i++) { 
+      if (desks[i].idRoom == id) {        
+        deskNewAraay.push(desks[i])
+      }
+    }
+    if (deskNewAraay == null) {
+      return [];
+    }
+    else {
+      return deskNewAraay;
+    }
   }
+
 
 
   public addDesk(x: number, y: number, idRoom: number): void {
     let desk = new Desk(this.nextId, x, y, idRoom);
     const desks = this.getDesk();
-    console.log("pushproblem");
-    console.log(desks);
-    console.log(desk);
-    
-    
-    
     desks.push(desk);
     this.setLocalStorageDesks(desks);
     this.nextId++;

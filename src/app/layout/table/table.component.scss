@@ -63,11 +63,14 @@
   opacity: .98;*/
 }
 table {
-  padding-right: 100px;
+  //padding-right: 100px;
   //opacity: .98;
   font-size: 20px;
   font-family: Helvetica;
-
+  position: relative;
+  text-align: center;
+  width: 100%;
+  height: 100%;
 }
 .pagination
 {
