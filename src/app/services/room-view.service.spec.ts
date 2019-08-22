@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SVGServiceService } from './svgservice.service';
+import { RoomViewService } from './room-view.service';
 
-describe('SVGServiceService', () => {
+describe('RoomViewService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: SVGServiceService = TestBed.get(SVGServiceService);
+    const service: RoomViewService = TestBed.get(RoomViewService);
     expect(service).toBeTruthy();
   });
 });

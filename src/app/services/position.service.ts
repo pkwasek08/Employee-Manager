@@ -10,7 +10,7 @@ export class PositionsService {
 
     let positions = this.getPosition();
 
-    if (positions.length != 0 && positions) {
+    if (positions == null && positions.length != 0 && positions) {
 
       let maxId = positions[positions.length - 1].id;
 

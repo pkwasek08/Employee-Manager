@@ -1,8 +1,14 @@
-
-<div class="background" >
-<svg xmlns="http://www.w3.org/2000/svg"
-viewBox="0 0 30 20">
-<rect *ngFor="let item of desksArray"  class="desk"  x="4" y="5" width="5" height="3" fill="#007bff"  (mousedown)="makeDraggable($event)"/>
-  <rect x="18" y="5" width="5" height="3"   fill="#888"/>
-</svg>
+<div class="background">
+  <svg (loadstart)="setPositions()"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" >
+    <g *ngFor="let desk of desksArray" (mousedown)="makeDraggable($event)" >
+      <rect [attr.id]="desk.id"  (load)="setPositions()" (mouseup)="savePositions()"  class="desk" [attr.x]="desk.x" [attr.y]="desk.y" width="5" height="3" rx="1" ry="1"
+        fill="#009900" />
+     <!-- <circle *ngFor="let item of desksArray"  cx="6.5" cy="8" r="1" fill="#000066" />-->
+      <rect x="18" y="5" width="5" height="3" fill="#b30000" />
+    </g>
+  </svg>
+  <label class="border border-dark w-100">
+  <button class="btn btn-primary w-25" (click)="addDesks()">Save</button>
+  <button class="btn btn-primary w-25" (click)="addDesks()">New</button>
+</label>
 </div>

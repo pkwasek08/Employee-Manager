@@ -26,7 +26,6 @@ export class EditComponent implements OnInit {
 
   constructor(private employeeService: EmployeeService,
     private route: ActivatedRoute,
-    private router: Router,
     public roomService: RoomService,
     public positionService: PositionsService) {
     this.rooms = this.roomService.getRoom();

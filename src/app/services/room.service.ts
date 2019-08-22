@@ -12,7 +12,7 @@ export class RoomService {
   constructor() {
     let rooms = this.getRoom();
 
-    if (rooms.length != 0 && rooms) {
+    if (rooms == null && rooms.length != 0 && rooms) {
 
       let maxId = rooms[rooms.length - 1].id;
 

@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'addRoom', component: RoomsComponent },
   { path: 'positions', component: PositionsComponent },
   { path: 'summary', component: SummaryComponent },
-  { path: 'roomView', component: RoomViewComponent }
+  { path: 'roomView/:id', component: RoomViewComponent }
 ];
 
 @NgModule({

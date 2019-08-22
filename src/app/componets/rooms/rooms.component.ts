@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RoomService } from 'src/app/services/room.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-rooms',
@@ -23,5 +24,9 @@ export class RoomsComponent implements OnInit {
     this.name = '';
     this.capacity = null;
     this.people = null;
+  }
+
+  private viewRoom(id : number)
+  {
   }
 }
