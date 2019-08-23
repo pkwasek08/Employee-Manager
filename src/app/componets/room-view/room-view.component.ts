@@ -18,8 +18,12 @@ export class RoomViewComponent {
   public id: number;
   public yParameters = [this.desksNumber];
   public xParameters = [this.desksNumber];
-
-
+  public selectedElement;
+  public offset;
+  public svg;
+  public scalex: number;
+  public scaley: number;
+  public screen: string;
   constructor(
     public roomService: RoomService,
     private route: ActivatedRoute,
@@ -28,7 +32,11 @@ export class RoomViewComponent {
     this.route.params.subscribe(params => {
       this.id = +params['id'];
     });
-    
+    this.scalex = 40;
+    this.scaley = 20;
+
+    this.screen = "0 0 " + this.scalex + " " + this.scaley;
+
     let room = this.roomService.getRoomById(this.id);
     this.desksNumber = room.capacity;
 
@@ -41,58 +49,92 @@ export class RoomViewComponent {
     console.log("Setpositons");
     for (let i = 0; i < this.desksArray.length; i++) {
       let element = document.getElementById(String(i));
-      console.log(element);
-      console.log(this.desksArray[i].x);
-      element.setAttributeNS(null, "x", String(this.desksArray[i].x));
-      element.setAttributeNS(null, "y", String(this.desksArray[i].y));
+
+      this.desksArray[i].x = element[i].x;
+      this.desksArray[i].y = element[i].y;
     }
   }
   public savePositions() {
     let element = document.getElementById("desk");
-    console.log("save");
-
 
     for (let i = 0; i < this.desksArray.length; i++) {
-console.log("loop in save");
 
       let element = document.getElementById(String(this.desksArray[i].id));
       this.yParameters[i] = parseFloat(element.getAttributeNS(null, "y"));
-      this.xParameters[i] = parseFloat(element.getAttributeNS(null, "x"));  
-      console.log(parseFloat(element.getAttributeNS(null, "y")));
-      
-    }
-    console.log( this.yParameters);
-    console.log( this.xParameters);
+      this.xParameters[i] = parseFloat(element.getAttributeNS(null, "x"));
+      this.desksArray[i].x = parseFloat(element.getAttributeNS(null, "x"));
+      this.desksArray[i].y = parseFloat(element.getAttributeNS(null, "y"));
 
+    }
   }
 
-  public makeDraggable(evt) {
+  public makeDraggable(evt, id: number) {
 
-    console.log(this.desksArray);
-    console.log( this.roomViewService.getDesk());
-    
-    
-    let selectedElement;
-    let offset;
-    let svg = evt.target;
-    console.log("evt");
-    console.log(evt);
-    console.log("target");
-    
-    console.log(evt.target);
-    
+
+    this.svg = evt.target;
+
     /*  let elem = document.getElementById('desk');
       elem.style.color = 'red';*/
-      console.log("elo");
+    this.svg.addEventListener('mousedown', this.startDrag);
+    this.svg.addEventListener('mousemove', this.drag);
+    this.svg.addEventListener('mouseup', this.endDrag);
+    this.svg.addEventListener('mouseleave', this.endDrag)
+    this.savePositions();
+  }
+  public startDrag(evt, id: number) {
+    this.svg = evt.target;
+    console.log("start");
 
-    svg.addEventListener('mousedown', startDrag);
-    svg.addEventListener('mousemove', drag);
-    svg.addEventListener('mouseup', endDrag);
-    svg.addEventListener('mouseleave', endDrag)
+    //if(evt.target.classList.contains('draggable'))
+    this.selectedElement = evt.target;
+    this.offset = this.getMousePosition(evt);
+    this.offset.x -= parseFloat(this.selectedElement.getAttributeNS(null, "x"));
+    this.offset.y -= parseFloat(this.selectedElement.getAttributeNS(null, "y"));
+    this.savePositions();
+  }
 
+  public drag(evt, id: number) {
+    this.svg = evt.target;
+    console.log("drag");
+    let temp = 0;
+    if (this.selectedElement) {
+      evt.preventDefault();
+      let coord = this.getMousePosition(evt);
+
+
+      if (coord.x - this.offset.x >= 0 && coord.x - this.offset.x <= this.scalex - 5
+        && coord.y - this.offset.y >= 0 && coord.y - this.offset.y <= this.scaley - 5) {
+        console.log("ififififif");
+        for (let desks of this.desksArray) {
+          console.log(coord.x - this.offset.x);
+          console.log("x" + desks.x);
+
+          //nie dziala if kolizji
+          if (id !== desks.id) //&& coord.y - this.offset.y <= desks.y - 5  && coord.x - this.offset.x <= desks.x - 5 && coord.x - this.offset.x >= desks.x && coord.y - this.offset.y >= desks.y)
+          {
+            console.log("loopllooploooplooploop");
+
+            this.selectedElement.setAttributeNS(null, "x", coord.x - this.offset.x);
+            this.selectedElement.setAttributeNS(null, "y", coord.y - this.offset.y);
+            this.savePositions();
+            // this.desksArray[i].x = coord.x - this.offset.x;
+            // this.desksArray[i].y = coord.y - this.offset.y;
+            console.log(this.desksArray);
+          }
+        }
+      }
+    }
+    this.savePositions();
+  }
+
+  public endDrag(evt) {
+    this.svg = evt.target;
+    console.log("end");
+    this.savePositions();
+    this.selectedElement = null;
+  }
+  /*
     function startDrag(evt) {
-      console.log("start");
-
       //if(evt.target.classList.contains('draggable'))
       selectedElement = evt.target;
       offset = getMousePosition(evt);
@@ -102,8 +144,6 @@ console.log("loop in save");
     }
 
     function drag(evt) {
-console.log("Drag");
-
       if (selectedElement) {
         evt.preventDefault();
         let coord = getMousePosition(evt);
@@ -115,35 +155,48 @@ console.log("Drag");
       }
     }
     function endDrag(evt) {
-      console.log("end");
-
       selectedElement = null;
-     
     }
     function getMousePosition(evt) {
-      console.log("mouse");
-
       let CTM = svg.getScreenCTM();
       return {
         x: (evt.clientX - CTM.e) / CTM.a,
         y: (evt.clientY - CTM.f) / CTM.d
       };
     }
-   // this.savePositions();
+    // this.savePositions();
+  }*/
+
+
+  private getMousePosition(evt) {
+
+    console.log("halo mouse");
+
+    let CTM = this.svg.getScreenCTM();
+    return {
+      x: (evt.clientX - CTM.e) / CTM.a,
+      y: (evt.clientY - CTM.f) / CTM.d
+    };
   }
 
+  private mousedrag(evt, id: number, selectedElement, offset) {
+
+  }
   private saveDesks(): void {
     console.log("addDesk");
 
     for (let i = 0; i < this.desksArray.length; i++) {
       console.log("loop save");
+      console.log(this.xParameters[i]);
+      console.log(this.yParameters[i]);
+
+
       this.roomViewService.editDesk(this.desksArray[i].id, this.xParameters[i], this.yParameters[i], this.id);
     }
   }
-
   private addDesks(): void {
-     let desk = new Desk (0,0,0, this.id);
-     this.desksArray.push(desk);
-    this.roomViewService.addDesk(0, 0, 1);
+    let desk = new Desk(0, 0, 0, this.id);
+    this.desksArray.push(desk);
+    this.roomViewService.addDesk(0, 0, this.id);
   }
 }
