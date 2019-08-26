@@ -24,6 +24,10 @@ export class RoomViewComponent {
   public scalex: number;
   public scaley: number;
   public screen: string;
+  public rotate: number = 0;
+  public collision: boolean = false;
+  public idDeskArray;
+
   constructor(
     public roomService: RoomService,
     private route: ActivatedRoute,
@@ -41,7 +45,7 @@ export class RoomViewComponent {
     this.desksNumber = room.capacity;
 
     this.desksArray = this.roomViewService.getDeskByIdRoom(this.id);
-
+    this.idDeskArray = this.desksArray.length + 1;
   }
 
   //stara metoda
@@ -83,7 +87,6 @@ export class RoomViewComponent {
   }
   public startDrag(evt, id: number) {
     this.svg = evt.target;
-    console.log("start");
 
     //if(evt.target.classList.contains('draggable'))
     this.selectedElement = evt.target;
@@ -95,7 +98,6 @@ export class RoomViewComponent {
 
   public drag(evt, id: number) {
     this.svg = evt.target;
-    console.log("drag");
     let temp = 0;
     if (this.selectedElement) {
       evt.preventDefault();
@@ -104,69 +106,55 @@ export class RoomViewComponent {
 
       if (coord.x - this.offset.x >= 0 && coord.x - this.offset.x <= this.scalex - 5
         && coord.y - this.offset.y >= 0 && coord.y - this.offset.y <= this.scaley - 5) {
-        console.log("ififififif");
-        for (let desks of this.desksArray) {
-          console.log(coord.x - this.offset.x);
-          console.log("x" + desks.x);
-
-          //nie dziala if kolizji
-          if (id !== desks.id) //&& coord.y - this.offset.y <= desks.y - 5  && coord.x - this.offset.x <= desks.x - 5 && coord.x - this.offset.x >= desks.x && coord.y - this.offset.y >= desks.y)
-          {
-            console.log("loopllooploooplooploop");
-
-            this.selectedElement.setAttributeNS(null, "x", coord.x - this.offset.x);
-            this.selectedElement.setAttributeNS(null, "y", coord.y - this.offset.y);
-            this.savePositions();
-            // this.desksArray[i].x = coord.x - this.offset.x;
-            // this.desksArray[i].y = coord.y - this.offset.y;
-            console.log(this.desksArray);
-          }
+        if (this.checkCollision(id, evt) === false) {
+          this.selectedElement.setAttributeNS(null, "x", coord.x - this.offset.x);
+          this.selectedElement.setAttributeNS(null, "y", coord.y - this.offset.y);
+          this.savePositions();
+          // this.desksArray[i].x = coord.x - this.offset.x;
+          // this.desksArray[i].y = coord.y - this.offset.y;
+          let element = document.getElementById("field");
+          console.log(element);
+          element.style.fill = "green";
+        }
+        else {
+         let element = document.getElementById("field");
+         console.log(element);
+         element.style.fill = "red";
+         
         }
       }
     }
-    this.savePositions();
+    temp = 0;
   }
 
+  public checkCollision(id: number, evt): boolean {
+    let temp = 0;
+    let coord = this.getMousePosition(evt);
+
+    for (let desks of this.desksArray) {
+      if (desks.id === id)
+        continue;
+
+      for (let desksCollision of this.desksArray) {
+        if (desksCollision.id != desks.id && (desks.x + 5 >= coord.x - this.offset.x && desks.y + 5 >= coord.y - this.offset.y && desks.x <= coord.x - this.offset.x + 5 && desks.y <= coord.y - this.offset.y + 5)) {
+          temp++;
+        }
+      }
+    }
+    if (temp === 0) {
+      return false;
+    }
+    else {
+      temp = 0;
+      return true;
+    }
+  }
   public endDrag(evt) {
     this.svg = evt.target;
     console.log("end");
     this.savePositions();
     this.selectedElement = null;
   }
-  /*
-    function startDrag(evt) {
-      //if(evt.target.classList.contains('draggable'))
-      selectedElement = evt.target;
-      offset = getMousePosition(evt);
-      offset.x -= parseFloat(selectedElement.getAttributeNS(null, "x"));
-      offset.y -= parseFloat(selectedElement.getAttributeNS(null, "y"));
-
-    }
-
-    function drag(evt) {
-      if (selectedElement) {
-        evt.preventDefault();
-        let coord = getMousePosition(evt);
-        if (coord.x - offset.x >= 0 && coord.x - offset.x <= 35
-          && coord.y - offset.y >= 0 && coord.y - offset.y <= 17) {
-          selectedElement.setAttributeNS(null, "x", coord.x - offset.x);
-          selectedElement.setAttributeNS(null, "y", coord.y - offset.y);
-        }
-      }
-    }
-    function endDrag(evt) {
-      selectedElement = null;
-    }
-    function getMousePosition(evt) {
-      let CTM = svg.getScreenCTM();
-      return {
-        x: (evt.clientX - CTM.e) / CTM.a,
-        y: (evt.clientY - CTM.f) / CTM.d
-      };
-    }
-    // this.savePositions();
-  }*/
-
 
   private getMousePosition(evt) {
 
@@ -186,16 +174,12 @@ export class RoomViewComponent {
     console.log("addDesk");
 
     for (let i = 0; i < this.desksArray.length; i++) {
-      console.log("loop save");
-      console.log(this.xParameters[i]);
-      console.log(this.yParameters[i]);
-
-
       this.roomViewService.editDesk(this.desksArray[i].id, this.xParameters[i], this.yParameters[i], this.id);
     }
   }
   private addDesks(): void {
-    let desk = new Desk(0, 0, 0, this.id);
+    let desk = new Desk(this.idDeskArray, 0.0, 0.0, this.id);
+    this.idDeskArray++;
     this.desksArray.push(desk);
     this.roomViewService.addDesk(0, 0, this.id);
   }
