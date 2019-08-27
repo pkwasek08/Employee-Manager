@@ -17,15 +17,15 @@ export class TableComponent implements OnInit {
 
   /*@Input()
   private employees:Employee;*/
-public rooms: Room[];
-public room: Room;
+  public rooms: Room[];
+  public room: Room;
   public LowSalary: number;
   public HightSalary: number;
 
   constructor(public employeeService: EmployeeService,
     public roomService: RoomService) {
-      this.rooms = this.roomService.getRoom();
-    }
+    this.rooms = this.roomService.getRoom();
+  }
 
   ngOnInit() {
   }
@@ -34,9 +34,9 @@ public room: Room;
     let room = this.roomService.getRoomById(roomId);
     console.log(room);
     console.log(roomId);
-    
-    
-    this.roomService.editRoomPerson(room,-1);
+
+
+    this.roomService.editRoomPerson(room, -1);
     this.employeeService.removeEmployee(id);
   }
 

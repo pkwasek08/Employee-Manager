@@ -7,7 +7,7 @@
             <div class="invalid-feedback">
                 Not empty (select between 0 and 1000)
             </div>
-        </div><br>
+        </div>
         <div>
             Name<br>
             <input type="search" class="form-control w-25" [(ngModel)]="name" value={{name}}
@@ -15,7 +15,7 @@
             <div class="invalid-feedback">
                 Not empty
             </div>
-        </div><br>
+        </div>
         <div>
             Capacity<br>
             <input type="number" class="form-control w-25" [(ngModel)]="capacity" value={{capacity}}
@@ -23,7 +23,7 @@
             <div class="invalid-feedback">
                 Not empty
             </div>
-        </div><br>
+        </div>
         <div>
             People
             <input type="number" class="form-control w-25" [(ngModel)]="people" value={{people}}
@@ -31,10 +31,26 @@
             <div class="invalid-feedback">
                 Warming! (people must be less than capacity)
             </div>
+        </div>
+        <div>
+        SizeX
+            <input type="number" class="form-control w-25" [(ngModel)]="sizeX" value={{sizeX}}
+                [ngModelOptions]="{standalone: true}" placeholder="0" min="0"  required />
+            <div class="invalid-feedback">
+               Not Empty
+            </div>
+        </div>
+        SizeY
+        <div>
+            <input type="number" class="form-control w-25" [(ngModel)]="sizeY" value={{sizeY}}
+                [ngModelOptions]="{standalone: true}" placeholder="0" min="0"  required />
+            <div class="invalid-feedback">
+                    Not Empty
+            </div>
         </div><br>
         <div
             *ngIf="number > 0 && 1000 >=number && 1000>=people && 1000>=capacity  && name  && capacity >=0 && people>=0 && capacity >= people">
-            <button class="btn btn-primary w-50" (click)="addRoom()">Submit</button>
+            <button class="btn btn-primary w-25" (click)="addRoom()">Submit</button>
         </div>
         <br>
     </form>

@@ -22,14 +22,10 @@
  .background
  {
   background: rgba(58, 54, 73, 0.95);
-  display:block;
-  position: center;
-  text-align: center;
-  margin-left: 10%;
-  width:80%;
-  height: 80%;
+  position: fixed;
+  margin-left: 25%;
+  width:50%;
   border: double black;
   border-width: 10px;
  // margin:20px auto;
  }
-

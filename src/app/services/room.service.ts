@@ -28,9 +28,9 @@ export class RoomService {
     this.setLocalStorageRooms(rooms);
   }
 
-  public addRoom(number: number, name: string, capacity: number, people: number): void {
+  public addRoom(number: number, name: string, capacity: number, people: number, sizeX: number, sizeY: number): void {
 
-    let room = new Room(this.nextId, number, name, capacity, people);
+    let room = new Room(this.nextId, number, name, capacity, people, sizeX, sizeY);
     let rooms = this.getRoom();
 
 
@@ -57,9 +57,9 @@ export class RoomService {
   }
 
 
-  public editRoomPerson(room: Room,value:number) {
+  public editRoomPerson(room: Room, value: number) {
     this.removeRoom(room.id);
-    let newRoom = new Room(room.id, room.number, room.name, room.capacity, room.people + value);
+    let newRoom = new Room(room.id, room.number, room.name, room.capacity, room.people + value, room.sizeX, room.sizeY);
     let rooms = this.getRoom();
     rooms.push(newRoom);
     this.setLocalStorageRooms(rooms);
@@ -68,7 +68,7 @@ export class RoomService {
   public getRoomById(id: number): Room {
     let rooms = this.getRoom();
 
-    if (rooms == null) {   
+    if (rooms == null) {
       return null;
     }
     else {

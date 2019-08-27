@@ -13,20 +13,21 @@ export class RoomsComponent implements OnInit {
   name: string;
   capacity: number;
   people: number;
+  sizeX: number;
+  sizeY: number;
   constructor(public roomService: RoomService) { }
 
   ngOnInit() {
   }
 
   private addRoom() {
-    this.roomService.addRoom(this.number, this.name, this.capacity, this.people);
+    this.roomService.addRoom(this.number, this.name, this.capacity, this.people, this.sizeX, this.sizeY);
     this.number = null;
     this.name = '';
     this.capacity = null;
     this.people = null;
   }
 
-  private viewRoom(id : number)
-  {
+  private viewRoom(id: number) {
   }
 }
