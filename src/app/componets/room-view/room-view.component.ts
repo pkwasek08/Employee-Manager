@@ -36,7 +36,7 @@ export class RoomViewComponent {
   constructor(
     public roomService: RoomService,
     private route: ActivatedRoute,
-    public roomViewService: RoomViewService,
+    public roomViewService: RoomViewService
   ) {
     this.route.params.subscribe(params => {
       this.id = +params['id'];
@@ -52,7 +52,14 @@ export class RoomViewComponent {
     this.desksNumber = room.capacity;
 
     this.desksArray = this.roomViewService.getDeskByIdRoom(this.id);
-    this.idDeskArray = this.desksArray.length + 1;
+
+    
+    this.idDeskArray = this.roomViewService.getDesk().length ;
+    console.log(this.idDeskArray);
+    console.log(this.roomViewService.getDeskByIdRoom(this.id));
+    
+    console.log(this.desksArray);
+    
   }
 
   //stara metoda
@@ -168,7 +175,7 @@ export class RoomViewComponent {
     console.log("addDesk");
 
     for (let i = 0; i < this.desksArray.length; i++) {
-      this.roomViewService.editDesk(this.desksArray[i].id, this.xParameters[i], this.yParameters[i], this.desksArray[i].rotate, this.id);
+      this.roomViewService.editDesk(this.desksArray[i].id, this.desksArray[i].x, this.desksArray[i].y, this.desksArray[i].rotate, this.id);
     }
   }
   private addDesks(): void {
