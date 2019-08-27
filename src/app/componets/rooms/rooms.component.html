@@ -1,58 +1,108 @@
 <div class="room-add w-30">
     <form class="was-validated">
-        <div>
-            Number<br>
-            <input type="number" class="form-control w-25" [(ngModel)]="number" value={{number}}
-                [ngModelOptions]="{standalone: true}" placeholder="105" min="0" max="1000" required />
-            <div class="invalid-feedback">
-                Not empty (select between 0 and 1000)
-            </div>
-        </div>
-        <div>
-            Name<br>
-            <input type="search" class="form-control w-25" [(ngModel)]="name" value={{name}}
-                [ngModelOptions]="{standalone: true}" placeholder="biuro" required />
-            <div class="invalid-feedback">
-                Not empty
-            </div>
-        </div>
-        <div>
-            Capacity<br>
-            <input type="number" class="form-control w-25" [(ngModel)]="capacity" value={{capacity}}
-                [ngModelOptions]="{standalone: true}" placeholder="10" min="0" max="1000" required />
-            <div class="invalid-feedback">
-                Not empty
-            </div>
-        </div>
-        <div>
-            People
-            <input type="number" class="form-control w-25" [(ngModel)]="people" value={{people}}
-                [ngModelOptions]="{standalone: true}" placeholder="0" min="0" max={{capacity}} required />
-            <div class="invalid-feedback">
-                Warming! (people must be less than capacity)
-            </div>
-        </div>
-        <div>
-        SizeX
-            <input type="number" class="form-control w-25" [(ngModel)]="sizeX" value={{sizeX}}
-                [ngModelOptions]="{standalone: true}" placeholder="0" min="0"  required />
-            <div class="invalid-feedback">
-               Not Empty
-            </div>
-        </div>
-        SizeY
-        <div>
-            <input type="number" class="form-control w-25" [(ngModel)]="sizeY" value={{sizeY}}
-                [ngModelOptions]="{standalone: true}" placeholder="0" min="0"  required />
-            <div class="invalid-feedback">
-                    Not Empty
-            </div>
-        </div><br>
-        <div
-            *ngIf="number > 0 && 1000 >=number && 1000>=people && 1000>=capacity  && name  && capacity >=0 && people>=0 && capacity >= people">
-            <button class="btn btn-primary w-25" (click)="addRoom()">Submit</button>
-        </div>
-        <br>
+        <mat-horizontal-stepper class="stepper" #stepper style="background: rgba(46, 46, 46,0)">
+            <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup">
+                    <ng-template matStepLabel>
+                        <div class="text-center">
+                            <span style="font-size: 20px;color:white">Desks</span>
+                        </div>
+                    </ng-template>
+                    <div>
+                            Number<br>
+                            <input type="number" class="form-control w-25" [(ngModel)]="number" value={{number}}
+                                [ngModelOptions]="{standalone: true}" placeholder="105" min="0" max="1000" required />
+                            <div class="invalid-feedback">
+                                Not empty (select between 0 and 1000)
+                            </div>
+                        </div>
+                        <div>
+                            Name<br>
+                            <input type="search" class="form-control w-25" [(ngModel)]="name" value={{name}}
+                                [ngModelOptions]="{standalone: true}" placeholder="biuro" required />
+                            <div class="invalid-feedback">
+                                Not empty
+                            </div>
+                        </div>
+                        <div>
+                            Capacity<br>
+                            <input type="number" class="form-control w-25" [(ngModel)]="capacity" value={{capacity}}
+                                [ngModelOptions]="{standalone: true}" placeholder="10" min="0" max="1000" required />
+                            <div class="invalid-feedback">
+                                Not empty
+                            </div>
+                        </div>
+                        <div>
+                            People
+                            <input type="number" class="form-control w-25" [(ngModel)]="people" value={{people}}
+                                [ngModelOptions]="{standalone: true}" placeholder="0" min="0" max={{capacity}} required />
+                            <div class="invalid-feedback">
+                                Warming! (people must be less than capacity)
+                            </div>
+                        </div>
+                        <div>
+                            SizeX
+                            <input type="number" class="form-control w-25" [(ngModel)]="sizeX" value={{sizeX}}
+                                [ngModelOptions]="{standalone: true}" placeholder="0" min="0" required />
+                            <div class="invalid-feedback">
+                                Not Empty
+                            </div>
+                        </div>
+                        SizeY
+                        <div>
+                            <input type="number" class="form-control w-25" [(ngModel)]="sizeY" value={{sizeY}}
+                                [ngModelOptions]="{standalone: true}" placeholder="0" min="0" required />
+                            <div class="invalid-feedback">
+                                Not Empty
+                            </div>
+                        </div><br>
+                        <div
+                            *ngIf="number > 0 && 1000 >=number && 1000>=people && 1000>=capacity  && name  && capacity >=0 && people>=0 && capacity >= people">
+                            <button class="btn btn-primary w-25" (click)="addRoom()">Submit</button>
+                        </div>
+                        <br>
+                    <div>
+                        <button type="button" class="btn btn-success" style="font-size: 20px"
+                            matStepperNext>Next</button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="secondFormGroup">
+                <form [formGroup]="secondFormGroup">
+                    <ng-template matStepLabel>
+                        <div class="text-center">
+                            <span style="font-size: 20px;color:white">Desks</span>
+                        </div>
+                    </ng-template>
+                    <mat-form-field>
+                        <input matInput placeholder="Address" formControlName="secondCtrl" required>
+                    </mat-form-field>
+                    <div>
+                        <button type="button" class="btn btn-danger" style="font-size: 20px"
+                            matStepperPrevious>Back</button>
+                        <button type="button" class="btn btn-success" style="font-size: 20px"
+                            matStepperNext>Next</button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>
+                    <div class="text-center">
+                        <span style="font-size: 20px;color:white">Done</span>
+                    </div>
+                </ng-template>
+                You are now done.
+                <div>
+                    <button type="button" class="btn btn-danger" style="font-size: 20px"
+                        matStepperPrevious>Back</button>
+                    <button type="button" class="btn btn-primary" style="font-size: 20px"
+                        (click)="stepper.reset()">Reset</button>
+                </div>
+            </mat-step>
+        </mat-horizontal-stepper>
+
+
+    
     </form>
     <table class="table table-hover table-striped table-bordered table-dark">
         <thead>

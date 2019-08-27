@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RoomService } from 'src/app/services/room.service';
 import { RouterLink } from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-rooms',
@@ -8,6 +9,9 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./rooms.component.scss']
 })
 export class RoomsComponent implements OnInit {
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  isEditable = false;
 
   number: number;
   name: string;
@@ -15,9 +19,16 @@ export class RoomsComponent implements OnInit {
   people: number;
   sizeX: number;
   sizeY: number;
-  constructor(public roomService: RoomService) { }
+  constructor(public roomService: RoomService,
+    private _formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
   }
 
   private addRoom() {
