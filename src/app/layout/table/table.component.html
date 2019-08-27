@@ -28,6 +28,7 @@
                 </thead>
                 <tbody>
                     <tr
+                    
                         *ngFor="let employees of employeeService.getEmployee() | paginate: { itemsPerPage: 5, currentPage: p}">
 
                         <ng-container *ngIf="employees.firstName != null ">

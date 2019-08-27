@@ -9,6 +9,7 @@ import { RoomsComponent } from './componets/rooms/rooms.component';
 import { positionElements } from 'ngx-bootstrap/positioning/public_api';
 import { PositionsComponent } from './componets/positions/positions.component';
 import { SummaryComponent } from './componets/summary/summary.component';
+import { RoomViewComponent } from './componets/room-view/room-view.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'search', component: SearchEmployeeComponent },
   { path: 'addRoom', component: RoomsComponent },
   { path: 'positions', component: PositionsComponent },
-  { path: 'summary', component: SummaryComponent }
+  { path: 'summary', component: SummaryComponent },
+  { path: 'roomView/:id', component: RoomViewComponent }
 ];
 
 @NgModule({
