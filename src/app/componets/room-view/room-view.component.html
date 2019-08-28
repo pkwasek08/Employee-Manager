@@ -1,6 +1,6 @@
 <div class="background" >
   <svg (loadstart)="setPositions()" xmlns="http://www.w3.org/2000/svg" [attr.viewBox]="screen">
-    <g *ngFor="let desk of desksArray"  (mouseleave)="endDrag($event)" (mouseup)="endDrag($event)"
+    <g *ngFor="let desk of desksArray"  (mouseleave)="endDrag($event,desk.id)" (mouseup)="endDrag($event,desk.id)"
       (mousemove)="drag($event,desk.id)" (mousedown)="startDrag($event,desk.id)" (load)="setPositions()">
       <!--roomViewService.getDesk()-->
       <g *ngIf="desk.rotate === 0">
@@ -13,30 +13,30 @@
           style="opacity: 0.0" />
       </g>
       <g *ngIf="desk.rotate === 90">
-        <rect  [attr.x]="desk.x" [attr.y]="desk.y" width="5" height="5" fill="green"
+        <rect  [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="green"
           style="opacity: 0.7;stroke:black;stroke-width:0.1" />
-        <circle [attr.cy]="desk.y " [attr.cx]="desk.x " r="1" fill="#000000" />
-        <circle [attr.cy]="desk.y" [attr.cx]="desk.x " r="0.5" fill="#ffd9b3" />
-        <rect [attr.x]="desk.x +1" rx="0.5" ry="0.5" [attr.y]="desk.y +1" width="3" height="1.5" fill="#555555" />
-        <rect [attr.id]="desk.id" class="desk" [attr.x]="desk.x" [attr.y]="desk.y" width="5" height="5" fill="#a6a6a6"
+        <circle [attr.cy]="desk.y " [attr.cx]="desk.x " r="4" fill="#000000" />
+        <circle [attr.cy]="desk.y" [attr.cx]="desk.x " r="2" fill="#ffd9b3" />
+        <rect [attr.x]="desk.x +1" rx="2" ry="2" [attr.y]="desk.y +1" width="3" height="1.5" fill="#555555" />
+        <rect [attr.id]="desk.id" class="desk" [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="#a6a6a6"
           style="opacity: 0.0" />
       </g>
       <g *ngIf="desk.rotate === 180">
-        <rect [attr.x]="desk.x" [attr.y]="desk.y" width="5" height="5" fill="#00cc44"
+        <rect [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="green"
           style="opacity: 0.7;stroke:black;stroke-width:0.1" />
-        <circle [attr.cy]="desk.y +2.3" [attr.cx]="desk.x +3.5" r="1" fill="#000000" />
-        <circle [attr.cy]="desk.y +2" [attr.cx]="desk.x +3.5" r="0.5" fill="#ffd9b3" />
-        <rect [attr.x]="desk.x +2" rx="0.5" ry="0.5" [attr.y]="desk.y +2" width="3" height="1.5" fill="#555555" />
-        <rect [attr.id]="desk.id" class="desk" [attr.x]="desk.x" [attr.y]="desk.y" width="5" height="5" fill="#a6a6a6"
+        <circle [attr.cy]="desk.y +5.2" [attr.cx]="desk.x +10" r="4" fill="#000000" />
+        <circle [attr.cy]="desk.y +2" [attr.cx]="desk.x +3.5" r="2" fill="#ffd9b3" />
+        <rect [attr.x]="desk.x +2" rx="2" ry="2" [attr.y]="desk.y +2" width="3" height="1.5" fill="#555555" />
+        <rect [attr.id]="desk.id" class="desk" [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="#a6a6a6"
           style="opacity: 0.0" />
       </g>
       <g *ngIf="desk.rotate === 270">
-        <rect [attr.x]="desk.x" [attr.y]="desk.y" width="5" height="5" fill="#00cc44"
+        <rect [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="green"
           style="opacity: 0.7;stroke:black;stroke-width:0.1" />
-        <circle [attr.cy]="desk.y -2.3" [attr.cx]="desk.x -3.5" r="1" fill="#000000" />
-        <circle [attr.cy]="desk.y -2" [attr.cx]="desk.x -2.5" r="0.5" fill="#ffd9b3" />
-        <rect [attr.x]="desk.x +2" rx="0.5" ry="0.5" [attr.y]="desk.y +2" width="3" height="1.5" fill="#555555" />
-        <rect [attr.id]="desk.id" class="desk" [attr.x]="desk.x" [attr.y]="desk.y" width="5" height="5" fill="#a6a6a6"
+        <circle [attr.cy]="desk.y -5.2" [attr.cx]="desk.x -10" r="4" fill="#000000" />
+        <circle [attr.cy]="desk.y -2" [attr.cx]="desk.x -2.5" r="2" fill="#ffd9b3" />
+        <rect [attr.x]="desk.x +2" rx="2" ry="2" [attr.y]="desk.y +2" width="3" height="1.5" fill="#555555" />
+        <rect [attr.id]="desk.id" class="desk" [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="#a6a6a6"
           style="opacity: 0.0" />
       </g>
     </g>

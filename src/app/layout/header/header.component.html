@@ -10,8 +10,25 @@
           <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink ="/">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink="/addRoom">Rooms<span class="sr-only">/addRoom</span></a>
+          <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink="/addRoom">Add Room<span class="sr-only">/addRoom</span></a>
         </li>
+       <!--  <li class="nav-item">
+   
+          <mat-expansion-panel>
+            <mat-expansion-panel-header >
+              <mat-panel-title style="font-family: Palatino; color:white">
+                Rooms
+              </mat-panel-title>
+            </mat-expansion-panel-header>       
+            <li class="nav-item">
+              <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink="/addRoom">Add Room<span class="sr-only">/addRoom</span></a>
+            </li>
+          </mat-expansion-panel>
+        
+      </li>-->
+      <li class="nav-item">
+        <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink="/rooms" >Rooms</a>
+      </li>
         <li class="nav-item">
             <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink="/positions" >Positions</a>
           </li>

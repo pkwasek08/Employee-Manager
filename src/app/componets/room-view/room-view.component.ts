@@ -4,6 +4,7 @@ import { Desk } from 'src/app/models/desk';
 import { element } from 'protractor';
 import { ActivatedRoute } from '@angular/router';
 import { RoomViewService } from 'src/app/services/room-view.service';
+import { DataService } from 'src/app/services/data.service';
 
 export enum KEY_CODE {
   RIGHT_ARROW = 52,
@@ -14,7 +15,7 @@ export enum KEY_CODE {
   templateUrl: './room-view.component.html',
   styleUrls: ['./room-view.component.scss']
 })
-export class RoomViewComponent {
+export class RoomViewComponent implements OnInit {
 
   //public selectedElement = false;
   public desksNumber: number;
@@ -27,8 +28,8 @@ export class RoomViewComponent {
   public selectedElementId: number;
   public offset;
   public svg;
-  public scalex: number;
-  public scaley: number;
+  public scalex: number = 100;
+  public scaley: number = 100;
   public screen: string;
   public rotate: number = 0;
   public idDeskArray;
@@ -36,32 +37,37 @@ export class RoomViewComponent {
   constructor(
     public roomService: RoomService,
     private route: ActivatedRoute,
-    public roomViewService: RoomViewService
-  ) {
+    public roomViewService: RoomViewService,
+    public dataService: DataService
+  ) { }
+
+  ngOnInit() {
+    let room;
     this.route.params.subscribe(params => {
       this.id = +params['id'];
+      console.log(this.id);
     });
 
-    let room = this.roomService.getRoomById(this.id);
+    if (!(isNaN(this.id))) {
+      room = this.roomService.getRoomById(this.id);
+    } else {
+      room = this.dataService.getRoom();
+      this.id = room.id;
+    }
 
-    this.scalex = room.sizeX;
-    this.scaley = room.sizeY;
-
-    this.screen = "0 0" + " " + String(this.scalex) + " " + String(this.scaley);
-
-    this.desksNumber = room.capacity;
-
-    this.desksArray = this.roomViewService.getDeskByIdRoom(this.id);
-
-    
-    this.idDeskArray = this.roomViewService.getDesk().length ;
-    console.log(this.idDeskArray);
-    console.log(this.roomViewService.getDeskByIdRoom(this.id));
-    
-    console.log(this.desksArray);
-    
+    if (room != null) {
+      this.scalex = room.sizeX;
+      this.scaley = room.sizeY;
+      this.screen = "0 0" + " " + String(this.scalex) + " " + String(this.scaley);
+      this.desksNumber = room.capacity;
+      this.desksArray = this.roomViewService.getDeskByIdRoom(this.id);
+      this.idDeskArray = this.roomViewService.getDesk().length;
+    }
   }
 
+  ngDoCheck() {
+    console.log("do check");
+  }
   //stara metoda
   public setPositions() {
     for (let i = 0; i < this.desksArray.length; i++) {
@@ -71,6 +77,7 @@ export class RoomViewComponent {
       this.desksArray[i].y = element[i].y;
     }
   }
+
   public savePositions() {
     let element = document.getElementById("desk");
     for (let i = 0; i < this.desksArray.length; i++) {
@@ -113,7 +120,8 @@ export class RoomViewComponent {
           // this.desksArray[i].x = coord.x - this.offset.x;
           // this.desksArray[i].y = coord.y - this.offset.y;
           let element = document.getElementById(String(id));
-          element.style.opacity = "0.0";
+          element.style.fill = "#808080";
+          element.style.opacity = "0.5";
         }
         else {
 
@@ -149,12 +157,19 @@ export class RoomViewComponent {
       return true;
     }
   }
-  public endDrag(evt) {
+  public endDrag(evt, id: number) {
+
+
     this.svg = evt.target;
     console.log("end");
     this.savePositions();
     this.selectedElement = null;
     this.selectedElementId = null;
+    let element = document.getElementById(String(id));
+    console.log(element);
+    console.log(id);
+    
+    element.style.opacity = "0.0";
   }
 
   private getMousePosition(evt) {
