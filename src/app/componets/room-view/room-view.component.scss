@@ -21,13 +21,25 @@
  }
  .background
  {
-  background: #fff2e6;
-  position: center;
-  height: 100%;
-  overflow: auto;
-  margin-left: 25%;
-  width:50%;
+  background: rgba(255,242,230, 0.95);
+  //position: center;
+  //text-align: center;
+  //text-align: left'
+  margin-left:10%;
+  top:10%;
+  bottom: auto;
+//  margin-left: 25%;
+  width:40%;
   border: double black;
   border-width: 10px;
  // margin:20px auto;
  }
+.list-group
+{
+  position: absolute;
+  width: 30%;
+  top: 20%;
+  left: 60%;
+  right: 15%;
+  bottom: auto;
+}

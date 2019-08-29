@@ -2,7 +2,7 @@
     <button class="navbar-toggler" type="button" (click)="openNav()" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" routerLink ="/" style="font-family: Palatino">Employee Manager</a>
+    <a class="navbar-brand" routerLink ="/" (click)="closeNav()" style="font-family: Palatino">Employee Manager</a>
 
 <nav id="mySidenav" class="sidenav">
     <ul class="list-unstyled component test">  
@@ -52,6 +52,6 @@
       </form>-->
     </nav>
   </nav>
- <div id="main">
+ <div class="main w-100" id="main">
     <router-outlet></router-outlet>
   </div>

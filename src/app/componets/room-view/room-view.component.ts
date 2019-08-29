@@ -17,10 +17,9 @@ export enum KEY_CODE {
 })
 export class RoomViewComponent implements OnInit {
 
-  //public selectedElement = false;
   public desksNumber: number;
   public desksArray: Desk[] = [];
-  public temp: number = 30;
+  public temp = 30;
   public id: number;
   public yParameters = [this.desksNumber];
   public xParameters = [this.desksNumber];
@@ -28,10 +27,10 @@ export class RoomViewComponent implements OnInit {
   public selectedElementId: number;
   public offset;
   public svg;
-  public scalex: number = 100;
-  public scaley: number = 100;
+  public scalex = 100;
+  public scaley = 100;
   public screen: string;
-  public rotate: number = 0;
+  public rotate = 0;
   public idDeskArray;
 
   constructor(
@@ -71,7 +70,7 @@ export class RoomViewComponent implements OnInit {
   //stara metoda
   public setPositions() {
     for (let i = 0; i < this.desksArray.length; i++) {
-      let element = document.getElementById(String(i));
+      const element = document.getElementById(String(i));
 
       this.desksArray[i].x = element[i].x;
       this.desksArray[i].y = element[i].y;
@@ -79,11 +78,9 @@ export class RoomViewComponent implements OnInit {
   }
 
   public savePositions() {
-    let element = document.getElementById("desk");
     for (let i = 0; i < this.desksArray.length; i++) {
-
       if (this.desksArray[i] != null) {
-        let element = document.getElementById(String(this.desksArray[i].id));
+        const element = document.getElementById(String(this.desksArray[i].id));
         this.yParameters[i] = parseFloat(element.getAttributeNS(null, "y"));
         this.xParameters[i] = parseFloat(element.getAttributeNS(null, "x"));
         this.desksArray[i].x = parseFloat(element.getAttributeNS(null, "x"));
@@ -99,7 +96,13 @@ export class RoomViewComponent implements OnInit {
     this.offset = this.getMousePosition(evt);
     this.offset.x -= parseFloat(this.selectedElement.getAttributeNS(null, "x"));
     this.offset.y -= parseFloat(this.selectedElement.getAttributeNS(null, "y"));
-    this.selectedElementId = id;
+    this.desksArray.forEach((item, index) => {
+
+      if (item.id === id) {
+        this.selectedElementId = index;
+      }
+    });
+
     this.savePositions();
   }
 
@@ -108,7 +111,7 @@ export class RoomViewComponent implements OnInit {
     if (this.selectedElement) {
       this.svg = evt.target;
       evt.preventDefault();
-      let coord = this.getMousePosition(evt);
+      const coord = this.getMousePosition(evt);
 
 
       if (coord.x - this.offset.x >= 0 && coord.x - this.offset.x <= this.scalex - 20
@@ -119,13 +122,13 @@ export class RoomViewComponent implements OnInit {
           this.savePositions();
           // this.desksArray[i].x = coord.x - this.offset.x;
           // this.desksArray[i].y = coord.y - this.offset.y;
-          let element = document.getElementById(String(id));
+          const element = document.getElementById(String(id));
           element.style.fill = "#808080";
           element.style.opacity = "0.5";
         }
         else {
 
-          let element = document.getElementById(String(id));
+          const element = document.getElementById(String(id));
           element.style.fill = "red";
           element.style.opacity = "0.6";
 
@@ -137,77 +140,68 @@ export class RoomViewComponent implements OnInit {
 
   public checkCollision(id: number, evt): boolean {
     let temp = 0;
-    let coord = this.getMousePosition(evt);
+    const coord = this.getMousePosition(evt);
 
-    for (let desks of this.desksArray) {
-      if (desks.id === id)
+    for (const desks of this.desksArray) {
+      if (desks.id === id) {
         continue;
+      }
 
-      for (let desksCollision of this.desksArray) {
-        if (desksCollision.id != desks.id && (desks.x + 20 >= coord.x - this.offset.x && desks.y + 20 >= coord.y - this.offset.y && desks.x <= coord.x - this.offset.x + 20 && desks.y <= coord.y - this.offset.y + 20)) {
+      for (const desksCollision of this.desksArray) {
+        if (desksCollision.id !== desks.id && (desks.x + 20 >= coord.x - this.offset.x && desks.y + 20 >= coord.y - this.offset.y &&
+          desks.x <= coord.x - this.offset.x + 20 && desks.y <= coord.y - this.offset.y + 20)) {
           temp++;
         }
       }
     }
     if (temp === 0) {
       return false;
-    }
-    else {
+    } else {
       temp = 0;
       return true;
     }
   }
+
   public endDrag(evt, id: number) {
-
-
     this.svg = evt.target;
-    console.log("end");
     this.savePositions();
     this.selectedElement = null;
     this.selectedElementId = null;
-    let element = document.getElementById(String(id));
-    console.log(element);
-    console.log(id);
-    
+    const element = document.getElementById(String(id));
     element.style.opacity = "0.0";
   }
 
   private getMousePosition(evt) {
-
-    console.log("halo mouse");
-
-    let CTM = this.svg.getScreenCTM();
+    const CTM = this.svg.getScreenCTM();
     return {
       x: (evt.clientX - CTM.e) / CTM.a,
       y: (evt.clientY - CTM.f) / CTM.d
     };
   }
 
-  private mousedrag(evt, id: number, selectedElement, offset) {
-
-  }
   private saveDesks(): void {
     console.log("addDesk");
 
-    for (let i = 0; i < this.desksArray.length; i++) {
-      this.roomViewService.editDesk(this.desksArray[i].id, this.desksArray[i].x, this.desksArray[i].y, this.desksArray[i].rotate, this.id);
+    if ((isNaN(this.id))) {
+      
     }
+
+    this.desksArray.forEach(desk => {
+      this.roomViewService.editDesk(desk.id, desk.x, desk.y, desk.rotate, this.id,null);
+    });
   }
   private addDesks(): void {
-    let desk = new Desk(this.idDeskArray, 0.0, 0.0, 0, this.id);
+    const desk = new Desk(this.idDeskArray, 0.0, 0.0, 0, this.id, null);
     this.idDeskArray++;
     this.desksArray.push(desk);
-    this.roomViewService.addDesk(0, 0, 0, this.id);
+    this.roomViewService.addDesk(0, 0, 0, this.id,null);
   }
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    console.log(event);
-
     if (event.key === "r") {
       this.keyRotate();
     }
-
   }
 
   public keyRotate() {

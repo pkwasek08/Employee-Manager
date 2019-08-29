@@ -5,7 +5,7 @@
                                 <mat-step [stepControl]="firstFormGroup">
                     <ng-template matStepLabel>
                         <div class="text-center">
-                            <span style="font-size: 20px;color:white">Desks</span>
+                            <span style="font-size: 20px;color:white">Room</span>
                         </div>
                     </ng-template>
                     <div>
@@ -33,14 +33,14 @@
                                 Not empty
                             </div>
                         </div>
-                        <div>
+                        <!--<div>
                             People
                             <input type="number" class="form-control w-25" [(ngModel)]="people" value={{people}}
                                 [ngModelOptions]="{standalone: true}" placeholder="0" min="0" max={{capacity}} required />
                             <div class="invalid-feedback">
                                 Warming! (people must be less than capacity)
                             </div>
-                        </div>
+                        </div>-->
                         <div>
                             SizeX
                             <input type="number" class="form-control w-25" [(ngModel)]="sizeX" value={{sizeX}}
@@ -62,7 +62,7 @@
                             <button class="btn btn-primary w-25" (click)="addRoom()">Submit</button>
                         </div>
                         <br>-->
-                        <button  type="button" class="btn btn-success" (click)="setRoom()" style="font-size: 20px"
+                        <button  type="button" class="btn btn-success" (click)="setRoom(); addRoom()" style="font-size: 20px"
                             matStepperNext>Next</button>
                    
                 </div>
@@ -89,15 +89,17 @@
             <mat-step>
                 <ng-template matStepLabel>
                     <div class="text-center">
-                        <span style="font-size: 20px;color:white">Done</span>
+                        <span style="font-size: 20px;color:white" >Done</span>
                     </div>
                 </ng-template>
                 You are now done.
                 <div>
                     <button type="button" class="btn btn-danger" style="font-size: 20px"
                         matStepperPrevious>Back</button>
-                    <button type="button" class="btn btn-primary" style="font-size: 20px"
-                        (click)="stepper.reset()">Reset</button>
+                        <button [routerLink]="['/rooms']" type="button" class="btn btn-primary" style="font-size: 20px">Finish</button>
+                       
+                  <!--  <button type="button" class="btn btn-primary" style="font-size: 20px"
+                        (click)="stepper.reset()">Reset</button>-->
                 </div>
                 
             </mat-step>

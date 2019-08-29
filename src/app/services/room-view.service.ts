@@ -50,8 +50,8 @@ export class RoomViewService {
   }
 
 
-  public addDesk(x: number, y: number, rotate: number, idRoom: number): void {
-    let desk = new Desk(this.nextId, x, y, rotate, idRoom);
+  public addDesk(x: number, y: number, rotate: number, idRoom: number, idEmployee: number): void {
+    let desk = new Desk(this.nextId, x, y, rotate, idRoom, idEmployee);
     const desks = this.getDesk();
     desks.push(desk);
     this.setLocalStorageDesks(desks);
@@ -64,9 +64,9 @@ export class RoomViewService {
   }
 
 
-  public editDesk(id: number, x: number, y: number, rotate: number, idRoom: number) {
+  public editDesk(id: number, x: number, y: number, rotate: number, idRoom: number, idEmployee: number) {
     this.removeDesk(id);
-    let desk = new Desk(id, x, y, rotate, idRoom);
+    let desk = new Desk(id, x, y, rotate, idRoom, idEmployee);
     let desks = this.getDesk();
     desks.push(desk);
     this.setLocalStorageDesks(desks);

@@ -19,6 +19,7 @@
   overflow-x: hidden;
   padding-top: 60px;
   transition: 0.8s;
+  
 }
 
 .menu {
@@ -31,6 +32,9 @@
 #main {
   padding: 20px;
   transition: 0.5s;
+/*  -webkit-box-shadow: 0 80px 60px -60px #999;
+    -moz-box-shadow: 0 180px 160px -160px #999;
+    box-shadow: 0 180px 160px -160px #999;*/
 }
 
 @media screen and (max-height: 450px) {
@@ -57,6 +61,7 @@
 
 .sidenav a:hover {
   background: rgba(46, 46, 46, 1);
+
 }
 
 .sidenav .closebtn {
@@ -80,6 +85,7 @@ body {
   min-height: 60px;
   font-size: 50px;
   background: rgba(46, 46, 46, 1);
+  
 }
 
 .navbar-brand {

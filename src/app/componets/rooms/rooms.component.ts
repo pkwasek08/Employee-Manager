@@ -13,4 +13,9 @@ export class RoomsComponent implements OnInit {
   ngOnInit() {
   }
 
+  private removeRoom(id: number): void {
+   // let room = this.roomService.getRoomById(roomId);
+  //  this.roomService.editRoomPerson(room, -1);
+    this.roomService.removeRoom(id);
+  }
 }

@@ -32,15 +32,20 @@ export class TableComponent implements OnInit {
 
   private removeEmployee(id: number, roomId: number): void {
     let room = this.roomService.getRoomById(roomId);
-    console.log(room);
-    console.log(roomId);
-
-
-    this.roomService.editRoomPerson(room, -1);
+    if (room != null) {
+      this.roomService.editRoomPerson(room, -1);
+    }
     this.employeeService.removeEmployee(id);
   }
 
-  private editEmployee(id: number): void {
-    // this.edit.id = id ;
+  private getRoombyId(id: number): string {
+    let roomInfo;
+    let room = this.roomService.getRoomById(id);
+    if (room != null) {
+      roomInfo = room.name + "   " + room.number;
+    }
+    else
+      roomInfo = "null"
+    return roomInfo;
   }
 }

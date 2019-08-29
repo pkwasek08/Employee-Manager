@@ -6,6 +6,7 @@ import { Room } from 'src/app/models/room';
 import { Position } from 'src/app/models/position'
 import { PositionsService } from 'src/app/services/position.service';
 import { RoomService } from 'src/app/services/room.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-edit',
@@ -20,37 +21,46 @@ export class EditComponent implements OnInit {
   public lastName: string;
   public roomId: number;
   public id: number;
+  private roomOldId: number;
   public rooms: Room[];
   public numbers: number[] = [1000];
   public positions: Position[];
 
-  constructor(private employeeService: EmployeeService,
+  constructor(public employeeService: EmployeeService,
     private route: ActivatedRoute,
     public roomService: RoomService,
-    public positionService: PositionsService) {
+    public positionService: PositionsService,
+    public _snackBar: MatSnackBar) {
+  }
+
+  ngOnInit() {
     this.rooms = this.roomService.getRoom();
     this.positions = this.positionService.getPosition();
     for (let i = 1100; i <= 8000; i += 100) {
       this.numbers.push(i);
     }
 
-
     this.route.params.subscribe(params => {
       this.id = +params['id'];
     });
-    let employees = employeeService.getEmp(this.id);
+    let employees = this.employeeService.getEmp(this.id);
     if (employees != null) {
       this.firstName = employees.firstName;
       this.position = employees.position;
       this.lastName = employees.lastName;
       this.roomId = employees.room;
+      this.roomOldId = employees.room;
       this.salary = employees.salary;
     }
   }
-
-  ngOnInit() {
-  }
   private EditEmployee(): void {
+    if (this.roomOldId !== this.roomId) {
+      const room = this.roomService.getRoomById(this.roomId);
+      const roomOld = this.roomService.getRoomById(this.roomOldId);
+      this.roomService.editRoomPerson(room, 1);
+      this.roomService.editRoomPerson(roomOld, -1);
+    }
+
     this.employeeService.editEmployee(this.id, this.firstName, this.lastName, this.position,
       this.salary, this.roomId);
     this.firstName = '';
@@ -59,5 +69,13 @@ export class EditComponent implements OnInit {
     this.roomId = null;
     this.salary = null;
     this.id = null;
+  }
+
+  openSnackBar() {
+    this._snackBar.open('Complete!', 'Done', {
+      duration: 3000,
+      panelClass: ['warning'],
+    });
+
   }
 }

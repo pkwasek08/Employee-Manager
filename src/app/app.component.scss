@@ -4,9 +4,10 @@
   .todo-wrapper {
     background: url(../../img/developer.jpg);
     background-size: cover;
+    overflow: auto;
     position: absolute;
-    top: 0;
+    top: 0px;
     right: 0px;
     left: 0px;
-    bottom: 0;
+    bottom: 0px;
   }

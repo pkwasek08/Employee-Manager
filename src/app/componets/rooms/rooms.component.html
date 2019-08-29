@@ -2,12 +2,13 @@
 <table class="table table-hover table-striped table-bordered table-dark">
     <thead>
         <tr>
-            <th>ID</th>
+            <th>#</th>
             <th>Name</th>
             <th>Number</th>
             <th>Capacity</th>
             <th>People</th>
             <th>Room View</th>
+            <th>Delete</th>
         </tr>
 
     </thead>
@@ -30,11 +31,11 @@
                         Edit
                     </button>
                 </a>
-            </td>
+            </td>-->
             <td>
-                <button class="buttonRemove" (click)="removeEmployee(employee.id)">x</button>
+                <button class="btn btn-danger" (click)="removeRoom(room.id)">x</button>
             </td>
-      -->
+      
             </ng-container>
         </tr>
     </tbody>

@@ -41,9 +41,8 @@
     </div>
     <br>
     <div *ngIf="firstName != null && position != null && lastName != null && salary!=0 && roomId != null; else elseBlock">
-        <a routerLink="/">
-        <button class="btn btn-primary w-50" (click)="EditEmployee()">Submit</button>
-      </a></div>
+        <button routerLink="/" class="btn btn-primary w-50" (click)="EditEmployee();openSnackBar()">Submit</button>
+      </div>
     <ng-template #elseBlock>
         <button class="btn btn-primary w-50" disabled (click)="EditEmployee()">Submit</button>
     </ng-template>

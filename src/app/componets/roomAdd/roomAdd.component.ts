@@ -20,7 +20,7 @@ export class RoomAddComponent implements OnInit {
   number: number;
   name: string;
   capacity: number;
-  people: number;
+  people = 0;
   sizeX: number;
   sizeY: number;
   constructor(public roomService: RoomService,
@@ -34,16 +34,16 @@ export class RoomAddComponent implements OnInit {
       firstCtrl: ['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
+      //secondCtrl: ['', Validators.required]
     });
   }
 
   private addRoom() {
     this.roomService.addRoom(this.number, this.name, this.capacity, this.people, this.sizeX, this.sizeY);
-    this.number = null;
+  /*  this.number = null;
     this.name = '';
     this.capacity = null;
-    this.people = null;
+    this.people = null;*/
   }
 
   private setRoom(id: number) {

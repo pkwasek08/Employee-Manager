@@ -16,7 +16,7 @@
             <table class="table table-hover table-striped table-bordered table-dark">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>#</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Position</th>
@@ -36,7 +36,7 @@
                             <th>{{employees.firstName}}</th>
                             <th>{{employees.lastName}}</th>
                             <th>{{employees.position}}</th>
-                            <th>{{rooms[employees.room].name}}&nbsp;&nbsp;n.{{rooms[employees.room].number}} </th>
+                            <th> {{getRoombyId(employees.room)}} </th>
                             <th>{{employees.salary}}</th>
                             <td>
                                 <!--<a routerLink="/edit/{{employees.id}}"-->

@@ -1,48 +1,75 @@
-<div class="background" >
+<div class="room-view">
+<div class="background">
   <svg (loadstart)="setPositions()" xmlns="http://www.w3.org/2000/svg" [attr.viewBox]="screen">
-    <g *ngFor="let desk of desksArray"  (mouseleave)="endDrag($event,desk.id)" (mouseup)="endDrag($event,desk.id)"
+    <g *ngFor="let desk of desksArray" (mouseleave)="endDrag($event,desk.id)" (mouseup)="endDrag($event,desk.id)"
       (mousemove)="drag($event,desk.id)" (mousedown)="startDrag($event,desk.id)" (load)="setPositions()">
       <!--roomViewService.getDesk()-->
       <g *ngIf="desk.rotate === 0">
-        <rect  [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="green"
+        <rect [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="green"
           style="opacity: 0.7;stroke:black;stroke-width:0.1" />
-        <circle [attr.cy]="desk.y +5.2" [attr.cx]="desk.x +10" r="4" fill="#000000" />
-        <circle [attr.cy]="desk.y +4" [attr.cx]="desk.x +10" r="2" fill="#ffd9b3" />
-        <rect [attr.x]="desk.x +4" rx="2" ry="2" [attr.y]="desk.y +4" width="12" height="6" fill="#555555" />
+        <g *ngIf="desk.idEmployee !== null">
+          <circle [attr.cy]="desk.y +9.2" [attr.cx]="desk.x +10" r="4" fill="#000000" />
+          <circle [attr.cy]="desk.y +4" [attr.cx]="desk.x +10" r="2" fill="#ffd9b3" />
+        </g>
+        <rect [attr.x]="desk.x +3" rx="2" ry="2" [attr.y]="desk.y +8" width="14" height="8" fill="#555555" />
         <rect [attr.id]="desk.id" class="desk" [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="#a6a6a6"
           style="opacity: 0.0" />
       </g>
+      <!--if czy pracownik siedzi przy biurku-->
       <g *ngIf="desk.rotate === 90">
-        <rect  [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="green"
+        <rect [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="green"
           style="opacity: 0.7;stroke:black;stroke-width:0.1" />
-        <circle [attr.cy]="desk.y " [attr.cx]="desk.x " r="4" fill="#000000" />
-        <circle [attr.cy]="desk.y" [attr.cx]="desk.x " r="2" fill="#ffd9b3" />
-        <rect [attr.x]="desk.x +1" rx="2" ry="2" [attr.y]="desk.y +1" width="3" height="1.5" fill="#555555" />
+        <g *ngIf="desk.idEmployee !== null">
+          <circle [attr.cy]="desk.y + 10 " [attr.cx]="desk.x +10.8 " r="4" fill="#000000" />
+          <circle [attr.cy]="desk.y + 10" [attr.cx]="desk.x + 16 " r="2" fill="#ffd9b3" />
+        </g>
+        <rect [attr.x]="desk.x +4" rx="2" ry="2" [attr.y]="desk.y +3" width="8" height="14" fill="#555555" />
         <rect [attr.id]="desk.id" class="desk" [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="#a6a6a6"
           style="opacity: 0.0" />
       </g>
       <g *ngIf="desk.rotate === 180">
         <rect [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="green"
           style="opacity: 0.7;stroke:black;stroke-width:0.1" />
-        <circle [attr.cy]="desk.y +5.2" [attr.cx]="desk.x +10" r="4" fill="#000000" />
-        <circle [attr.cy]="desk.y +2" [attr.cx]="desk.x +3.5" r="2" fill="#ffd9b3" />
-        <rect [attr.x]="desk.x +2" rx="2" ry="2" [attr.y]="desk.y +2" width="3" height="1.5" fill="#555555" />
+        <g *ngIf="desk.idEmployee !== null">
+          <circle [attr.cy]="desk.y +10.8" [attr.cx]="desk.x +10" r="4" fill="#000000" />
+          <circle [attr.cy]="desk.y +16" [attr.cx]="desk.x +10" r="2" fill="#ffd9b3" />
+        </g>
+        <rect [attr.x]="desk.x +3" rx="2" ry="2" [attr.y]="desk.y +4" width="14" height="8" fill="#555555" />
         <rect [attr.id]="desk.id" class="desk" [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="#a6a6a6"
           style="opacity: 0.0" />
       </g>
       <g *ngIf="desk.rotate === 270">
         <rect [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="green"
           style="opacity: 0.7;stroke:black;stroke-width:0.1" />
-        <circle [attr.cy]="desk.y -5.2" [attr.cx]="desk.x -10" r="4" fill="#000000" />
-        <circle [attr.cy]="desk.y -2" [attr.cx]="desk.x -2.5" r="2" fill="#ffd9b3" />
-        <rect [attr.x]="desk.x +2" rx="2" ry="2" [attr.y]="desk.y +2" width="3" height="1.5" fill="#555555" />
+        <g *ngIf="desk.idEmployee !== null">
+          <circle [attr.cy]="desk.y + 10" [attr.cx]="desk.x + 9.2" r="4" fill="#000000" />
+          <circle [attr.cy]="desk.y + 10" [attr.cx]="desk.x + 4" r="2" fill="#ffd9b3" />
+        </g>
+        <rect [attr.x]="desk.x +8" rx="2" ry="2" [attr.y]="desk.y +3" width="8" height="14" fill="#555555" />
         <rect [attr.id]="desk.id" class="desk" [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="#a6a6a6"
           style="opacity: 0.0" />
       </g>
     </g>
   </svg>
-  <a class="border border-dark ">
-      <a> <button class="btn btn-success w-25 " (click)="saveDesks()">Save</button></a>
-      <a><button class="btn btn-primary w-25 " (click)="addDesks()">New</button></a>
+  <a class="border">
+    <a> <button class="btn btn-success w-25 " (click)="saveDesks()">Save</button></a>  
+    <a *ngIf="desksNumber > desksArray.length; else elseBlock ">
+      <button  class="btn btn-primary w-25 " (click)="addDesks()">New</button></a>
+      <ng-template #elseBlock> 
+        <button disabled class="btn btn-primary w-25 " 
+       (click)="addDesks()">New</button>
+      </ng-template>
   </a>
+</div>
+
+
+<!--<div class="list-group bg-dark" role="tablist">
+    <a  class="list-group-item list-group-item-action text-light bg-dark active" mdbWavesEffect>
+      Cras justo odio
+    </a>
+    <a class="list-group-item list-group-item-action text-light bg-dark" mdbWavesEffect>Dapibus ac facilisis in</a>
+    <a  class="list-group-item list-group-item-action  text-light bg-dark" mdbWavesEffect>Morbi leo risus</a>
+    <a  class="list-group-item list-group-item-action  text-light bg-dark" mdbWavesEffect>Porta ac consectetur ac</a>
+  </div>-->
+
 </div>

@@ -4,8 +4,10 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxFloatButtonModule } from 'ngx-float-button';
 import { FormsModule } from '@angular/forms';
-import {MatStepperModule, MatExpansionModule, MatInputModule, MatButtonModule,MatIconModule} from '@angular/material'
-import { SvgCircleModule, SvgLineModule, SvgPolygonModule, SvgPolylineModule, SvgTextModule, SvgPathModule, SvgEllipseModule } from 'angular-svg';
+import {MatStepperModule, MatTreeModule, MatExpansionModule, MatInputModule, 
+  MatButtonModule, MatIconModule, MatMenuModule, MatSelectModule, MatSnackBarModule} from '@angular/material'
+import { SvgCircleModule, SvgLineModule, SvgPolygonModule, SvgPolylineModule, 
+  SvgTextModule, SvgPathModule, SvgEllipseModule } from 'angular-svg';
 import { AppRoutingModule } from './app-routing.module';
 import { StorageServiceModule } from 'angular-webstorage-service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -44,10 +46,13 @@ import { RoomViewComponent } from './componets/room-view/room-view.component';
   ],
   imports: [
     SvgTextModule, SvgPathModule,
+    MatMenuModule,MatSelectModule,
+    MatSnackBarModule,
     SvgCircleModule,
     SvgPolylineModule,
     MatStepperModule,
     BrowserModule,
+    MatTreeModule,
     MatInputModule,
     SvgPolygonModule,
     SvgLineModule,
