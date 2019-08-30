@@ -5,6 +5,10 @@ import { element } from 'protractor';
 import { ActivatedRoute } from '@angular/router';
 import { RoomViewService } from 'src/app/services/room-view.service';
 import { DataService } from 'src/app/services/data.service';
+import { EmployeeItemComponent } from '../employee-item/employee-item.component';
+import { EmployeeService } from 'src/app/services/employee.service';
+import { Employee } from 'Employee-Manager/src/app/models/employee';
+import { NgbPaginationNumberContext } from '@ng-bootstrap/ng-bootstrap/pagination/pagination';
 
 export enum KEY_CODE {
   RIGHT_ARROW = 52,
@@ -32,19 +36,24 @@ export class RoomViewComponent implements OnInit {
   public screen: string;
   public rotate = 0;
   public idDeskArray;
+  public collision: boolean;
+  public employeesList: Employee[] = [];
+  public selectedEmployeeId;
+  public startPicking = false;
+  public deskForNewPerson: number;
 
   constructor(
     public roomService: RoomService,
     private route: ActivatedRoute,
     public roomViewService: RoomViewService,
-    public dataService: DataService
+    public dataService: DataService,
+    public employeeService: EmployeeService
   ) { }
 
   ngOnInit() {
     let room;
     this.route.params.subscribe(params => {
       this.id = +params['id'];
-      console.log(this.id);
     });
 
     if (!(isNaN(this.id))) {
@@ -61,11 +70,20 @@ export class RoomViewComponent implements OnInit {
       this.desksNumber = room.capacity;
       this.desksArray = this.roomViewService.getDeskByIdRoom(this.id);
       this.idDeskArray = this.roomViewService.getDesk().length;
+      const employees = this.employeeService.getEmployee();
+
+      employees.forEach(employee => {
+        if (employee.room == this.id) {
+          this.employeesList.push(employee);
+        }
+      });
+      if (this.employeesList != null) {
+        this.selectedEmployeeId = 0;
+      }
     }
   }
 
   ngDoCheck() {
-    console.log("do check");
   }
   //stara metoda
   public setPositions() {
@@ -116,29 +134,31 @@ export class RoomViewComponent implements OnInit {
 
       if (coord.x - this.offset.x >= 0 && coord.x - this.offset.x <= this.scalex - 20
         && coord.y - this.offset.y >= 0 && coord.y - this.offset.y <= this.scaley - 20) {
-        if (this.checkCollision(id, evt) === false) {
-          this.selectedElement.setAttributeNS(null, "x", coord.x - this.offset.x);
-          this.selectedElement.setAttributeNS(null, "y", coord.y - this.offset.y);
-          this.savePositions();
-          // this.desksArray[i].x = coord.x - this.offset.x;
-          // this.desksArray[i].y = coord.y - this.offset.y;
-          const element = document.getElementById(String(id));
-          element.style.fill = "#808080";
-          element.style.opacity = "0.5";
-        }
-        else {
+        this.selectedElement.setAttributeNS(null, "x", coord.x - this.offset.x);
+        this.selectedElement.setAttributeNS(null, "y", coord.y - this.offset.y);
+        this.savePositions();
+        this.checkCollision(id, evt);
 
-          const element = document.getElementById(String(id));
-          element.style.fill = "red";
-          element.style.opacity = "0.6";
+        // this.desksArray[i].x = coord.x - this.offset.x;
+        // this.desksArray[i].y = coord.y - this.offset.y;
 
-        }
       }
     }
-    temp = 0;
+  }
+
+  public checkAllCollision(evt) {
+    this.desksArray.forEach((desk, index) => {
+      console.log(desk);
+      console.log(index);
+
+      this.checkCollision(evt, index);
+    });
   }
 
   public checkCollision(id: number, evt): boolean {
+    console.log(id);
+    console.log(this.desksArray);
+
     let temp = 0;
     const coord = this.getMousePosition(evt);
 
@@ -155,9 +175,17 @@ export class RoomViewComponent implements OnInit {
       }
     }
     if (temp === 0) {
+      const element = document.getElementById(String(id));
+      element.style.fill = "#808080";
+      element.style.opacity = "0.5";
+      this.collision = false;
       return false;
     } else {
       temp = 0;
+      const element = document.getElementById(String(id));
+      element.style.fill = "red";
+      element.style.opacity = "0.6";
+      this.collision = true;
       return true;
     }
   }
@@ -167,8 +195,10 @@ export class RoomViewComponent implements OnInit {
     this.savePositions();
     this.selectedElement = null;
     this.selectedElementId = null;
+    //this.checkAllCollision(evt);
     const element = document.getElementById(String(id));
-    element.style.opacity = "0.0";
+    //element.style.fill = "#808080";
+    if (this.collision === false) { element.style.opacity = "0.0"; }
   }
 
   private getMousePosition(evt) {
@@ -183,18 +213,18 @@ export class RoomViewComponent implements OnInit {
     console.log("addDesk");
 
     if ((isNaN(this.id))) {
-      
+
     }
 
     this.desksArray.forEach(desk => {
-      this.roomViewService.editDesk(desk.id, desk.x, desk.y, desk.rotate, this.id,null);
+      this.roomViewService.editDesk(desk.id, desk.x, desk.y, desk.rotate, this.id, desk.idEmployee);
     });
   }
   private addDesks(): void {
     const desk = new Desk(this.idDeskArray, 0.0, 0.0, 0, this.id, null);
     this.idDeskArray++;
     this.desksArray.push(desk);
-    this.roomViewService.addDesk(0, 0, 0, this.id,null);
+    this.roomViewService.addDesk(0, 0, 0, this.id, null);
   }
 
   @HostListener('window:keyup', ['$event'])
@@ -202,6 +232,11 @@ export class RoomViewComponent implements OnInit {
     if (event.key === "r") {
       this.keyRotate();
     }
+  }
+
+  public showSelectedEmployee(id: number) {
+    const element = document.getElementById(String(id));
+    element.style.fill = "#808080";
   }
 
   public keyRotate() {
@@ -213,4 +248,41 @@ export class RoomViewComponent implements OnInit {
     }
   }
 
+  public selectEmployee(id?: number) {
+    let form = document.getElementById("exampleFormControlSelect1") as HTMLSelectElement;
+    this.selectedEmployeeId = form.selectedIndex;
+  }
+
+  public checkNewPersonInRoom(): boolean {
+    let checking = false;
+    this.desksArray.forEach(desk => {
+      if (desk.idEmployee === this.employeesList[this.selectedEmployeeId].id) {
+        checking = true;
+      }
+    });
+    if (checking) {
+      return true;
+    } else { return false; }
+  }
+
+  public startPickingPerson() {
+    this.startPicking = true;
+  }
+
+  public assignNewPerson(evt, id: number) {
+    if (this.startPicking) {
+      this.desksArray.forEach((item, index) => {
+        if (item.id === id && item.idEmployee === null) {
+          this.deskForNewPerson = index + 1;
+        }
+      });
+      const buttonSave = document.getElementById("buttonSave") as HTMLSelectElement;
+      buttonSave.disabled = false;
+    }
+  }
+
+  public saveNewPlacePerson() {
+    this.desksArray[this.deskForNewPerson - 1].idEmployee = this.employeesList[this.selectedEmployeeId].id;
+    this.deskForNewPerson = null;
+  }
 }
