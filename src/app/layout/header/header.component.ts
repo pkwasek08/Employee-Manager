@@ -14,11 +14,12 @@ export class HeaderComponent implements OnInit {
   }
   openNav() {
     document.getElementById('mySidenav').style.width = '250px';
-    document.getElementById('main').style.marginLeft = '250px';
+    document.getElementById('main').style.opacity = '0.8';
+
   }
 
   closeNav() {
     document.getElementById('mySidenav').style.width = '0px';
-    document.getElementById('main').style.marginLeft = '0px';
+    document.getElementById('main').style.opacity = '1';
   }
 }

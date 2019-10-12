@@ -26,13 +26,59 @@
 .label {
   color: rgb(255, 255, 255);
 }
+::ng-deep .mat-step-header .mat-step-icon {
+  background-color: lightslategrey;
+  padding: 15px;
+  font-size: 25px;
+}
+::ng-deep .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+  background-color: dodgerblue;
+  padding: 22px;
+  color: #fff;
+}
+::ng-deep .mat-stepper-horizontal-line {
+  border-top-color: white;
+}
+/*
+::ng-deep .mat-step-icon
+{
+  background-color: red;
+  font-size: 200px;
+}
+::ng-deep  .mat-step-icon-content
+{
+  background-color: red;
+  font-size: 20px;
+}*/
+::ng-deep .mat-form-field {
+  line-height: 2.8em;
+}
+::ng-deep .mat-step-header .mat-step-label, .mat-step-header .mat-step-optional 
+{
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 20px;
+}
+::ng-deep .mat-step-header .mat-step-label.mat-step-label-active {
+  color: white;
+  font-size: 20px;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label  {
+  color: white;
+  text-align: center;
+  font-size: 28px;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: white;
+}
+
+
 
 .form-control {
   position: relative;
   //  text-align: center;
   margin-left: 37.5%;
 }
-
+/*
 ::ng-deep .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-not-touched .mat-step-icon-state-done, 
 .mat-step-header .mat-step-icon-state-edit .mat-step {
    // color: red !important;
@@ -44,7 +90,7 @@
  // margin: -38px -60px 0 -60px !important;
   color: white;
   }
-
+*/
 .stepper {
  // font-size: 50px;
   //left:25%;

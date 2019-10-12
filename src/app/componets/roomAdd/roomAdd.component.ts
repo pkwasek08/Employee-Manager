@@ -12,6 +12,7 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./roomAdd.component.scss']
 })
 export class RoomAddComponent implements OnInit {
+  isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   isEditable = false;
@@ -34,7 +35,7 @@ export class RoomAddComponent implements OnInit {
       firstCtrl: ['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
-      //secondCtrl: ['', Validators.required]
+      secondCtrl: ['', Validators.required]
     });
   }
 

@@ -7,7 +7,7 @@ import { RoomViewService } from 'src/app/services/room-view.service';
 import { DataService } from 'src/app/services/data.service';
 import { EmployeeItemComponent } from '../employee-item/employee-item.component';
 import { EmployeeService } from 'src/app/services/employee.service';
-import { Employee } from 'Employee-Manager/src/app/models/employee';
+import { Employee } from 'src/app/models/employee';
 import { NgbPaginationNumberContext } from '@ng-bootstrap/ng-bootstrap/pagination/pagination';
 
 export enum KEY_CODE {

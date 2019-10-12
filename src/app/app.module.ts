@@ -1,17 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxFloatButtonModule } from 'ngx-float-button';
 import { FormsModule } from '@angular/forms';
-import {MatStepperModule, MatTreeModule, MatExpansionModule, MatInputModule, 
-  MatButtonModule, MatIconModule, MatMenuModule, MatSelectModule, MatSnackBarModule} from '@angular/material'
-import { SvgCircleModule, SvgLineModule, SvgPolygonModule, SvgPolylineModule, 
-  SvgTextModule, SvgPathModule, SvgEllipseModule } from 'angular-svg';
+import {
+  MatStepperModule, MatTreeModule, MatExpansionModule, MatInputModule,
+  MatButtonModule, MatIconModule, MatMenuModule, MatSelectModule, MatSnackBarModule
+} from '@angular/material'
+import {
+  SvgCircleModule, SvgLineModule, SvgPolygonModule, SvgPolylineModule,
+  SvgTextModule, SvgPathModule, SvgEllipseModule
+} from 'angular-svg';
 import { AppRoutingModule } from './app-routing.module';
 import { StorageServiceModule } from 'angular-webstorage-service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MatSidenavModule } from '@angular/material';
 
 //Components
 import { AppComponent } from './app.component';
@@ -46,10 +51,11 @@ import { RoomViewComponent } from './componets/room-view/room-view.component';
   ],
   imports: [
     SvgTextModule, SvgPathModule,
-    MatMenuModule,MatSelectModule,
+    MatMenuModule, MatSelectModule,
     MatSnackBarModule,
     SvgCircleModule,
     SvgPolylineModule,
+    MatSidenavModule,
     MatStepperModule,
     BrowserModule,
     MatTreeModule,
