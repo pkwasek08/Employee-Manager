@@ -1,13 +1,25 @@
-.rooms
-{
+.rooms {
   text-align: center;
   padding: 20px;
   font-size: 20px;
-  display:inline-block;
-  color: rgb(255,255,255);
+  display: inline-block;
+  color: rgb(255, 255, 255);
   background: rgba(46, 46, 46, 0.95);
 }
 
 table {
   text-align: center;
+}
+
+::ng-deep .ngx-pagination a,
+.ngx-pagination button {
+  &:last-child {
+    color: #cacaca;
+  }
+}
+::ng-deep .ngx-pagination a,
+.ngx-pagination button {
+  &:last-child:hover {
+    background: rgba(61, 61, 61, 0.95);
+  }
 }

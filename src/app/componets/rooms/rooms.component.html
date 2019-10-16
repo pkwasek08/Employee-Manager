@@ -1,47 +1,49 @@
-<div class="rooms">
-<table class="table table-hover table-striped table-bordered table-dark">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Number</th>
-            <th>Capacity</th>
-            <th>People</th>
-            <th>Room View</th>
-            <th>Delete</th>
-        </tr>
+<div class="table-responsive">
+    <div class="rooms">
+        <table class="table table-hover table-striped table-bordered table-dark">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Number</th>
+                    <th>Capacity</th>
+                    <th>People</th>
+                    <th>Room View</th>
+                    <th>Delete</th>
+                </tr>
 
-    </thead>
-    <tbody>
-        <tr *ngFor="let room of roomService.getRoom() | paginate: { itemsPerPage: 5, currentPage: p}">
-            <ng-container *ngIf="room.number != 0">
-                <th>{{room.id}}</th>
-                <th>{{room.name}}</th>
-                <th>{{room.number}}</th>
-                <th>{{room.capacity}}</th>
-                <th>{{room.people}}</th>
-                <td>
-                    <a [routerLink]="['/roomView', room.id]">
+            </thead>
+            <tbody>
+                <tr *ngFor="let room of roomService.getRoom() | paginate: { itemsPerPage: 5, currentPage: p}">
+                    <ng-container *ngIf="room.number != 0">
+                        <th>{{room.id}}</th>
+                        <th>{{room.name}}</th>
+                        <th>{{room.number}}</th>
+                        <th>{{room.capacity}}</th>
+                        <th>{{room.people}}</th>
+                        <td>
+                            <a [routerLink]="['/roomView', room.id]">
 
-                        <button class="btn btn-primary">View</button>
-                    </a>
-                </td>
-                <!-- <td>
+                                <button class="btn btn-primary">View</button>
+                            </a>
+                        </td>
+                        <!-- <td>
                 <a routerLink="/add"><button type="button" class="buttonEdit" tooltip="Edit employer's info">
                         Edit
                     </button>
                 </a>
             </td>-->
-            <td>
-                <button class="btn btn-danger" (click)="removeRoom(room.id)">x</button>
-            </td>
-      
-            </ng-container>
-        </tr>
-    </tbody>
-</table>
-<br>
-<div class="text-center">
-    <pagination-controls (pageChange)=" p = $event"></pagination-controls>
-</div>
+                        <td>
+                            <button class="btn btn-danger" (click)="removeRoom(room.id)">x</button>
+                        </td>
+
+                    </ng-container>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <div class="text-center">
+            <pagination-controls (pageChange)=" p = $event"></pagination-controls>
+        </div>
+    </div>
 </div>

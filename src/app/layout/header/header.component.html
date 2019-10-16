@@ -18,10 +18,10 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false" >
+          aria-haspopup="true" aria-expanded="false">
           Rooms
         </a>
-        <div class="dropdown-menu" >
+        <div class="dropdown-menu">
           <a class="dropdown-item" (click)="closeNav()" style="font-family: Palatino;" routerLink="/rooms">Room List</a>
           <a class="dropdown-item" (click)="closeNav()" style="font-family: Palatino" routerLink="/addRoom">Add Room</a>
         </div>
@@ -45,39 +45,32 @@
             class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink="/addRoom">Add Room<span
-            class="sr-only">/addRoom</span></a>
-      </li>
-        <li class="nav-item">
-          <mat-expansion-panel style="background:rgb(41, 41, 41)">
-            <mat-expansion-panel-header class="specific-class" style="background:#111" >
-              <mat-panel-title style="font-family: Palatino; color:#818181;font-size:25px;position: center;
-              text-align: center;">
-                Rooms
-              </mat-panel-title>
-            </mat-expansion-panel-header>       
-            <li class="nav-item">
-              <a class="nav-link" (click)="closeNav()" style="font-family: Palatino;" routerLink="/addRoom">Add Room</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" (click)="closeNav()" style="font-family: Palatino;" routerLink="/rooms">Room List</a>
-            </li>
-          </mat-expansion-panel>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink="/rooms">Rooms</a>
+        <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink="/add">Add Employee</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink="/positions">Positions</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink="/search">Search</a>
+        <mat-expansion-panel style="background:rgb(41, 41, 41)">
+          <mat-expansion-panel-header class="specific-class" style="background:#111">
+            <mat-panel-title style="font-family: Palatino; color:#818181;font-size:25px;position: center;
+              text-align: center;">
+              Rooms
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+      <li class="nav-item">
+        <a class="nav-link" (click)="closeNav()" style="font-family: Palatino;" routerLink="/addRoom">Add Room</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink="/add">Add Employee</a>
+        <a class="nav-link" (click)="closeNav()" style="font-family: Palatino;" routerLink="/rooms">Room List</a>
+      </li>
+      </mat-expansion-panel>
       </li>
       <li class="nav-item">
         <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink="/summary">Summary</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink="/search">Search</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" (click)="closeNav()" style="font-family: Palatino" routerLink="/about">About</a>

@@ -83,3 +83,9 @@ table {
   opacity: 1;
   filter: alpha(opacity=90);
 }
+::ng-deep .ngx-pagination a,
+.ngx-pagination button {
+  &:last-child {
+    color: #cacaca;
+  }
+}

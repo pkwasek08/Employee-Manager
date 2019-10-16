@@ -12,27 +12,37 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./roomAdd.component.scss']
 })
 export class RoomAddComponent implements OnInit {
-  isLinear = false;
+  isLinear = true;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   isEditable = false;
 
   room: Room;
   number: number;
+  value: string;
   name: string;
   capacity: number;
   people = 0;
   sizeX: number;
   sizeY: number;
+  thirdFormGroup: FormGroup;
+  fourthFormGroup: FormGroup;
+  fifthFormGroup: FormGroup;
+  sixthFormGroup: FormGroup;
   constructor(public roomService: RoomService,
-              public dataService: DataService,
-              private _formBuilder: FormBuilder,
-              private location: Location) { }
+    public dataService: DataService,
+    private _formBuilder: FormBuilder,
+    private location: Location) { }
   registrationForm: FormGroup;
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
+      firstCtrl: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]+[a-zA-Z]?$'), Validators.max(1000)])],
+      secondCtrl: ['', Validators.compose([Validators.required, Validators.pattern('^([a-zA-Z]+\ \?)+$')])],
+      thirdCtrl: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]+$'), Validators.max(1000)])],
+     // fourthCtrl: ['', Validators.required],
+      fifthCtrl: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]+$'), Validators.max(100)])],
+      sixthCtrl: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]+$'), Validators.max(100)])],
     });
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
@@ -41,15 +51,15 @@ export class RoomAddComponent implements OnInit {
 
   private addRoom() {
     this.roomService.addRoom(this.number, this.name, this.capacity, this.people, this.sizeX, this.sizeY);
-  /*  this.number = null;
-    this.name = '';
-    this.capacity = null;
-    this.people = null;*/
+    /*  this.number = null;
+      this.name = '';
+      this.capacity = null;
+      this.people = null;*/
   }
 
   private setRoom(id: number) {
     let idRoom = this.roomService.getRoom().length;
-     this.room = new Room(idRoom, this.number, this.name,
+    this.room = new Room(idRoom, this.number, this.name,
       this.capacity, this.people, this.sizeX, this.sizeY);
     this.dataService.setRoom(this.room);
   }
