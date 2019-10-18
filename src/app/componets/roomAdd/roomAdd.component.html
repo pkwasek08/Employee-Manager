@@ -4,39 +4,47 @@
       <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>Room</ng-template>
         <mat-form-field>
-          <input matInput placeholder="Number" formControlName="firstCtrl" style="color: white;" required>
+          <input matInput placeholder="Number" formControlName="firstCtrl" [(ngModel)]="number" style="color: white;"
+            required>
         </mat-form-field><br>
         <mat-form-field>
-          <input matInput placeholder="Name"  formControlName="secondCtrl" style="color: white;" required>
+          <input matInput placeholder="Name" formControlName="secondCtrl" [(ngModel)]="name" style="color: white;"
+            required>
         </mat-form-field><br>
         <mat-form-field>
-          <input matInput placeholder="Capacity"  formControlName="thirdCtrl" style="color: white;" required>
+          <input matInput placeholder="Capacity" formControlName="thirdCtrl" [(ngModel)]="capacity"
+            style="color: white;" required>
         </mat-form-field>
         <br><br><br>
         <label style="color:rgba(187, 186, 186, 1); font-size: 25px; ">Size of the room</label>
         <hr>
         <mat-form-field>
-          <input matInput placeholder="Width" formControlName="fifthCtrl" style="color: white; text-align: right;" required>
+          <input matInput placeholder="Width" formControlName="fifthCtrl" [(ngModel)]="weightRoom"
+            style="color: white; text-align: right;" required>
           <span matSuffix style="color:white;font-size: 20px;">&nbsp;m</span>
         </mat-form-field>&nbsp;&nbsp;
         <mat-form-field>
-          <input matInput placeholder="Length" formControlName="sixthCtrl" style="color: white; text-align: right;" required>
+          <input matInput placeholder="Length" formControlName="sixthCtrl" [(ngModel)]="lengthRoom"
+            style="color: white; text-align: right;" required>
           <span matSuffix style="color:white;font-size: 20px;">&nbsp;m</span>
         </mat-form-field><br><br>
         <div>
-          <button class="btn btn-primary" matStepperNext style="padding-right: 20px; padding-left: 20px; font-size: 20px;">Next</button>
+          <button class="btn btn-primary" (click)="setRoom(); addRoom();" matStepperNext
+            style="padding-right: 20px; padding-left: 20px; font-size: 20px;">Next</button>
         </div>
       </form>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
         <ng-template matStepLabel>Positions of desks</ng-template>
-        <mat-form-field>
-          <input matInput placeholder="Address" formControlName="secondCtrl" required>
-        </mat-form-field>
+        <div *ngIf="room!=null">
+          <app-room-view></app-room-view>
+        </div>
         <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+          <button class="btn btn-primary" style="padding-right: 20px; padding-left: 20px; font-size: 20px;"
+            matStepperPrevious>Back</button>&nbsp;&nbsp;
+          <button class="btn btn-primary" style="padding-right: 20px; padding-left: 20px; font-size: 20px;"
+            matStepperNext>Next</button>
         </div>
       </form>
     </mat-step>
@@ -44,8 +52,12 @@
       <ng-template matStepLabel>Done</ng-template>
       You are now done.
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button class="btn btn-danger" style="padding-right: 20px; padding-left: 20px; font-size: 20px;"
+          matStepperPrevious>Back</button>&nbsp;&nbsp;
+        <button class="btn btn-warning" style="padding-right: 20px; padding-left: 20px; font-size: 20px;"
+          (click)="stepper.reset()">Reset</button>&nbsp;&nbsp;
+        <a routerLink="/"><button class="btn btn-success"
+            style="padding-right: 20px; padding-left: 20px; font-size: 20px;">Quit</button></a>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

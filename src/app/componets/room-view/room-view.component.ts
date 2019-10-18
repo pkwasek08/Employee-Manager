@@ -64,8 +64,8 @@ export class RoomViewComponent implements OnInit {
     }
 
     if (room != null) {
-      this.scalex = room.sizeX;
-      this.scaley = room.sizeY;
+      this.scalex = room.sizeX * 10;
+      this.scaley = room.sizeY * 10;
       this.screen = "0 0" + " " + String(this.scalex) + " " + String(this.scaley);
       this.desksNumber = room.capacity;
       this.desksArray = this.roomViewService.getDeskByIdRoom(this.id);
@@ -81,6 +81,8 @@ export class RoomViewComponent implements OnInit {
         this.selectedEmployeeId = 0;
       }
     }
+    console.log(this.selectedEmployeeId);
+
   }
 
   ngDoCheck() {

@@ -23,8 +23,8 @@ export class RoomAddComponent implements OnInit {
   name: string;
   capacity: number;
   people = 0;
-  sizeX: number;
-  sizeY: number;
+  weightRoom: number;
+  lengthRoom: number;
   thirdFormGroup: FormGroup;
   fourthFormGroup: FormGroup;
   fifthFormGroup: FormGroup;
@@ -49,8 +49,17 @@ export class RoomAddComponent implements OnInit {
     });
   }
 
+  public elo()
+  {
+    console.log(this.number);
+    
+    console.log("elo");
+    
+  }
   private addRoom() {
-    this.roomService.addRoom(this.number, this.name, this.capacity, this.people, this.sizeX, this.sizeY);
+    console.log(this.number,this.people);
+    
+    this.roomService.addRoom(this.number, this.name, this.capacity, this.people, this.weightRoom, this.lengthRoom);
     /*  this.number = null;
       this.name = '';
       this.capacity = null;
@@ -60,7 +69,7 @@ export class RoomAddComponent implements OnInit {
   private setRoom(id: number) {
     let idRoom = this.roomService.getRoom().length;
     this.room = new Room(idRoom, this.number, this.name,
-      this.capacity, this.people, this.sizeX, this.sizeY);
+      this.capacity, this.people, this.weightRoom, this.lengthRoom);
     this.dataService.setRoom(this.room);
   }
 
