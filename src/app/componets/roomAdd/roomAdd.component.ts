@@ -41,8 +41,8 @@ export class RoomAddComponent implements OnInit {
       secondCtrl: ['', Validators.compose([Validators.required, Validators.pattern('^([a-zA-Z]+\ \?)+$')])],
       thirdCtrl: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]+$'), Validators.max(1000)])],
      // fourthCtrl: ['', Validators.required],
-      fifthCtrl: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]+$'), Validators.max(100)])],
-      sixthCtrl: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]+$'), Validators.max(100)])],
+      fifthCtrl: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]+$'), Validators.max(20)])],
+      sixthCtrl: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]+$'), Validators.max(20)])],
     });
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]

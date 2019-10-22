@@ -2,14 +2,17 @@
 {
   text-align: center;
   padding: 20px;
+  //padding-left:50%;
   font-size: 20px;
   display:inline-block;
   color: rgb(255,255,255);
   background: rgba(46, 46, 46, 0.95);
+  min-width: 400;
+  min-height: 400;
 }
-
 table {
-  text-align: center;
+ text-align: center;
+ display:inline-block;
 }
 
 .label{
@@ -27,4 +30,29 @@ table {
   &:last-child:hover {
     background: rgba(61, 61, 61, 0.95);
   }
+}
+::ng-deep .mat-form-field-infix
+{
+  width: 400px !important;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label  {
+  color: white;
+  text-align: center;
+  //font-size: 28px;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: white;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
+  padding: .4375em 0;
+  font-size: 25px;
+}
+hr
+{
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 0;
 }

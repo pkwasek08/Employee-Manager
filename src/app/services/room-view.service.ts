@@ -49,6 +49,10 @@ export class RoomViewService {
     }
   }
 
+  public getDeskByEmployeeId(id: number)
+  {
+    
+  }
 
   public addDesk(x: number, y: number, rotate: number, idRoom: number, idEmployee: number): void {
     let desk = new Desk(this.nextId, x, y, rotate, idRoom, idEmployee);

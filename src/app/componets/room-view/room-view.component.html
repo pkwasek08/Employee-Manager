@@ -1,4 +1,52 @@
 <div class="room-view">
+
+  <div style=" align-items: center; margin-left: 25%; width: 50%;" *ngIf="selectedEmployeeId!=null">
+    <div>
+      <div class="form-group">
+        <label>Select employee</label>
+        <select class="form-control bg-dark " (click)="selectEmployee()" id="exampleFormControlSelect1">
+          <option *ngFor="let employee of employeesList" id="{{employee.id}}">
+            {{employee.firstName}} &nbsp;&nbsp; {{employee.lastName}}
+          </option>
+        </select>
+      </div>
+
+      <label *ngIf="selectedEmployeeId!=null">
+        <table class="table table-hover table-striped table-bordered table-dark ">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Position</th>
+              <th>Salary</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-hover table-striped table-bordered bg-dark">
+              <th>{{employeesList[selectedEmployeeId].id}}</th>
+              <th>{{employeesList[selectedEmployeeId].firstName}}</th>
+              <th>{{employeesList[selectedEmployeeId].lastName}}</th>
+              <th>{{employeesList[selectedEmployeeId].position}}</th>
+              <th>{{employeesList[selectedEmployeeId].salary}}</th>
+              <th><span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Change employee's desk">
+                  <button class="btn btn-success" style="font-size: 20px;"
+                    (click)="startPickingPerson()">Change</button></span></th>
+            </tr>
+          </tbody>
+        </table>
+      </label>
+    </div>
+    <!--
+        <label *ngIf="checkNewPersonInRoom()===false" class="new-person">
+          Click to select desk for new person
+          <button class="btn btn-primary " (click)=startPickingPerson()>Pick</button>
+          <button class="btn btn-primary " id="buttonSave" (click)="saveNewPlacePerson()" disabled>Save</button>
+        </label>-->
+
+  </div>
+
   <div class="background">
     <svg (loadstart)="setPositions()" xmlns="http://www.w3.org/2000/svg" [attr.viewBox]="screen">
       <g *ngFor="let desk of desksArray" (dblclick)="assignNewPerson($event,desk.id)"
@@ -8,7 +56,7 @@
         <g *ngIf="desk.rotate === 0">
           <rect [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="green"
             style="opacity: 0.9;stroke:black;stroke-width:0.3" />
-          <g *ngIf="desk.idEmployee !== null ||  desk.id===deskForNewPerson">
+          <g *ngIf="(desk.idEmployee !== null ||  desk.id===deskForNewPerson) && employeesList.length>0">
             <circle
               *ngIf="desk.idEmployee === employeesList[selectedEmployeeId].id ||  (desk.idEmployee === null && desk.id===deskForNewPerson)"
               [attr.cy]="desk.y + 10" [attr.cx]="desk.x +10" r="9" fill="#cccc00" />
@@ -16,13 +64,18 @@
             <circle [attr.cy]="desk.y +4" [attr.cx]="desk.x +10" r="2" fill="#ffd9b3" />
           </g>
           <rect [attr.x]="desk.x +3" rx="2" ry="2" [attr.y]="desk.y +8" width="14" height="8" fill="#555555" />
-          <rect [attr.id]="desk.id" class="desk" [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20"
-            fill="#a6a6a6" style="opacity: 0.0" />
+          <g>
+            <rect [attr.id]="desk.id" class="desk" [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20"
+              fill="#a6a6a6" style="opacity: 0.0">
+              <title>Click then 'R' to rotate the element,
+                double click (chose the desk for a new employee)</title>
+            </rect>
+          </g>
         </g>
         <!--if czy pracownik siedzi przy biurku-->
         <g *ngIf="desk.rotate === 90">
           <rect [attr.x]="desk.x" value="dadsdasdaaasd" [attr.y]="desk.y" width="20" height="20" fill="green"
-            style="opacity: 0.9;stroke:black;stroke-width:0.1;" />
+            style="opacity: 0.9;stroke:black;stroke-width:0.3;" />
           <g *ngIf="desk.idEmployee !== null">
             <circle *ngIf="desk.idEmployee === employeesList[selectedEmployeeId].id" [attr.cy]="desk.y + 10"
               [attr.cx]="desk.x +10" r="9" fill="#cccc00" />
@@ -35,7 +88,7 @@
         </g>
         <g *ngIf="desk.rotate === 180">
           <rect [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="green"
-            style="opacity: 0.9;stroke:black;stroke-width:0.1" />
+            style="opacity: 0.9;stroke:black;stroke-width:0.3" />
           <g *ngIf="desk.idEmployee !== null">
             <circle *ngIf="desk.idEmployee === employeesList[selectedEmployeeId].id" [attr.cy]="desk.y + 10"
               [attr.cx]="desk.x +10" r="9" fill="#cccc00" />
@@ -48,7 +101,7 @@
         </g>
         <g *ngIf="desk.rotate === 270">
           <rect [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="green"
-            style="opacity: 0.9;stroke:black;stroke-width:0.1" />
+            style="opacity: 0.9;stroke:black;stroke-width:0.3" />
           <g *ngIf="desk.idEmployee !== null">
             <circle *ngIf="desk.idEmployee === employeesList[selectedEmployeeId].id" [attr.cy]="desk.y + 10"
               [attr.cx]="desk.x +10" r="9" fill="#cccc00" />
@@ -61,58 +114,14 @@
         </g>
       </g>
     </svg>
-    <a class="border">
-      <a> <button class="btn btn-success w-25 " (click)="saveDesks()">Save</button></a>
+    <div class="border">
+      <a> <button class="btn btn-success w-25 " id="buttonSave" (click)="saveDesks()">Save</button></a>
       <a *ngIf="desksNumber > desksArray.length; else elseBlock ">
         <button class="btn btn-primary w-25 " (click)="addDesks()">New</button></a>
       <ng-template #elseBlock>
         <button disabled class="btn btn-primary w-25 " (click)="addDesks()">New</button>
       </ng-template>
-    </a>
-  </div>
-
-  <label>
-    <div class="form-group">
-      <label for="exampleFormControlSelect1">Select employee</label>
-      <select class="form-control bg-dark " (click)="selectEmployee()" id="exampleFormControlSelect1">
-        <option *ngFor="let employee of employeesList" id="{{employee.id}}">
-          {{employee.firstName}} &nbsp;&nbsp; {{employee.lastName}}
-        </option>
-      </select>
     </div>
-  </label>
-
-<!--  <div>
-    <label *ngIf="selectedEmployeeId!=null">
-      <table class="table table-hover table-striped table-bordered table-dark">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Position</th>
-            <th>Salary</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="table-hover table-striped table-bordered bg-dark">
-            <th>{{employeesList[selectedEmployeeId].id}}</th>
-            <th>{{employeesList[selectedEmployeeId].firstName}}</th>
-            <th>{{employeesList[selectedEmployeeId].lastName}}</th>
-            <th>{{employeesList[selectedEmployeeId].position}}</th>
-            <th>{{employeesList[selectedEmployeeId].salary}}</th>
-          </tr>
-        </tbody>
-      </table>
-    </label>
-  </div>
--->
-  <div *ngIf="checkNewPersonInRoom()===false">
-    <label class="new-person">
-      Click to select desk for new person
-      <button class="btn btn-primary w-25 " (click)=startPickingPerson()>Add</button>
-      <button class="btn btn-primary w-25 " id="buttonSave" (click)="saveNewPlacePerson()" disabled>Save</button>
-    </label>
   </div>
 
 </div>

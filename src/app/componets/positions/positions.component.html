@@ -1,40 +1,29 @@
 <br>
-<div class="position-add w-40">
-    <form class="was-validated">
-
-        <div>
-            Name<br>
-            <input type="search" class="form-control" [(ngModel)]="name" value={{name}}
-                [ngModelOptions]="{standalone: true}" placeholder="Programmer" required />
-            <div class="invalid-feedback">
-                Not empty
-            </div>
-        </div>
-        <br>
-        <div>
-            Min Wage<br>
-            <input type="number" class="form-control" [(ngModel)]="minWage" value={{minWage}}
-                [ngModelOptions]="{standalone: true}" placeholder="1000" min="1000" required />
-            <div class="invalid-feedback">
-                Choose max wage larger than min wage and less than 10000
-            </div>
-        </div>
-        <br>
-        <div>
-        Max Wage<br>
-        <input type="number" class="form-control" [(ngModel)]="maxWage" value={{maxWage}}
-            [ngModelOptions]="{standalone: true}" placeholder="10000" max="10000" min={{minWage}} required />
-        <div class="invalid-feedback">
-            Choose max wage larger than min wage and less than 10000
-        </div>
+<div class="position-add" style="width: 70%;">
+    <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Room</ng-template>
+        <mat-form-field>
+            <input matInput placeholder="Profession" formControlName="firstCtrl" [(ngModel)]="name"
+                style="color: white; text-align: center;" required>
+        </mat-form-field><br>
+        <mat-form-field>
+            <input matInput placeholder="Min Wage" max="maxWage" formControlName="secondCtrl" [(ngModel)]="minWage"
+                style="color: white; text-align: center;" required>
+        </mat-form-field><br>
+        <mat-form-field>
+            <input matInput placeholder="Max Wage" formControlName="thirdCtrl" [(ngModel)]="maxWage"
+                style="color: white; text-align: center;" required>
+        </mat-form-field>
+    </form><br>
+    <div
+        *ngIf="name != null && minWage >= 2000 && 10000 >= minWage && 10000 >=maxWage && maxWage>2000 && maxWage>=minWage; else elseBlock">
+        <button class="btn btn-primary w-50" (click)="addPositions()">Submit</button><br>
     </div>
-        <br>
-
-        <a *ngIf="name != null && minWage >= 1000  && 10000 >=maxWage && maxWage>=minWage">
-
-            <button class="btn btn-primary" (click)="addPositions()">Submit</button>
-        </a>
-    </form>
+    <ng-template #elseBlock>
+        <button class="btn btn-primary w-50" disabled>Submit</button><br>
+    </ng-template>
+    <br>
+    <hr>
     <br>
     <table class="table table-hover table-striped table-bordered table-dark w-auto">
         <thead>

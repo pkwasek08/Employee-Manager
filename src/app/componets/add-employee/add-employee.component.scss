@@ -14,3 +14,30 @@
   text-align: right;
   position: right;
 }
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label  {
+  color: white;
+  text-align: center;
+  //font-size: 28px;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: white;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
+  padding: .4375em 0;
+  font-size: 25px;
+}
+
+::ng-deep .mat-select-value {
+  color: white;
+}
+
+::ng-deep .mat-select-arrow {
+  color: white;
+}
+
+::ng-deep .mat-form-field-infix
+{
+  width: 400px !important;
+}

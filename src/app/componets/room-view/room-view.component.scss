@@ -22,15 +22,15 @@
 }
 
 .background {
-  background: rgba(255, 242, 230, 0.95);
-  //position: center;
-  //text-align: center;
+  background: rgba(189, 189, 189, 0.95);
+  position: center;
+  text-align: center;
   //text-align: left'
-  margin-left: 10%;
+  //margin-left: 30%;
   top: 10%;
 
   bottom: auto;
-  //  margin-left: 25%;
+    margin-left: 30%;
   width: 40%;
   border: double black;
   border-width: 10px;
@@ -39,48 +39,41 @@
 
 .form-group {
   color: white;
-  position: absolute;
+ // position: absolute;
   background: black;
-  width: 15%;
-  top: 20%;
-  margin-left: 17.5%;
   //right: 15%;
-  bottom: auto;
   font-size: 20px;
-  border: double black;
-  border-width: 7px;
+  //border: double white;
+  //border-width: 2px;
+  
 }
 
 .form-control {
   text-align-last: center;
   color: white;
-  font-size: 20px;
+  font-size: 20px; 
 }
 .table
 {
-  position: absolute;
-  width: 30%;
-  top: 35%;
+  //border: double white;
+  //border-width: 2px;
+  //position: fixed;
   overflow: scroll;
-  margin-left: 10%;
-  bottom: auto;
   font-size: 20px;
   background: black;
-  bottom: auto;
+  
+
+}
+.table thead th {
+  vertical-align: middle;
 }
 .new-person
 {
   color: white;
-  position: absolute;
   background: black;
-  width: 20%;
-  top: 50%;
-  margin-left: 15%;
-  //right: 15%;
-  bottom: auto;
   font-size: 20px;
   padding: 10px;
-  border: double white;
-  border-width: 2px;
+ // border: double white;
+ // border-width: 2px;
 }
 

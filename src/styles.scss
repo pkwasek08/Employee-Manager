@@ -6,3 +6,8 @@ app-root {
     display: flex;
 }
 
+body{
+    min-width:300px;     
+    min-height: 800px;   
+    width: auto !important;           
+ }

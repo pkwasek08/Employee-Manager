@@ -47,5 +47,10 @@ export class PositionsService {
   public setLocalStoragePositions(positions: Position[]): void {
     localStorage.setItem('positions', JSON.stringify({ positions: positions }));
   }
+
+  public getPositionsbyId()
+  {
+    
+  }
 }
 

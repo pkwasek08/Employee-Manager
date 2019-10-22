@@ -77,7 +77,7 @@ export class RoomViewComponent implements OnInit {
           this.employeesList.push(employee);
         }
       });
-      if (this.employeesList != null) {
+      if (this.employeesList.length > 0) {
         this.selectedEmployeeId = 0;
       }
     }
@@ -150,17 +150,11 @@ export class RoomViewComponent implements OnInit {
 
   public checkAllCollision(evt) {
     this.desksArray.forEach((desk, index) => {
-      console.log(desk);
-      console.log(index);
-
       this.checkCollision(evt, index);
     });
   }
 
   public checkCollision(id: number, evt): boolean {
-    console.log(id);
-    console.log(this.desksArray);
-
     let temp = 0;
     const coord = this.getMousePosition(evt);
 
@@ -256,18 +250,22 @@ export class RoomViewComponent implements OnInit {
   }
 
   public checkNewPersonInRoom(): boolean {
+    console.log("elo checknewpersoninroom");
+
     let checking = false;
-    this.desksArray.forEach(desk => {
-      if (desk.idEmployee === this.employeesList[this.selectedEmployeeId].id) {
-        checking = true;
-      }
-    });
+    if (this.employeesList.length > 0) {
+      this.desksArray.forEach(desk => {
+        if (desk.idEmployee === this.employeesList[this.selectedEmployeeId].id) {
+          checking = true;
+        }
+      });
+    }
     if (checking) {
       return true;
     } else { return false; }
   }
 
-  public startPickingPerson() {
+  public startPickingPerson() {   
     this.startPicking = true;
   }
 
