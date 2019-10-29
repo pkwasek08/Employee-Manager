@@ -11,7 +11,7 @@ export class RoomViewService {
   constructor() {
 
     let desks = this.getDesk();
-    if (desks == null && desks.length != 0 && desks) {
+    if (desks.length !== 0) {
       let maxId = desks[desks.length - 1].id;
       this.nextId = maxId + 1;
     } else {
@@ -41,6 +41,8 @@ export class RoomViewService {
         }
       }
     }
+    console.log(deskNewAraay);
+    
     if (deskNewAraay == null) {
       return [];
     }

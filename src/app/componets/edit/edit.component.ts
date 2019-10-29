@@ -7,6 +7,7 @@ import { Position } from 'src/app/models/position'
 import { PositionsService } from 'src/app/services/position.service';
 import { RoomService } from 'src/app/services/room.service';
 import { MatSnackBar } from '@angular/material';
+import { Employee } from 'src/app/models/employee';
 
 @Component({
   selector: 'app-edit',
@@ -15,6 +16,7 @@ import { MatSnackBar } from '@angular/material';
 })
 export class EditComponent implements OnInit {
 
+  public editEmployee: Employee;
   public firstName: string;
   public position: string;
   public salary: number;
@@ -61,14 +63,8 @@ export class EditComponent implements OnInit {
       this.roomService.editRoomPerson(roomOld, -1);
     }
 
-    this.employeeService.editEmployee(this.id, this.firstName, this.lastName, this.position,
-      this.salary, this.roomId);
-    this.firstName = '';
-    this.lastName = '';
-    this.position = '';
-    this.roomId = null;
-    this.salary = null;
-    this.id = null;
+    this.employeeService.editEmployee(this.editEmployee);
+    this.editEmployee = null;
   }
 
   openSnackBar() {

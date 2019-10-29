@@ -1,67 +1,60 @@
 <div class="room-view">
 
-  <div style=" align-items: center; margin-left: 25%; width: 50%;" *ngIf="selectedEmployeeId!=null">
+  <div style="align-items: center;  width: 80%; display: inline-block;" *ngIf="selectedEmployeeId!=null">
     <div>
       <div class="form-group">
         <label>Select employee</label>
         <select class="form-control bg-dark " (click)="selectEmployee()" id="exampleFormControlSelect1">
-          <option *ngFor="let employee of employeesList" id="{{employee.id}}">
-            {{employee.firstName}} &nbsp;&nbsp; {{employee.lastName}}
+          <option *ngFor="let employee of employeesList" class="{{employee.id}}">
+            {{employee.firstName}} {{employee.lastName}}
           </option>
         </select>
       </div>
-
-      <label *ngIf="selectedEmployeeId!=null">
-        <table class="table table-hover table-striped table-bordered table-dark ">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Position</th>
-              <th>Salary</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="table-hover table-striped table-bordered bg-dark">
-              <th>{{employeesList[selectedEmployeeId].id}}</th>
-              <th>{{employeesList[selectedEmployeeId].firstName}}</th>
-              <th>{{employeesList[selectedEmployeeId].lastName}}</th>
-              <th>{{employeesList[selectedEmployeeId].position}}</th>
-              <th>{{employeesList[selectedEmployeeId].salary}}</th>
-              <th><span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Change employee's desk">
-                  <button class="btn btn-success" style="font-size: 20px;"
-                    (click)="startPickingPerson()">Change</button></span></th>
-            </tr>
-          </tbody>
-        </table>
-      </label>
+      <table class="table table-hover table-striped table-bordered table-dark " *ngIf="selectedEmployeeId!=null">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Position</th>
+            <th>Salary</th>
+            <th>Desk</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-hover table-striped table-bordered bg-dark">
+            <th>{{employeesList[selectedEmployeeId].id}}</th>
+            <th>{{employeesList[selectedEmployeeId].firstName}}</th>
+            <th>{{employeesList[selectedEmployeeId].lastName}}</th>
+            <th>{{employeesList[selectedEmployeeId].position}}</th>
+            <th>{{employeesList[selectedEmployeeId].salary}}</th>
+            <th><button class="btn btn-primary" title="Change employee's desk"
+                (click)="startPickingPerson()">Change</button>&nbsp;
+              <button class="btn btn-success " id="buttonSave" (click)="saveNewPlacePerson()" disabled>Save</button>
+            </th>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <!--
-        <label *ngIf="checkNewPersonInRoom()===false" class="new-person">
-          Click to select desk for new person
-          <button class="btn btn-primary " (click)=startPickingPerson()>Pick</button>
-          <button class="btn btn-primary " id="buttonSave" (click)="saveNewPlacePerson()" disabled>Save</button>
-        </label>-->
-
   </div>
 
   <div class="background">
     <svg (loadstart)="setPositions()" xmlns="http://www.w3.org/2000/svg" [attr.viewBox]="screen">
       <g *ngFor="let desk of desksArray" (dblclick)="assignNewPerson($event,desk.id)"
-        (mouseleave)="endDrag($event,desk.id)" (mouseup)="endDrag($event,desk.id);" (mousemove)="drag($event,desk.id)"
+        (mouseleave)="endDrag($event,desk.id)" (mouseup)="endDrag($event,desk.id)" (mousemove)="drag($event,desk.id)"
         (mousedown)="startDrag($event,desk.id)" (load)="setPositions()">
         <!--roomViewService.getDesk()-->
         <g *ngIf="desk.rotate === 0">
           <rect [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="green"
             style="opacity: 0.9;stroke:black;stroke-width:0.3" />
-          <g *ngIf="(desk.idEmployee !== null ||  desk.id===deskForNewPerson) && employeesList.length>0">
+          <g *ngIf="(desk.idEmployee != null ||  desk.id===deskForNewPerson) && employeesList.length>0">
             <circle
-              *ngIf="desk.idEmployee === employeesList[selectedEmployeeId].id ||  (desk.idEmployee === null && desk.id===deskForNewPerson)"
+              *ngIf="((deskForNewPerson==null && desk.idEmployee === selectedEmployeeId) || (desk.idEmployee === null && desk.id===deskForNewPerson))"
               [attr.cy]="desk.y + 10" [attr.cx]="desk.x +10" r="9" fill="#cccc00" />
-            <circle [attr.cy]="desk.y +9.2" [attr.cx]="desk.x +10" r="4" fill="#000000" />
-            <circle [attr.cy]="desk.y +4" [attr.cx]="desk.x +10" r="2" fill="#ffd9b3" />
+            <circle *ngIf="desk.idEmployee !== null" [attr.cy]="desk.y +9.2" [attr.cx]="desk.x +10" r="4"
+              fill="#000000" />
+            <circle *ngIf="desk.idEmployee !== null" [attr.cy]="desk.y +4" [attr.cx]="desk.x +10" r="2"
+              fill="#ffd9b3" />
           </g>
           <rect [attr.x]="desk.x +3" rx="2" ry="2" [attr.y]="desk.y +8" width="14" height="8" fill="#555555" />
           <g>
@@ -76,11 +69,14 @@
         <g *ngIf="desk.rotate === 90">
           <rect [attr.x]="desk.x" value="dadsdasdaaasd" [attr.y]="desk.y" width="20" height="20" fill="green"
             style="opacity: 0.9;stroke:black;stroke-width:0.3;" />
-          <g *ngIf="desk.idEmployee !== null">
-            <circle *ngIf="desk.idEmployee === employeesList[selectedEmployeeId].id" [attr.cy]="desk.y + 10"
-              [attr.cx]="desk.x +10" r="9" fill="#cccc00" />
-            <circle [attr.cy]="desk.y + 10 " [attr.cx]="desk.x +10.8 " r="4" fill="#000000" />
-            <circle [attr.cy]="desk.y + 10" [attr.cx]="desk.x + 16 " r="2" fill="#ffd9b3" />
+          <g *ngIf="(desk.idEmployee != null ||  desk.id===deskForNewPerson) && employeesList.length>0">
+            <circle
+              *ngIf="((deskForNewPerson==null && desk.idEmployee === selectedEmployeeId) || (desk.idEmployee === null && desk.id===deskForNewPerson))"
+              [attr.cy]="desk.y + 10" [attr.cx]="desk.x +10" r="9" fill="#cccc00" />
+            <circle *ngIf="desk.idEmployee !== null" [attr.cy]="desk.y + 10 " [attr.cx]="desk.x +10.8 " r="4"
+              fill="#000000" />
+            <circle *ngIf="desk.idEmployee !== null" [attr.cy]="desk.y + 10" [attr.cx]="desk.x + 16 " r="2"
+              fill="#ffd9b3" />
           </g>
           <rect [attr.x]="desk.x +4" rx="2" ry="2" [attr.y]="desk.y +3" width="8" height="14" fill="#555555" />
           <rect [attr.id]="desk.id" class="desk" [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20"
@@ -89,11 +85,14 @@
         <g *ngIf="desk.rotate === 180">
           <rect [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="green"
             style="opacity: 0.9;stroke:black;stroke-width:0.3" />
-          <g *ngIf="desk.idEmployee !== null">
-            <circle *ngIf="desk.idEmployee === employeesList[selectedEmployeeId].id" [attr.cy]="desk.y + 10"
-              [attr.cx]="desk.x +10" r="9" fill="#cccc00" />
-            <circle [attr.cy]="desk.y +10.8" [attr.cx]="desk.x +10" r="4" fill="#000000" />
-            <circle [attr.cy]="desk.y +16" [attr.cx]="desk.x +10" r="2" fill="#ffd9b3" />
+          <g *ngIf="(desk.idEmployee != null ||  desk.id===deskForNewPerson) && employeesList.length>0">
+            <circle
+              *ngIf="((deskForNewPerson==null && desk.idEmployee === selectedEmployeeId) || (desk.idEmployee === null && desk.id===deskForNewPerson))"
+              [attr.cy]="desk.y + 10" [attr.cx]="desk.x +10" r="9" fill="#cccc00" />
+            <circle *ngIf="desk.idEmployee !== null" [attr.cy]="desk.y +10.8" [attr.cx]="desk.x +10" r="4"
+              fill="#000000" />
+            <circle *ngIf="desk.idEmployee !== null" [attr.cy]="desk.y +16" [attr.cx]="desk.x +10" r="2"
+              fill="#ffd9b3" />
           </g>
           <rect [attr.x]="desk.x +3" rx="2" ry="2" [attr.y]="desk.y +4" width="14" height="8" fill="#555555" />
           <rect [attr.id]="desk.id" class="desk" [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20"
@@ -102,11 +101,14 @@
         <g *ngIf="desk.rotate === 270">
           <rect [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20" fill="green"
             style="opacity: 0.9;stroke:black;stroke-width:0.3" />
-          <g *ngIf="desk.idEmployee !== null">
-            <circle *ngIf="desk.idEmployee === employeesList[selectedEmployeeId].id" [attr.cy]="desk.y + 10"
-              [attr.cx]="desk.x +10" r="9" fill="#cccc00" />
-            <circle [attr.cy]="desk.y + 10" [attr.cx]="desk.x + 9.2" r="4" fill="#000000" />
-            <circle [attr.cy]="desk.y + 10" [attr.cx]="desk.x + 4" r="2" fill="#ffd9b3" />
+          <g *ngIf="(desk.idEmployee != null ||  desk.id===deskForNewPerson) && employeesList.length>0">
+            <circle
+              *ngIf="((deskForNewPerson==null && desk.idEmployee === selectedEmployeeId) || (desk.idEmployee === null && desk.id===deskForNewPerson))"
+              [attr.cy]="desk.y + 10" [attr.cx]="desk.x +10" r="9" fill="#cccc00" />
+            <circle *ngIf="desk.idEmployee !== null" [attr.cy]="desk.y + 10" [attr.cx]="desk.x + 9.2" r="4"
+              fill="#000000" />
+            <circle *ngIf="desk.idEmployee !== null" [attr.cy]="desk.y + 10" [attr.cx]="desk.x + 4" r="2"
+              fill="#ffd9b3" />
           </g>
           <rect [attr.x]="desk.x +8" rx="2" ry="2" [attr.y]="desk.y +3" width="8" height="14" fill="#555555" />
           <rect [attr.id]="desk.id" class="desk" [attr.x]="desk.x" [attr.y]="desk.y" width="20" height="20"
@@ -116,7 +118,7 @@
     </svg>
     <div class="border">
       <a> <button class="btn btn-success w-25 " id="buttonSave" (click)="saveDesks()">Save</button></a>
-      <a *ngIf="desksNumber > desksArray.length; else elseBlock ">
+      <a *ngIf="desksNumber > desksArray.length && stretch>(desksArray.length+5) * 400 ; else elseBlock ">
         <button class="btn btn-primary w-25 " (click)="addDesks()">New</button></a>
       <ng-template #elseBlock>
         <button disabled class="btn btn-primary w-25 " (click)="addDesks()">New</button>

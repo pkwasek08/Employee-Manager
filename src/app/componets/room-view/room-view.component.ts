@@ -41,6 +41,7 @@ export class RoomViewComponent implements OnInit {
   public selectedEmployeeId;
   public startPicking = false;
   public deskForNewPerson: number;
+  public stretch: number;
 
   constructor(
     public roomService: RoomService,
@@ -71,9 +72,8 @@ export class RoomViewComponent implements OnInit {
       this.desksArray = this.roomViewService.getDeskByIdRoom(this.id);
       this.idDeskArray = this.roomViewService.getDesk().length;
       const employees = this.employeeService.getEmployee();
-
       employees.forEach(employee => {
-        if (employee.room == this.id) {
+        if (employee.room === this.id) {
           this.employeesList.push(employee);
         }
       });
@@ -81,11 +81,8 @@ export class RoomViewComponent implements OnInit {
         this.selectedEmployeeId = 0;
       }
     }
-    console.log(this.selectedEmployeeId);
 
-  }
-
-  ngDoCheck() {
+    this.stretch = this.scalex * this.scaley;
   }
   //stara metoda
   public setPositions() {
@@ -98,15 +95,15 @@ export class RoomViewComponent implements OnInit {
   }
 
   public savePositions() {
-    for (let i = 0; i < this.desksArray.length; i++) {
-      if (this.desksArray[i] != null) {
-        const element = document.getElementById(String(this.desksArray[i].id));
-        this.yParameters[i] = parseFloat(element.getAttributeNS(null, "y"));
-        this.xParameters[i] = parseFloat(element.getAttributeNS(null, "x"));
-        this.desksArray[i].x = parseFloat(element.getAttributeNS(null, "x"));
-        this.desksArray[i].y = parseFloat(element.getAttributeNS(null, "y"));
+    this.desksArray.forEach((item, index) => {
+      if (item != null) {
+        const element = document.getElementById(String(item.id));
+        this.yParameters[index] = parseFloat(element.getAttributeNS(null, "y"));
+        this.xParameters[index] = parseFloat(element.getAttributeNS(null, "x"));
+        this.desksArray[index].x = parseFloat(element.getAttributeNS(null, "x"));
+        this.desksArray[index].y = parseFloat(element.getAttributeNS(null, "y"));
       }
-    }
+    });
   }
 
   public startDrag(evt, id: number) {
@@ -117,22 +114,20 @@ export class RoomViewComponent implements OnInit {
     this.offset.x -= parseFloat(this.selectedElement.getAttributeNS(null, "x"));
     this.offset.y -= parseFloat(this.selectedElement.getAttributeNS(null, "y"));
     this.desksArray.forEach((item, index) => {
-
       if (item.id === id) {
         this.selectedElementId = index;
       }
     });
-
     this.savePositions();
   }
 
   public drag(evt, id: number) {
-    let temp = 0;
+    //let temp = 0;
     if (this.selectedElement) {
+
       this.svg = evt.target;
       evt.preventDefault();
       const coord = this.getMousePosition(evt);
-
 
       if (coord.x - this.offset.x >= 0 && coord.x - this.offset.x <= this.scalex - 20
         && coord.y - this.offset.y >= 0 && coord.y - this.offset.y <= this.scaley - 20) {
@@ -140,10 +135,8 @@ export class RoomViewComponent implements OnInit {
         this.selectedElement.setAttributeNS(null, "y", coord.y - this.offset.y);
         this.savePositions();
         this.checkCollision(id, evt);
-
         // this.desksArray[i].x = coord.x - this.offset.x;
         // this.desksArray[i].y = coord.y - this.offset.y;
-
       }
     }
   }
@@ -206,12 +199,7 @@ export class RoomViewComponent implements OnInit {
   }
 
   private saveDesks(): void {
-    console.log("addDesk");
-
-    if ((isNaN(this.id))) {
-
-    }
-
+    if ((isNaN(this.id))) { }
     this.desksArray.forEach(desk => {
       this.roomViewService.editDesk(desk.id, desk.x, desk.y, desk.rotate, this.id, desk.idEmployee);
     });
@@ -249,8 +237,8 @@ export class RoomViewComponent implements OnInit {
     this.selectedEmployeeId = form.selectedIndex;
   }
 
+  //nie używana
   public checkNewPersonInRoom(): boolean {
-    console.log("elo checknewpersoninroom");
 
     let checking = false;
     if (this.employeesList.length > 0) {
@@ -265,7 +253,7 @@ export class RoomViewComponent implements OnInit {
     } else { return false; }
   }
 
-  public startPickingPerson() {   
+  public startPickingPerson() {
     this.startPicking = true;
   }
 
@@ -273,7 +261,8 @@ export class RoomViewComponent implements OnInit {
     if (this.startPicking) {
       this.desksArray.forEach((item, index) => {
         if (item.id === id && item.idEmployee === null) {
-          this.deskForNewPerson = index + 1;
+
+          this.deskForNewPerson = index;
         }
       });
       const buttonSave = document.getElementById("buttonSave") as HTMLSelectElement;
@@ -282,7 +271,15 @@ export class RoomViewComponent implements OnInit {
   }
 
   public saveNewPlacePerson() {
-    this.desksArray[this.deskForNewPerson - 1].idEmployee = this.employeesList[this.selectedEmployeeId].id;
+    this.desksArray.forEach((itemDesk) => {
+      if (itemDesk.idEmployee === this.employeesList[this.selectedEmployeeId].id) {
+        itemDesk.idEmployee = null;
+      }
+    });
+    this.desksArray[this.deskForNewPerson].idEmployee = this.employeesList[this.selectedEmployeeId].id;
+    this.saveDesks();
     this.deskForNewPerson = null;
+    const buttonSave = document.getElementById("buttonSave") as HTMLSelectElement;
+    buttonSave.disabled = true;
   }
 }

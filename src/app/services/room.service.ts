@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Room } from '../models/room';
+import { Desk } from '../models/desk';
+import { RoomViewService } from './room-view.service';
+import { EmployeeService } from './employee.service';
+import { Employee } from '../models/employee';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +12,10 @@ export class RoomService {
 
   private temp: number = 0;
   public nextId: number;
-
-  constructor() {
+  constructor(private roomViewService: RoomViewService, private employeeService: EmployeeService) {
     let rooms = this.getRoom();
 
-    if (rooms == null && rooms.length != 0 && rooms) {
+    if (rooms.length !== 0) {
 
       let maxId = rooms[rooms.length - 1].id;
 
@@ -22,9 +25,17 @@ export class RoomService {
     }
   }
 
-  public removeRoom(id: number): void {
+  public removeRoomFull(id: number): void {
     let rooms = this.getRoom();
     rooms = rooms.filter((room) => room.id != id);
+    this.setLocalStorageRooms(rooms);
+    this.removeDesksByRoomId(id);
+    this.setNullRoomInEmployeeAfterRemoveRoom(id);
+  }
+
+  public removeRoom(id: number): void {
+    let rooms = this.getRoom();
+    rooms = rooms.filter((room) => room.id !== id);
     this.setLocalStorageRooms(rooms);
   }
 
@@ -73,12 +84,25 @@ export class RoomService {
     }
     else {
       for (let i = 0; i < rooms.length; i++) {
-        if (rooms[i].id == id) {
+        if (rooms[i].id === id) {
           return rooms[i];
         }
       }
     }
     //return localStorageItem === null ? [] : localStorageItem.employees;
+  }
+
+  removeDesksByRoomId(id: number) {
+    let desks = this.roomViewService.getDeskByIdRoom(id);
+    for (let element in desks)
+      this.roomViewService.removeDesk(desks[element].id);
+  }
+
+  setNullRoomInEmployeeAfterRemoveRoom(id: number) {
+    let employee: Employee;
+    employee = this.employeeService.getEmployeeByIdRoom(id);
+    employee.room = null;
+    this.employeeService.editEmployee(employee);
   }
 
 }
