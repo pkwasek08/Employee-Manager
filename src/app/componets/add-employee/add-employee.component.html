@@ -1,71 +1,47 @@
 <br>
-<div class="form w-30">
-  <form class="was-validated">
-
-    <div>
-      <label class="firstName" for="formGroupExampleInput">First name</label><br>
-      <input type="search" class="form-control" [(ngModel)]="firstName" value={{firstName}}
-        [ngModelOptions]="{standalone: true}" placeholder="Jan" required />
-      <div class="invalid-feedback">
-        Not empty
-      </div>
-    </div>
-    <br>
-    <div>
-      Last name<br>
-      <input type="search" class="form-control" [(ngModel)]="lastName" value={{lastName}}
-        [ngModelOptions]="{standalone: true}" placeholder="Nowak" required />
-      <div class="invalid-feedback">
-        Not empty
-      </div>
-    </div><br>
-    <div class="form-group w-100">
-      <label for="exampleFormControlSelect1">Position</label><br>
-      <select required id="positionId" class="custom-select" name="position" [(ngModel)]="position">
-        <option [ngValue]="" selected disabled>Profession</option>
-        <option *ngFor="let position of positions">
-          {{position.name}}
-        </option>
-      </select>
-      <div class="invalid-feedback">
-        Not empty
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="exampleFormControlSelect1">Salary</label><br>
-      <select id="salaryId" class="form-control" name="salary" [(ngModel)]="salary" required>
-        <option [ngValue]="" selected disabled hidden>...</option>
-        <option *ngFor="let number  of numbers">
-          {{number}}
-        </option>
-      </select>
-      <div class="invalid-feedback">
-        Not empty
-      </div>
-    </div>
-    <form>
-      <label for="exampleFormControlSelect1">Room</label><br>
-      <select id="roomId" class="form-control" tooltip="Choose room with free place" name="room" [(ngModel)]="room"
+<div class="form" style="width: 70%;">
+  <form [formGroup]="firstFormGroup">
+    <mat-form-field>
+      <input matInput placeholder="First Name" formControlName="nameCtrl" [(ngModel)]="firstName" style="color: white;"
         required>
-        <!--//ngvalue-->
-        <option [ngValue]="" selected disabled hidden>Office</option>
-        <!--[ngValue]="cos"-->
-        <option *ngFor="let room of rooms" [ngValue]="room" [disabled]="room.people > room.capacity">
+    </mat-form-field><br>
+    <mat-form-field>
+      <input matInput placeholder="Last Name" formControlName="lastNameCtrl" [(ngModel)]="lastName"
+        style="color: white;" required>
+      <!--<mat-error *ngIf="firstFormGroup.hasError('required')">No Empty</mat-error>-->
+    </mat-form-field><br>
+    <mat-form-field>
+      <mat-label>Positions *</mat-label>
+      <mat-select formControlName="positionsCtrl" [(ngModel)]="position">
+        <mat-option *ngFor="let position of positions" [value]="position" (click)="setSalary()">
+          {{position.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field><br>
+    <mat-form-field>
+      <mat-label>Salary *</mat-label>
+      <mat-select formControlName="salaryCtrl" [(ngModel)]="salary">
+        <mat-option *ngFor="let salary  of salaryArray" [value]="salary">
+          {{salary}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field><br>
+    <mat-form-field>
+      <mat-label>Room *</mat-label>
+      <mat-select formControlName="roomCtrl" [(ngModel)]="room">
+        <mat-option *ngFor="let room of rooms" [value]="room" [disabled]="room.people >= room.capacity">
           {{room.name}}&nbsp;&nbsp; p.{{room.number}}
           [{{room.people}}/{{room.capacity}}]
-        </option>
-      </select>
-      <div class="invalid-feedback">
-        Not empty
-      </div>
-    </form>
-    <br>
-    <a   routerLink="/">
-    <div *ngIf="(firstName  && position  && lastName && salary!=0 && room); else elseBlock">
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form><br>
+  <a routerLink="/">
+    <div *ngIf="(firstName!=null && lastName!=null && position != null && salary!= null && room!=null); else elseBlock">
       <button class="btn btn-primary w-50" (click)="addEmployee()">Submit</button>
-  </div>
+    </div>
     <ng-template #elseBlock>
-      <button class="btn btn-primary w-50" disabled >Submit</button>
-    </ng-template></a>
-  </form>
+      <button class="btn btn-primary w-50" disabled>Submit</button>
+    </ng-template>
+  </a>
 </div>

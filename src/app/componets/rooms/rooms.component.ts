@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { RoomService } from 'src/app/services/room.service';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-rooms',
@@ -9,25 +8,14 @@ import { RouterLink } from '@angular/router';
 })
 export class RoomsComponent implements OnInit {
 
-  number: number;
-  name: string;
-  capacity: number;
-  people: number;
-  sizeX: number;
-  sizeY: number;
-  constructor(public roomService: RoomService) { }
+  constructor(public roomService:RoomService) { }
 
   ngOnInit() {
   }
 
-  private addRoom() {
-    this.roomService.addRoom(this.number, this.name, this.capacity, this.people, this.sizeX, this.sizeY);
-    this.number = null;
-    this.name = '';
-    this.capacity = null;
-    this.people = null;
-  }
-
-  private viewRoom(id: number) {
+  private removeRoom(id: number): void {
+   // let room = this.roomService.getRoomById(roomId);
+  //  this.roomService.editRoomPerson(room, -1);
+    this.roomService.removeRoomFull(id);
   }
 }

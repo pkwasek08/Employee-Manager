@@ -54,23 +54,20 @@
 
 .home
 {
-  /*text-align: center;
+  text-align: center;
   padding: 20px;
   font-size: 20px;
   display:inline-block;
   color: rgb(255,255,255);
-  background: rgba(46, 46, 46, 1);
-  opacity: .98;*/
+  background: rgba(46, 46, 46, 0.95);
 }
 table {
   //padding-right: 100px;
   //opacity: .98;
   font-size: 20px;
   font-family: Helvetica;
-  position: relative;
   text-align: center;
-  width: 100%;
-  height: 100%;
+
 }
 .pagination
 {
@@ -85,4 +82,10 @@ table {
 {
   opacity: 1;
   filter: alpha(opacity=90);
+}
+::ng-deep .ngx-pagination a,
+.ngx-pagination button {
+  &:last-child {
+    color: #cacaca;
+  }
 }

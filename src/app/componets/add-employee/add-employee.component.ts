@@ -6,6 +6,7 @@ import { Position } from '../../models/position'
 import { RoomService } from 'src/app/services/room.service';
 import { PositionsService } from 'src/app/services/position.service';
 import { RouterEvent, RouterLink, RouterLinkActive } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-add-employee',
   templateUrl: './add-employee.component.html',
@@ -15,43 +16,54 @@ export class AddEmployeeComponent implements OnInit {
 
   public firstName: string;
   @Input()
-  public position: string;
+  public position: Position;
   public salary: number;
   public lastName: string;
   public room: Room; //id room
   public rooms: Room[];
   public curUser: Room;
-  public numbers: number[] = [1000];
+  public salaryArray: number[] = [];
   public positions: Position[];
+  firstFormGroup: FormGroup;
+
+
   constructor(
     private employeeService: EmployeeService,
     public roomService: RoomService,
-    public positionService: PositionsService) {
-    this.rooms = this.roomService.getRoom();
-    this.positions = this.positionService.getPosition();
-    for (let i = 1100; i <= 8000; i += 100) {
-      this.numbers.push(i);
-    }
+    public positionService: PositionsService,
+    private _formBuilder: FormBuilder) { }
 
-  }
 
   ngOnInit() {
-    
-  }
-  ngOnChanges()
-  {
+    this.rooms = this.roomService.getRoom();
+    this.positions = this.positionService.getPosition();
 
+    this.firstFormGroup = this._formBuilder.group({
+      nameCtrl: ['', Validators.compose([Validators.required,
+      Validators.maxLength(40)])],
+      lastNameCtrl: ['', Validators.compose([Validators.required,
+      Validators.maxLength(40)])],
+      positionsCtrl: ['', Validators.required],
+      salaryCtrl: ['', Validators.required],
+      roomCtrl: ['', Validators.required],
+    });
   }
   private addEmployee(): void {
-    this.roomService.editRoomPerson(this.room,1);
+     this.roomService.editRoomPerson(this.room, 1);
+ 
+     this.employeeService.addEmployee(this.firstName, this.lastName, this.position.name,
+       this.salary, this.room);
+     this.firstName = '';
+     this.lastName = '';
+     this.position.name = '';
+     this.room = null;
+     this.salary = null;
 
-    this.employeeService.addEmployee(this.firstName, this.lastName, this.position,
-      this.salary, this.room);
-    this.firstName = '';
-    this.lastName = '';
-    this.position = '';
-    this.room = null;
-    this.salary = null;
-
+  }
+  private setSalary() {  
+    for (let i = +this.position.minWage; i <= +this.position.maxWage; i += 100) {
+      this.salaryArray.push(i);   
+     // salaryNumbers.push(i);
+    }
   }
 }

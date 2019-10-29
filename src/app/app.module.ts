@@ -1,49 +1,43 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgxFloatButtonModule } from 'ngx-float-button';
 import { FormsModule } from '@angular/forms';
-// Bootstrap
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { ModalModule } from 'ngx-bootstrap/modal';
+import {
+  MatStepperModule, MatTreeModule, MatExpansionModule, MatInputModule,
+  MatButtonModule, MatIconModule, MatMenuModule, MatSelectModule, MatSnackBarModule
+} from '@angular/material'
+import {
+  SvgCircleModule, SvgLineModule, SvgPolygonModule, SvgPolylineModule,
+  SvgTextModule, SvgPathModule, SvgEllipseModule
+} from 'angular-svg';
+import { AppRoutingModule } from './app-routing.module';
+import { StorageServiceModule } from 'angular-webstorage-service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { MatSidenavModule } from '@angular/material';
+
+//Components
+import { AppComponent } from './app.component';
+import { AddEmployeeComponent } from './componets/add-employee/add-employee.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { TableComponent } from './layout/table/table.component';
-import { HttpClientModule } from '@angular/common/http';
-import { AddEmployeeComponent } from './componets/add-employee/add-employee.component';
 import { AboutComponent } from './componets/about/about.component';
 import { EditComponent } from './componets/edit/edit.component';
 import { EmployeeItemComponent } from './componets/employee-item/employee-item.component';
-import { RouterTestingModule } from '@angular/router/testing';
 import { SearchEmployeeComponent } from './componets/search-employee/search-employee.component';
+import { RoomAddComponent } from './componets/roomAdd/roomAdd.component';
 import { RoomsComponent } from './componets/rooms/rooms.component';
 import { PositionsComponent } from './componets/positions/positions.component';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-// import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { ReactiveFormsModule } from '@angular/forms';
-import { LayoutModule } from '@angular/cdk/layout';
-import {MatNativeDateModule} from '@angular/material/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { NgxFloatButtonModule } from 'ngx-float-button';
 import { SummaryComponent } from './componets/summary/summary.component';
 import { RoomViewComponent } from './componets/room-view/room-view.component';
-import { NgDragDropModule } from 'ng-drag-drop';
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-import {MatCardModule} from '@angular/material/card';
-import { SvgCircleModule, SvgLineModule, SvgPolygonModule, SvgPolylineModule, SvgTextModule, SvgPathModule } from 'angular-svg'
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    RoomAddComponent,
     TableComponent,
     AddEmployeeComponent,
     AboutComponent,
@@ -57,33 +51,28 @@ import { SvgCircleModule, SvgLineModule, SvgPolygonModule, SvgPolylineModule, Sv
   ],
   imports: [
     SvgTextModule, SvgPathModule,
+    MatMenuModule, MatSelectModule,
+    MatSnackBarModule,
     SvgCircleModule,
     SvgPolylineModule,
+    MatSidenavModule,
+    MatStepperModule,
     BrowserModule,
+    MatTreeModule,
+    MatInputModule,
     SvgPolygonModule,
     SvgLineModule,
-    DragDropModule,
-    MatCardModule,
+    StorageServiceModule,
     BrowserAnimationsModule,
-    NgDragDropModule.forRoot(),
     NgxFloatButtonModule,
-    BsDropdownModule.forRoot(),
-    TooltipModule.forRoot(),
-    ModalModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule,
     NgbModule,
-    MatNativeDateModule,
-    MatSidenavModule,
-    RouterTestingModule,
     FormsModule,
     NgxPaginationModule,
     ReactiveFormsModule,
-    LayoutModule,
-    MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    MatListModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

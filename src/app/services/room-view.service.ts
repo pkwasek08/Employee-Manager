@@ -11,7 +11,7 @@ export class RoomViewService {
   constructor() {
 
     let desks = this.getDesk();
-    if (desks == null && desks.length != 0 && desks) {
+    if (desks.length !== 0) {
       let maxId = desks[desks.length - 1].id;
       this.nextId = maxId + 1;
     } else {
@@ -41,6 +41,8 @@ export class RoomViewService {
         }
       }
     }
+    console.log(deskNewAraay);
+    
     if (deskNewAraay == null) {
       return [];
     }
@@ -49,9 +51,13 @@ export class RoomViewService {
     }
   }
 
+  public getDeskByEmployeeId(id: number)
+  {
+    
+  }
 
-  public addDesk(x: number, y: number, rotate: number, idRoom: number): void {
-    let desk = new Desk(this.nextId, x, y, rotate, idRoom);
+  public addDesk(x: number, y: number, rotate: number, idRoom: number, idEmployee: number): void {
+    let desk = new Desk(this.nextId, x, y, rotate, idRoom, idEmployee);
     const desks = this.getDesk();
     desks.push(desk);
     this.setLocalStorageDesks(desks);
@@ -64,9 +70,9 @@ export class RoomViewService {
   }
 
 
-  public editDesk(id: number, x: number, y: number, rotate: number, idRoom: number) {
+  public editDesk(id: number, x: number, y: number, rotate: number, idRoom: number, idEmployee: number) {
     this.removeDesk(id);
-    let desk = new Desk(id, x, y, rotate, idRoom);
+    let desk = new Desk(id, x, y, rotate, idRoom, idEmployee);
     let desks = this.getDesk();
     desks.push(desk);
     this.setLocalStorageDesks(desks);

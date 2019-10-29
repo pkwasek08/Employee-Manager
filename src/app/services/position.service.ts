@@ -4,26 +4,26 @@ import { Position } from '../models/position'
   providedIn: 'root'
 })
 export class PositionsService {
-  private temp: number = 0;
-  public nextId: number ;
+  private temp = 0;
+  public nextId: number;
   constructor() {
 
-    let positions = this.getPosition();
+    const positions = this.getPosition();
 
-    if (positions == null && positions.length != 0 && positions) {
+    if (positions.length !== 0) {
 
-      let maxId = positions[positions.length - 1].id;
+      const maxId = positions[positions.length - 1].id;
 
       this.nextId = maxId + 1;
     } else {
       this.nextId = 0;
     }
-   }
+  }
 
-  public addPosition( name: string, minWage: number, maxWage: number): void {
+  public addPosition(name: string, minWage: number, maxWage: number): void {
 
-    let position = new Position(this.nextId, name, minWage, maxWage);
-    let positions = this.getPosition();
+    const position = new Position(this.nextId, name, minWage, maxWage);
+    const positions = this.getPosition();
 
 
     //employees[this.nextId] = new Employee (employee.id,employee.firstName);
@@ -33,7 +33,7 @@ export class PositionsService {
     this.nextId++;
   }
   public getPosition(): Position[] {
-    let localStorageItem = JSON.parse(localStorage.getItem('positions'));
+    const localStorageItem = JSON.parse(localStorage.getItem('positions'));
 
     if (localStorageItem === null) {
       return [];
@@ -46,6 +46,10 @@ export class PositionsService {
 
   public setLocalStoragePositions(positions: Position[]): void {
     localStorage.setItem('positions', JSON.stringify({ positions: positions }));
+  }
+
+  public getPositionsbyId() {
+
   }
 }
 

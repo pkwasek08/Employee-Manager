@@ -1,101 +1,49 @@
-<div class="room-add w-30">
-    <form class="was-validated">
-        <div>
-            Number<br>
-            <input type="number" class="form-control w-25" [(ngModel)]="number" value={{number}}
-                [ngModelOptions]="{standalone: true}" placeholder="105" min="0" max="1000" required />
-            <div class="invalid-feedback">
-                Not empty (select between 0 and 1000)
-            </div>
-        </div>
-        <div>
-            Name<br>
-            <input type="search" class="form-control w-25" [(ngModel)]="name" value={{name}}
-                [ngModelOptions]="{standalone: true}" placeholder="biuro" required />
-            <div class="invalid-feedback">
-                Not empty
-            </div>
-        </div>
-        <div>
-            Capacity<br>
-            <input type="number" class="form-control w-25" [(ngModel)]="capacity" value={{capacity}}
-                [ngModelOptions]="{standalone: true}" placeholder="10" min="0" max="1000" required />
-            <div class="invalid-feedback">
-                Not empty
-            </div>
-        </div>
-        <div>
-            People
-            <input type="number" class="form-control w-25" [(ngModel)]="people" value={{people}}
-                [ngModelOptions]="{standalone: true}" placeholder="0" min="0" max={{capacity}} required />
-            <div class="invalid-feedback">
-                Warming! (people must be less than capacity)
-            </div>
-        </div>
-        <div>
-        SizeX
-            <input type="number" class="form-control w-25" [(ngModel)]="sizeX" value={{sizeX}}
-                [ngModelOptions]="{standalone: true}" placeholder="0" min="0"  required />
-            <div class="invalid-feedback">
-               Not Empty
-            </div>
-        </div>
-        SizeY
-        <div>
-            <input type="number" class="form-control w-25" [(ngModel)]="sizeY" value={{sizeY}}
-                [ngModelOptions]="{standalone: true}" placeholder="0" min="0"  required />
-            <div class="invalid-feedback">
-                    Not Empty
-            </div>
-        </div><br>
-        <div
-            *ngIf="number > 0 && 1000 >=number && 1000>=people && 1000>=capacity  && name  && capacity >=0 && people>=0 && capacity >= people">
-            <button class="btn btn-primary w-25" (click)="addRoom()">Submit</button>
-        </div>
+<div class="table-responsive">
+    <div class="rooms">
+        <table class="table table-hover table-striped table-bordered table-dark">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Number</th>
+                    <th>Capacity</th>
+                    <th>People</th>
+                    <th>Room View</th>
+                    <th>Delete</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <tr *ngFor="let room of roomService.getRoom() | paginate: { itemsPerPage: 5, currentPage: p}">
+                    <ng-container *ngIf="room.number != 0">
+                        <th>{{room.id}}</th>
+                        <th>{{room.name}}</th>
+                        <th>{{room.number}}</th>
+                        <th>{{room.capacity}}</th>
+                        <th>{{room.people}}</th>
+                        <td>
+                            <a [routerLink]="['/roomView', room.id]">
+
+                                <button class="btn btn-primary">View</button>
+                            </a>
+                        </td>
+                        <!-- <td>
+                <a routerLink="/add"><button type="button" class="buttonEdit" tooltip="Edit employer's info">
+                        Edit
+                    </button>
+                </a>
+            </td>-->
+                        <td>
+                            <button class="btn btn-danger" (click)="removeRoom(room.id)">x</button>
+                        </td>
+
+                    </ng-container>
+                </tr>
+            </tbody>
+        </table>
         <br>
-    </form>
-    <table class="table table-hover table-striped table-bordered table-dark">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Number</th>
-                <th>Capacity</th>
-                <th>People</th>
-                <th>Room View</th>
-            </tr>
-
-        </thead>
-        <tbody>
-            <tr *ngFor="let room of roomService.getRoom() | paginate: { itemsPerPage: 5, currentPage: p}">
-                <ng-container *ngIf="room.number != 0">
-                    <th>{{room.id}}</th>
-                    <th>{{room.name}}</th>
-                    <th>{{room.number}}</th>
-                    <th>{{room.capacity}}</th>
-                    <th>{{room.people}}</th>
-                    <td>
-                        <a [routerLink]="['/roomView', room.id]">
-
-                            <button class="btn btn-primary">View</button>
-                        </a>
-                    </td>
-                    <!-- <td>
-                    <a routerLink="/add"><button type="button" class="buttonEdit" tooltip="Edit employer's info">
-                            Edit
-                        </button>
-                    </a>
-                </td>
-                <td>
-                    <button class="buttonRemove" (click)="removeEmployee(employee.id)">x</button>
-                </td>
-          -->
-                </ng-container>
-            </tr>
-        </tbody>
-    </table>
-    <br>
-    <div class="text-center">
-        <pagination-controls (pageChange)=" p = $event"></pagination-controls>
+        <div class="text-center">
+            <pagination-controls (pageChange)=" p = $event"></pagination-controls>
+        </div>
     </div>
 </div>
