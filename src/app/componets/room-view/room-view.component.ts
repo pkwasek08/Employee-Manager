@@ -69,7 +69,7 @@ export class RoomViewComponent implements OnInit {
       this.scaley = room.sizeY * 10;
       this.screen = "0 0" + " " + String(this.scalex) + " " + String(this.scaley);
       this.desksNumber = room.capacity;
-      this.desksArray = this.roomViewService.getDeskByIdRoom(this.id);
+      this.desksArray = this.roomViewService.getDesksByIdRoom(this.id);
       this.idDeskArray = this.roomViewService.getDesk().length;
       const employees = this.employeeService.getEmployee();
       employees.forEach(employee => {
@@ -124,7 +124,6 @@ export class RoomViewComponent implements OnInit {
   public drag(evt, id: number) {
     //let temp = 0;
     if (this.selectedElement) {
-
       this.svg = evt.target;
       evt.preventDefault();
       const coord = this.getMousePosition(evt);

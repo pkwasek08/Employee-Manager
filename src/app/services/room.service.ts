@@ -77,15 +77,14 @@ export class RoomService {
   }
 
   public getRoomById(id: number): Room {
-    let rooms = this.getRoom();
-
+    const rooms = this.getRoom();
     if (rooms == null) {
       return null;
     }
     else {
-      for (let i = 0; i < rooms.length; i++) {
-        if (rooms[i].id === id) {
-          return rooms[i];
+      for (let room of rooms) {
+        if (room.id == id) {
+          return room;
         }
       }
     }
@@ -93,16 +92,21 @@ export class RoomService {
   }
 
   removeDesksByRoomId(id: number) {
-    let desks = this.roomViewService.getDeskByIdRoom(id);
-    for (let element in desks)
-      this.roomViewService.removeDesk(desks[element].id);
+    const desks = this.roomViewService.getDesksByIdRoom(id);
+    if (desks != null) {
+      for (const element in desks) {
+        this.roomViewService.removeDesk(desks[element].id);
+      }
+    }
   }
 
   setNullRoomInEmployeeAfterRemoveRoom(id: number) {
     let employee: Employee;
     employee = this.employeeService.getEmployeeByIdRoom(id);
-    employee.room = null;
-    this.employeeService.editEmployee(employee);
+    if (employee !== null) {
+      employee.room = null;
+      this.employeeService.editEmployee(employee);
+    }
   }
 
 }

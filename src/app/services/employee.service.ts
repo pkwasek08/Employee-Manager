@@ -7,12 +7,6 @@ import { Room } from '../models/room';
 import { RoomService } from './room.service';
 import { RoomViewService } from './room-view.service';
 
-//injected http depedency
-/*const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  })
-}*/
 @Injectable({
   providedIn: 'root'
 })
@@ -22,19 +16,13 @@ export class EmployeeService {
   public nextId: number;
 
   constructor(private roomViewService: RoomViewService) {
-
     const employees = this.getEmployee();
-
     if (employees.length !== 0) {
-
       const maxId = employees[employees.length - 1].id;
-
       this.nextId = maxId + 1;
-
     } else {
       this.nextId = 0;
     }
-
   }
 
   public addEmployee(firstName: string, lastName: string, position: string, salary: number, room: Room): void {
@@ -68,10 +56,13 @@ export class EmployeeService {
   }
 
   public removeEmployee(id: number): void {
-    // let desk = roomViewService.
+    const desk = this.roomViewService.getDeskByEmployeeId(id);
     let employees = this.getEmployee();
-    employees = employees.filter((employee) => employee.id != id);
+    employees = employees.filter((employee) => employee.id !== id);
     this.setLocalStorageEmployees(employees);
+    if (desk != null) {
+      this.roomViewService.editDesk(desk.id, desk.x, desk.y, desk.rotate, desk.idRoom, null);
+    }
   }
 
   public filtrbyName(): void {
@@ -110,28 +101,10 @@ export class EmployeeService {
     localStorage.setItem('employees', JSON.stringify({ employees: employees }));
   }
 
-  public getSearchedEmployee(FirstName: string, position: string, salaryDown: number, salaryUp: number): Employee[] {
-    const employees = this.getEmployee();
-    const employee = [];
-    let j = 0;
-    if (employees != null) {
-      for (let i = 0; i < employees.length; i++) {
-        if (employees[i].firstName === FirstName && employees[i].position === position
-          && employees[i].salary >= salaryDown && employees[i].salary <= salaryUp) {
-          employee[j] = new Employee(employees[i].id, employees[i].firstName, employees[i].lastName, employees[i].position,
-            employees[i].salary, employees[i].room);
-          j++;
-        }
-      }
-    }
-    return employee;
-  }
-
   public editEmployee(newEmployee: Employee) {
     this.removeEmployee(newEmployee.id);
-
     const employee = new Employee(newEmployee.id, newEmployee.firstName, newEmployee.lastName, newEmployee.position,
-      newEmployee.salary, newEmployee.room);
+      newEmployee.salary, Number(newEmployee.room));
     const employees = this.getEmployee();
     employees.push(employee);
     this.setLocalStorageEmployees(employees);

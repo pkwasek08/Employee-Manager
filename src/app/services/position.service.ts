@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Position } from '../models/position'
+import { Position } from '../models/position';
 @Injectable({
   providedIn: 'root'
 })
@@ -48,8 +48,16 @@ export class PositionsService {
     localStorage.setItem('positions', JSON.stringify({ positions: positions }));
   }
 
-  public getPositionsbyId() {
-
+  public getPositionsbyName(names: string) {
+    const positions = this.getPosition();
+    if (positions) {
+      for (const position of positions) {
+        if (position.name === names) {
+          return position;
+        }
+      }
+    }
+    return null;
   }
 }
 

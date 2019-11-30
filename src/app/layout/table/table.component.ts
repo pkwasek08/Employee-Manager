@@ -41,11 +41,12 @@ export class TableComponent implements OnInit {
   private getRoombyId(id: number): string {
     let roomInfo;
     let room = this.roomService.getRoomById(id);
-    if (room != null) {
+    if (room) {
       roomInfo = room.name + "   " + room.number;
     }
-    else
+    else {
       roomInfo = "null"
+    }
     return roomInfo;
   }
 }

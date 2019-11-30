@@ -51,13 +51,6 @@ export class RoomAddComponent implements OnInit {
     });
   }
 
-  public elo()
-  {
-    console.log(this.number);
-    
-    console.log("elo");
-    
-  }
   private addRoom() {
     console.log(this.number,this.people);
     

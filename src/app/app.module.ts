@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import {
   MatStepperModule, MatTreeModule, MatExpansionModule, MatInputModule,
   MatButtonModule, MatIconModule, MatMenuModule, MatSelectModule, MatSnackBarModule
-} from '@angular/material'
+} from '@angular/material';
 import {
   SvgCircleModule, SvgLineModule, SvgPolygonModule, SvgPolylineModule,
   SvgTextModule, SvgPathModule, SvgEllipseModule
@@ -18,7 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatSidenavModule } from '@angular/material';
 
-//Components
+// Components
 import { AppComponent } from './app.component';
 import { AddEmployeeComponent } from './componets/add-employee/add-employee.component';
 import { HeaderComponent } from './layout/header/header.component';

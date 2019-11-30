@@ -1,21 +1,57 @@
-.searchEmployee
-{
-  display:inline-block;
-  color: rgb(255,255,255);
+.form {
   text-align: center;
+  padding: 50px;
+  //display: inline-block;
   font-size: 20px;
-  padding: 20px;
-  background: rgba(46, 46, 46, 0.95);
+  position: center;
+  color: rgb(255, 255, 255);
+  //background: rgba(46, 46, 46, 0.95);
 }
-.buttonRemove {
-  background-color: rgb(175, 14, 14); 
-  border: true;
+
+::ng-deep .mat-horizontal-stepper-header-container {
+  display: none !important;
+}
+
+
+.table {
+  font-size: 20px;
+  font-family: Helvetica;
+  text-align: center;
+  display:inline-block;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label {
   color: white;
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+  //font-size: 28px;
 }
-.table {
-  text-align: center;
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: white;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
+  padding: .4375em 0;
+  font-size: 25px;
+}
+
+::ng-deep .mat-select-value {
+  color: white;
+}
+
+::ng-deep .mat-select-arrow {
+  color: white;
+}
+
+::ng-deep .mat-form-field-infix {
+  width: 400px !important;
+}
+::ng-deep .ngx-pagination {
+  margin-right: 35px;
+}
+  ::ng-deep .ngx-pagination a,
+.ngx-pagination button {
+  &:last-child {
+    color: #cacaca;
+  }
 }

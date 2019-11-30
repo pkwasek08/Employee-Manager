@@ -31,7 +31,7 @@ export class RoomViewService {
   }
 
 
-  public getDeskByIdRoom(id: number): Desk[] {
+  public getDesksByIdRoom(id: number): Desk[] {
     let desks = this.getDesk();
     let deskNewAraay: Desk[] = [];
     for (let i = 0; i < desks.length; i++) {
@@ -41,23 +41,25 @@ export class RoomViewService {
         }
       }
     }
-    console.log(deskNewAraay);
-    
     if (deskNewAraay == null) {
       return [];
-    }
-    else {
+    } else {
       return deskNewAraay;
     }
   }
 
-  public getDeskByEmployeeId(id: number)
-  {
-    
+  public getDeskByEmployeeId(id: number): Desk {
+    const desks = this.getDesk();
+    for (const desk of desks) {
+      if (desk.idEmployee === id) {
+        return desk;
+      }
+    }
+    return null;
   }
 
   public addDesk(x: number, y: number, rotate: number, idRoom: number, idEmployee: number): void {
-    let desk = new Desk(this.nextId, x, y, rotate, idRoom, idEmployee);
+    const desk = new Desk(this.nextId, x, y, rotate, idRoom, idEmployee);
     const desks = this.getDesk();
     desks.push(desk);
     this.setLocalStorageDesks(desks);
@@ -72,8 +74,8 @@ export class RoomViewService {
 
   public editDesk(id: number, x: number, y: number, rotate: number, idRoom: number, idEmployee: number) {
     this.removeDesk(id);
-    let desk = new Desk(id, x, y, rotate, idRoom, idEmployee);
-    let desks = this.getDesk();
+    const desk = new Desk(id, x, y, rotate, idRoom, idEmployee);
+    const desks = this.getDesk();
     desks.push(desk);
     this.setLocalStorageDesks(desks);
   }
@@ -81,7 +83,7 @@ export class RoomViewService {
 
   public removeDesk(id: number): void {
     let desks = this.getDesk();
-    desks = desks.filter((desk) => desk.id != id);
+    desks = desks.filter((desk) => desk.id !== id);
     this.setLocalStorageDesks(desks);
   }
 }

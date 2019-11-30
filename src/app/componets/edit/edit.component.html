@@ -1,50 +1,57 @@
 <br>
-<form>
-  <div class="form-group w-30">
-    <label class="firstName" for="formGroupExampleInput">First name</label><br>
-    <input type="search" class="form-control" [(ngModel)]="editEmployee.firstName" value={{editEmployee.firstName}}
-      [ngModelOptions]="{standalone: true}" placeholder="Jan" />
-    <br>
-    Last name<br>
-    <input type="search" class="form-control" [(ngModel)]="editEmployee.lastName" value={{editEmployee.lastName}}
-      [ngModelOptions]="{standalone: true}" placeholder="Nowak" /><br>
-    <div class="form-group w-100">   
-        <label for="exampleFormControlSelect1">Position</label><br>
-        <select id="room" class="custom-select"  name="editEmployee.position" [(ngModel)]="editEmployee.position" >
-            <option value="" disabled selected>Profession</option>
-          <option *ngFor="let position of positions">
-            {{position.name}}
-          </option>
-        </select>
-      </div>
-    <div class="form-group">
-      <label for="exampleFormControlSelect1">Salary</label><br>
-      <select id="salary" class="custom-select" name="editEmployee.salary" [(ngModel)]="editEmployee.salary" >
-        <option value="" disabled selected>...</option>
-        <option *ngFor="let number  of numbers">
-          {{number}}
-        </option>
-      </select>
+<div class="form" style="width: 70%;">
+  <form [formGroup]="firstFormGroup">
+    <mat-form-field>
+      <input matInput placeholder="First Name" formControlName="nameCtrl" [(ngModel)]="editEmployee.firstName"
+        style="color: white;" required>
+    </mat-form-field><br>
+    <mat-form-field>
+      <input matInput placeholder="Last Name" formControlName="lastNameCtrl" [(ngModel)]="editEmployee.lastName"
+        style="color: white;" required>
+      <!--<mat-error *ngIf="firstFormGroup.hasError('required')">No Empty</mat-error>-->
+    </mat-form-field><br>
+    <mat-form-field>
+      <mat-label>Positions *</mat-label>
+      <mat-select formControlName="positionsCtrl" [(ngModel)]="editEmployee.position">
+        <mat-option *ngFor="let pos of positions" [value]="pos.name" (click)="setSalary()">
+          {{pos.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field><br>
+    <mat-form-field>
+      <mat-label>Salary *</mat-label>
+      <mat-select formControlName="salaryCtrl" [(ngModel)]="editEmployee.salary">
+        <mat-option *ngFor="let sal  of salaryArray" [value]="sal">
+          {{sal}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field><br>
+    <mat-form-field>
+      <mat-label>Room *</mat-label>
+      <mat-select formControlName="roomCtrl" [(ngModel)]="editEmployee.room">
+        <mat-option *ngFor="let r of rooms" [value]="r.id" [disabled]="r.people >= r.capacity">
+          {{r.name}}&nbsp;&nbsp; p.{{r.number}}
+          [{{r.people}}/{{r.capacity}}]
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form><br>
+  <a routerLink="/">
+    <div
+      *ngIf="(editEmployee.firstName! && editEmployee.lastName! && editEmployee.position! && editEmployee.salary! && editEmployee.room!); else elseBlock">
+      <button class="btn btn-primary w-50" (click)="EditEmployee();openSnackBar()">Submit</button>
     </div>
-    <div class="form-group">
-      <label for="exampleFormControlSelect1">Room</label><br>
-      <select id="roomId" class="custom-select" tooltip="Choose room with free place" name="editEmployee.room"
-        [(ngModel)]="editEmployee.room">
-        <!--//ngvalue-->
-        <option value="?" disabled selected>Office</option>
-        <option *ngFor="let room of rooms" value={{room.id}}>
-          <div *ngIf="room.capacity > room.people; else elseBlock">{{room.name}} {{room.number}}
-            [{{room.people}}/{{room.capacity}}]</div>
-          <ng-template #elseBlock>{{room.name}} {{room.number}} [{{room.people}}/{{room.capacity}}]</ng-template>
-        </option>
-      </select>
-    </div>
-    <br>
-    <div *ngIf="firstName != null && position != null && lastName != null && salary!=0 && roomId != null; else elseBlock">
-        <button routerLink="/" class="btn btn-primary w-50" (click)="EditEmployee();openSnackBar()">Submit</button>
+    <ng-template #elseBlock>
+      <button class="btn btn-primary w-50" disabled>Submit</button>
+    </ng-template>
+  </a>
+</div>
+
+<!--    <button routerLink="/" class="btn btn-primary w-50" (click)="EditEmployee();openSnackBar()">Submit</button>
       </div>
     <ng-template #elseBlock>
         <button class="btn btn-primary w-50" disabled (click)="EditEmployee()">Submit</button>
     </ng-template>
   </div>
 </form>
+-->
